@@ -1,0 +1,162 @@
+@using MiniJira.Services.DTOs
+@using MiniJira.Resources
+
+<div id="column-dialog-backdrop" class="modal-backdrop" @onclick="HandleCancel"></div>
+
+<div id="column-dialog" class="column-dialog modal show d-block" tabindex="-1" role="dialog" aria-labelledby="columnDialogTitle" aria-modal="true">
+    <div id="column-dialog-modal" class="modal-dialog modal-dialog-centered" @onclick:stopPropagation="true">
+        <div id="column-dialog-content" class="modal-content">
+            <div id="column-dialog-header" class="modal-header">
+                <h5 id="columnDialogTitle" class="modal-title">
+                    @(Column == null ? Localizer["ColumnManagement.CreateColumn"] : Localizer["ColumnManagement.EditColumn"])
+                </h5>
+                <button type="button" class="btn-close" @onclick="HandleCancel" aria-label="@Localizer["Common.Close"]" title="@Localizer["Tooltip.CloseDialog"]">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <EditForm Model="@model" OnValidSubmit="@HandleSave">
+                <DataAnnotationsValidator />
+
+                <div id="column-dialog-body" class="modal-body">
+                    <!-- Tab Navigation -->
+                    <div id="column-dialog-tab-navigation" class="tab-navigation" role="tablist">
+                        <button type="button"
+                                class="tab-button @(activeTab == "en" ? "active" : "")"
+                                @onclick='() => SetActiveTab("en")'
+                                role="tab"
+                                aria-selected="@(activeTab == "en")"
+                                aria-controls="tab-panel-en">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                <path d="M2 10H18M10 2C11.5 4 12 7 12 10C12 13 11.5 16 10 18M10 2C8.5 4 8 7 8 10C8 13 8.5 16 10 18" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                            </svg>
+                            @Localizer["ColumnDialog.EnglishTab"]
+                        </button>
+                        <button type="button"
+                                class="tab-button @(activeTab == "hr" ? "active" : "")"
+                                @onclick='() => SetActiveTab("hr")'
+                                role="tab"
+                                aria-selected="@(activeTab == "hr")"
+                                aria-controls="tab-panel-hr">
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                                <path d="M2 10H18M10 2C11.5 4 12 7 12 10C12 13 11.5 16 10 18M10 2C8.5 4 8 7 8 10C8 13 8.5 16 10 18" stroke="currentColor" stroke-width="1.5" fill="none"/>
+                            </svg>
+                            @Localizer["ColumnDialog.CroatianTab"]
+                        </button>
+                    </div>
+
+                    <!-- English Tab -->
+                    <div id="tab-panel-en" class="tab-panel @(activeTab == "en" ? "active" : "")" role="tabpanel" aria-labelledby="tab-en">
+                        <div id="form-group-name-en" class="form-group">
+                            <label for="NameEn" class="form-label required">@Localizer["ColumnDialog.Name"]</label>
+                            <InputText id="NameEn"
+                                       class="form-control"
+                                       @bind-Value="nameEn"
+                                       placeholder="@Localizer["ColumnDialog.NamePlaceholder"]"
+                                       maxlength="100"
+                                       aria-required="true"
+                                       title="@Localizer["Tooltip.ColumnNameInput"]" />
+                            @if (string.IsNullOrWhiteSpace(nameEn) && showValidation)
+                            {
+                                <div class="validation-message">@Localizer["ColumnDialog.NameRequired"]</div>
+                            }
+                        </div>
+
+                        <div id="form-group-description-en" class="form-group">
+                            <label for="DescriptionEn" class="form-label">@Localizer["ColumnDialog.Description"]</label>
+                            <InputTextArea id="DescriptionEn"
+                                           class="form-control"
+                                           @bind-Value="descriptionEn"
+                                           rows="3"
+                                           placeholder="@Localizer["ColumnDialog.DescriptionPlaceholder"]"
+                                           maxlength="500"
+                                           title="@Localizer["Tooltip.ColumnDescriptionInput"]" />
+                        </div>
+                    </div>
+
+                    <!-- Croatian Tab -->
+                    <div id="tab-panel-hr" class="tab-panel @(activeTab == "hr" ? "active" : "")" role="tabpanel" aria-labelledby="tab-hr">
+                        <div id="form-group-name-hr" class="form-group">
+                            <label for="NameHr" class="form-label required">@Localizer["ColumnDialog.Name"]</label>
+                            <InputText id="NameHr"
+                                       class="form-control"
+                                       @bind-Value="nameHr"
+                                       placeholder="@Localizer["ColumnDialog.NamePlaceholder"]"
+                                       maxlength="100"
+                                       aria-required="true"
+                                       title="@Localizer["Tooltip.ColumnNameInput"]" />
+                            @if (string.IsNullOrWhiteSpace(nameHr) && showValidation)
+                            {
+                                <div class="validation-message">@Localizer["ColumnDialog.NameRequired"]</div>
+                            }
+                        </div>
+
+                        <div id="form-group-description-hr" class="form-group">
+                            <label for="DescriptionHr" class="form-label">@Localizer["ColumnDialog.Description"]</label>
+                            <InputTextArea id="DescriptionHr"
+                                           class="form-control"
+                                           @bind-Value="descriptionHr"
+                                           rows="3"
+                                           placeholder="@Localizer["ColumnDialog.DescriptionPlaceholder"]"
+                                           maxlength="500"
+                                           title="@Localizer["Tooltip.ColumnDescriptionInput"]" />
+                        </div>
+                    </div>
+
+                    <!-- Color Picker -->
+                    <div id="form-group-color" class="form-group">
+                        <label for="Color" class="form-label required">@Localizer["ColumnDialog.Color"]</label>
+                        <div id="color-picker-container" class="color-picker-container">
+                            <input type="color"
+                                   id="Color"
+                                   class="color-input"
+                                   @bind="color"
+                                   aria-label="@Localizer["ColumnDialog.Color"]"
+                                   title="@Localizer["Tooltip.ColorPickerInput"]" />
+                            <InputText class="form-control color-text"
+                                       @bind-Value="color"
+                                       pattern="^#[0-9A-Fa-f]{6}$"
+                                       placeholder="#DFE1E6"
+                                       maxlength="7"
+                                       aria-required="true"
+                                       title="@Localizer["Tooltip.ColorPickerInput"]" />
+                            <div id="color-preview" class="color-preview" style="background-color: @color;" aria-label="@Localizer["ColumnDialog.ColorPreview"]"></div>
+                        </div>
+                        @if (!IsValidColor(color) && showValidation)
+                        {
+                            <div class="validation-message">@Localizer["ColumnDialog.ColorInvalid"]</div>
+                        }
+                    </div>
+
+                    @if (validationError != null)
+                    {
+                        <div id="column-dialog-validation-error" class="alert alert-danger" role="alert">
+                            @validationError
+                        </div>
+                    }
+                </div>
+
+                <div id="column-dialog-footer" class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="HandleCancel" disabled="@isSaving" title="@Localizer["Tooltip.Cancel"]">
+                        @Localizer["Common.Cancel"]
+                    </button>
+                    <button type="submit" class="btn btn-primary" disabled="@isSaving" title="@Localizer["Tooltip.Save"]">
+                        @if (isSaving)
+                        {
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            <span>@Localizer["Common.Saving"]</span>
+                        }
+                        else
+                        {
+                            <span>@Localizer["Common.Save"]</span>
+                        }
+                    </button>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+</div>

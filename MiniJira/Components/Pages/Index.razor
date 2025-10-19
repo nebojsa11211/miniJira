@@ -1,0 +1,125 @@
+@page "/board"
+@using MiniJira.Models
+@using MiniJira.Services
+@using MiniJira.Services.DTOs
+@using MiniJira.Resources
+@using Microsoft.Extensions.Localization
+@inject ITaskService TaskService
+@inject ICurrentUserService CurrentUserService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject IStringLocalizer<Localization> Localizer
+@inject ILocalizationService LocalizationService
+
+<PageTitle>@Localizer["Board.Title"] - MiniJira</PageTitle>
+
+<AuthGuard>
+<div id="kanban-container" class="kanban-container">
+    <div id="kanban-header" class="kanban-header">
+        <div id="kanban-header-left" class="kanban-header-left">
+            <h1>@Localizer["Board.Title"]</h1>
+            <span class="task-count">@tasks.Count @(tasks.Count == 1 ? Localizer["Board.Task"] : Localizer["Board.Tasks"])</span>
+            @if (CurrentUserService.CurrentUser != null)
+            {
+                <span class="current-user-badge">
+                    <span class="user-avatar-tiny">@GetUserInitials()</span>
+                    <span class="user-name">@CurrentUserService.CurrentUser.FullName</span>
+                </span>
+            }
+        </div>
+        <div id="kanban-header-actions" class="header-actions">
+            <button class="btn btn-primary btn-ripple" data-action="create" @onclick='() => NavigationManager.NavigateTo("/create-task")' title="@Localizer["Tooltip.CreateTask"]">
+                <span class="button-icon">+</span> @Localizer["Common.CreateTask"]
+            </button>
+            <button class="btn btn-outline-secondary btn-ripple" data-action="logout" @onclick="HandleLogout" title="@Localizer["Tooltip.Logout"]">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" style="margin-right: 4px;">
+                    <path d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0v2z"/>
+                    <path d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z"/>
+                </svg>
+                @Localizer["Common.Logout"]
+            </button>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div id="loading-container" class="loading-container fade-in">
+            <div class="kanban-board" style="grid-template-columns: repeat(3, minmax(280px, 1fr)); opacity: 0.7;">
+                @for (int i = 0; i < 3; i++)
+                {
+                    <div class="kanban-column">
+                        <div class="kanban-column-header">
+                            <div class="skeleton skeleton-title"></div>
+                        </div>
+                        <div class="kanban-column-content">
+                            @for (int j = 0; j < 3; j++)
+                            {
+                                <div class="skeleton skeleton-card" style="margin-bottom: 12px;"></div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <p class="loading-text" style="text-align: center; margin-top: 24px;">@Localizer["Board.LoadingBoard"]</p>
+        </div>
+    }
+    else if (errorMessage != null)
+    {
+        <div id="error-message" class="alert alert-danger error-message" role="alert">
+            <strong>@Localizer["Common.Error"]</strong> @errorMessage
+        </div>
+    }
+    else
+    {
+        <div id="kanban-board" class="kanban-board" style="grid-template-columns: repeat(@columns.Count, minmax(280px, 1fr));">
+            @foreach (var column in columns)
+            {
+                var columnTasks = tasksByColumn.ContainsKey(column.Id) ? tasksByColumn[column.Id] : new List<TaskDto>();
+                var columnIdString = column.Id.ToString();
+                var isDoneColumn = column.Id == Guid.Parse("33333333-3333-3333-3333-333333333333");
+
+                <div id="kanban-column-@columnIdString" class="kanban-column" style="border-top: 3px solid @column.Color;">
+                    <div id="kanban-column-header-@columnIdString" class="kanban-column-header">
+                        <h3 class="column-title">
+                            @if (isDoneColumn)
+                            {
+                                <span class="done-icon">✓</span>
+                            }
+                            @column.Name
+                        </h3>
+                        <span class="column-count">@GetFilteredTasksForColumn(column.Id).Count()</span>
+                    </div>
+
+                    <!-- Filter/Sort Panel -->
+                    <MiniJira.Components.Shared.ColumnFilterPanel
+                        FilterState="@GetFilterStateForColumn(column.Id)"
+                        AvailableAssignees="@availableAssignees"
+                        OnFilterChanged="@(() => HandleFilterChanged(column.Id))" />
+
+                    <div id="kanban-column-content-@columnIdString"
+                         class="kanban-column-content"
+                         data-column-id="@columnIdString">
+                        @{
+                            var filteredTasks = GetFilteredTasksForColumn(column.Id).ToList();
+                        }
+                        @if (filteredTasks.Count == 0)
+                        {
+                            <div id="empty-column-@columnIdString" class="empty-column">
+                                <p class="empty-text">@Localizer["Board.NoTasks"]</p>
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var task in filteredTasks)
+                            {
+                                <MiniJira.Components.Shared.TaskCard Task="@task"
+                                                                      OnClick="@NavigateToTask" />
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+</AuthGuard>

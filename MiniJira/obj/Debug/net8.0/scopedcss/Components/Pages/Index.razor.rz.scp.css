@@ -1,0 +1,437 @@
+/* ATLASSIAN JIRA BOARD - EXACT KANBAN DESIGN */
+/* Based on Jira's 2025 board interface */
+
+.kanban-container[b-93h9hs1yro] {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    min-height: calc(100vh - 120px);
+    background-color: var(--jira-bg-page);
+}
+
+/* Kanban Header - Jira board header style */
+.kanban-header[b-93h9hs1yro] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--jira-space-300);
+    padding: 0;
+    border-bottom: none;
+}
+
+.kanban-header-left[b-93h9hs1yro] {
+    display: flex;
+    align-items: center;
+    gap: var(--jira-space-150);
+}
+
+.kanban-header h1[b-93h9hs1yro] {
+    margin: 0;
+    color: var(--jira-text-primary);
+    font-size: calc(24px * var(--font-size-multiplier));
+    line-height: 28px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.task-count[b-93h9hs1yro] {
+    background-color: var(--jira-bg-tertiary);
+    color: var(--jira-text-secondary);
+    padding: var(--jira-space-025) var(--jira-space-150);
+    border-radius: 12px;
+    font-size: calc(12px * var(--font-size-multiplier));
+    line-height: 16px;
+    font-weight: 600;
+}
+
+.button-icon[b-93h9hs1yro] {
+    font-size: calc(16px * var(--font-size-multiplier));
+    font-weight: 600;
+    line-height: 1;
+}
+
+/* Loading State - Jira style */
+.loading-container[b-93h9hs1yro] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: var(--jira-space-200);
+}
+
+.loading-text[b-93h9hs1yro] {
+    color: var(--jira-text-secondary);
+    font-size: calc(14px * var(--font-size-multiplier));
+    line-height: 20px;
+    margin: 0;
+}
+
+/* Error Message */
+.error-message[b-93h9hs1yro] {
+    margin-top: var(--jira-space-200);
+}
+
+/* Kanban Board Layout - Jira grid system */
+/* Dynamic column support - grid-template-columns set inline based on column count */
+.kanban-board[b-93h9hs1yro] {
+    display: grid;
+    gap: var(--jira-space-200);
+    align-items: start;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Kanban Column - Exact Jira column styling */
+.kanban-column[b-93h9hs1yro] {
+    background-color: var(--jira-bg-secondary);
+    border-radius: var(--jira-radius-small);
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Column Header - Jira 2025 design */
+.kanban-column-header[b-93h9hs1yro] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--jira-space-100) var(--jira-space-150);
+    border-bottom: none;
+    background-color: transparent;
+    border-radius: 0;
+    flex-shrink: 0;
+}
+
+.column-title[b-93h9hs1yro] {
+    font-size: calc(12px * var(--font-size-multiplier));
+    line-height: 16px;
+    font-weight: 600;
+    color: var(--jira-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+}
+
+.column-count[b-93h9hs1yro] {
+    background-color: transparent;
+    color: var(--jira-text-secondary);
+    padding: 0;
+    border-radius: 0;
+    font-size: calc(12px * var(--font-size-multiplier));
+    line-height: 16px;
+    font-weight: 600;
+    min-width: auto;
+    text-align: center;
+}
+
+.done-icon[b-93h9hs1yro] {
+    color: var(--jira-green-dark);
+    font-weight: 700;
+    margin-right: var(--jira-space-050);
+}
+
+/* Column Content - Jira card spacing */
+.kanban-column-content[b-93h9hs1yro] {
+    padding: var(--jira-space-100);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--jira-space-100);
+    overflow-y: auto;
+    max-height: calc(100vh - 280px);
+}
+
+/* Scrollbar styling for column content */
+.kanban-column-content[b-93h9hs1yro]::-webkit-scrollbar {
+    width: 6px;
+}
+
+.kanban-column-content[b-93h9hs1yro]::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.kanban-column-content[b-93h9hs1yro]::-webkit-scrollbar-thumb {
+    background-color: var(--jira-border);
+    border-radius: 3px;
+}
+
+.kanban-column-content[b-93h9hs1yro]::-webkit-scrollbar-thumb:hover {
+    background-color: var(--jira-text-subtle);
+}
+
+.kanban-column-content[b-93h9hs1yro] {
+    scrollbar-width: thin;
+    scrollbar-color: var(--jira-border) transparent;
+}
+
+/* Empty Column State - Jira empty state */
+.empty-column[b-93h9hs1yro] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--jira-space-400) var(--jira-space-200);
+    text-align: center;
+    min-height: 150px;
+}
+
+.empty-text[b-93h9hs1yro] {
+    color: var(--jira-text-subtle);
+    font-size: calc(13px * var(--font-size-multiplier));
+    line-height: 18px;
+    font-style: italic;
+    margin: 0;
+}
+
+/* Responsive Design - Mobile-first approach with standardized breakpoints */
+
+/* Mobile (< 768px) - Default styles already mobile-optimized above */
+@media (max-width: 767px) {
+    .kanban-container[b-93h9hs1yro] {
+        padding: 0;
+    }
+
+    .kanban-header[b-93h9hs1yro] {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--jira-space-150);
+        margin-bottom: var(--jira-space-200);
+    }
+
+    .kanban-header-left[b-93h9hs1yro] {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .kanban-header h1[b-93h9hs1yro] {
+        font-size: calc(20px * var(--font-size-multiplier));
+        line-height: 24px;
+        width: 100%;
+    }
+
+    .task-count[b-93h9hs1yro] {
+        font-size: calc(11px * var(--font-size-multiplier));
+        padding: 2px var(--jira-space-100);
+    }
+
+    /* Stack all columns vertically on mobile */
+    .kanban-board[b-93h9hs1yro] {
+        grid-template-columns: 1fr !important;
+        gap: var(--jira-space-200);
+    }
+
+    .kanban-column[b-93h9hs1yro] {
+        min-height: auto;
+    }
+
+    .kanban-column-header[b-93h9hs1yro] {
+        padding: var(--jira-space-100) var(--jira-space-150);
+    }
+
+    .column-title[b-93h9hs1yro] {
+        font-size: calc(11px * var(--font-size-multiplier));
+    }
+
+    .column-count[b-93h9hs1yro] {
+        font-size: calc(11px * var(--font-size-multiplier));
+    }
+
+    .kanban-column-content[b-93h9hs1yro] {
+        max-height: none;
+        min-height: 200px;
+        padding: var(--jira-space-100);
+        gap: var(--jira-space-100);
+    }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .kanban-board[b-93h9hs1yro] {
+        grid-template-columns: 1fr !important;
+        gap: var(--jira-space-300);
+    }
+
+    .kanban-column[b-93h9hs1yro] {
+        min-height: auto;
+    }
+
+    .kanban-column-content[b-93h9hs1yro] {
+        max-height: none;
+        min-height: 250px;
+    }
+
+    .kanban-header[b-93h9hs1yro] {
+        flex-wrap: wrap;
+        gap: var(--jira-space-200);
+    }
+
+    .kanban-header-left[b-93h9hs1yro] {
+        flex: 1;
+        min-width: 300px;
+    }
+}
+
+/* Large screens (1440px+) - Jira optimal width */
+@media (min-width: 1440px) {
+    .kanban-container[b-93h9hs1yro] {
+        max-width: 100%;
+    }
+
+    .kanban-board[b-93h9hs1yro] {
+        gap: var(--jira-space-250);
+    }
+}
+
+/* Extra large screens (1920px+) - Better column distribution */
+@media (min-width: 1920px) {
+    .kanban-board[b-93h9hs1yro] {
+        gap: var(--jira-space-300);
+    }
+}
+
+/* Drag and Drop Styles */
+
+/* Dragging card ghost effect */
+.jira-task-card[draggable="true"][b-93h9hs1yro] {
+    cursor: grab;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+}
+
+.jira-task-card[draggable="true"]:active[b-93h9hs1yro] {
+    cursor: grabbing;
+}
+
+/* Card being dragged */
+.jira-task-card.dragging[b-93h9hs1yro] {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+/* Drop zone highlight */
+.kanban-column-content.drag-over[b-93h9hs1yro] {
+    background-color: rgba(0, 82, 204, 0.08);
+    border: 2px dashed var(--jira-primary);
+    border-radius: var(--jira-radius-small);
+    transition: background-color 0.2s ease, border 0.2s ease;
+}
+
+/* Drop zone when empty */
+.kanban-column-content.drag-over .empty-column[b-93h9hs1yro] {
+    background-color: transparent;
+    border: none;
+}
+
+/* Prevent text selection during drag */
+.kanban-column-content[b-93h9hs1yro] {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+}
+
+/* Header Actions - Moved from inline styles */
+.header-actions[b-93h9hs1yro] {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.current-user-badge[b-93h9hs1yro] {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    background: #F4F5F7;
+    border-radius: 6px;
+    margin-left: 1rem;
+    font-size: 0.875rem;
+}
+
+.user-avatar-tiny[b-93h9hs1yro] {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--jira-radius-circle);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--jira-n0);
+    font-size: calc(10px * var(--font-size-multiplier));
+    font-weight: 600;
+    line-height: 1;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    box-shadow: 0 0 0 2px var(--jira-bg-primary);
+}
+
+.user-name[b-93h9hs1yro] {
+    color: #172B4D;
+    font-weight: 500;
+}
+
+.btn-outline-secondary[b-93h9hs1yro] {
+    background: white;
+    border: 1px solid #DFE1E6;
+    color: #42526E;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+}
+
+.btn-outline-secondary:hover[b-93h9hs1yro] {
+    background: #F4F5F7;
+    border-color: #C1C7D0;
+}
+
+/* Responsive Design for Header Actions - Moved from inline styles */
+@media (max-width: 767px) {
+    .header-actions[b-93h9hs1yro] {
+        width: 100%;
+        justify-content: stretch;
+    }
+
+    .header-actions .btn[b-93h9hs1yro] {
+        flex: 1;
+        min-width: 0;
+        font-size: 0.875rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .header-actions .btn .button-icon[b-93h9hs1yro] {
+        font-size: 1.25rem;
+    }
+
+    /* Hide user name on very small screens, keep avatar */
+    .current-user-badge[b-93h9hs1yro] {
+        margin-left: 0;
+        padding: 0.375rem;
+    }
+
+    .user-name[b-93h9hs1yro] {
+        display: none;
+    }
+
+    .user-avatar-tiny[b-93h9hs1yro] {
+        width: 28px;
+        height: 28px;
+        font-size: calc(11px * var(--font-size-multiplier));
+    }
+}
+
+/* Tablet responsive for header actions */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .header-actions[b-93h9hs1yro] {
+        gap: 0.5rem;
+    }
+
+    .current-user-badge[b-93h9hs1yro] {
+        margin-left: 0.5rem;
+    }
+}
+
+/* Ensure buttons are touch-friendly on all screens */
+.header-actions .btn[b-93h9hs1yro],
+.btn-outline-secondary[b-93h9hs1yro] {
+    min-height: 44px;
+    min-width: 44px;
+}

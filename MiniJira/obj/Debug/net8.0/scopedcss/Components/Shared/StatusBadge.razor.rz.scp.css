@@ -1,0 +1,45 @@
+/* ATLASSIAN JIRA STATUS BADGE - LOZENGE STYLE */
+/* Jira Status Badge Base */
+.jira-status-badge[b-3o0vdb22xq] {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px var(--jira-space-100);
+    border-radius: var(--jira-radius-small);
+    font-size: calc(11px * var(--font-size-multiplier));
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    transition: opacity 0.08s linear;
+    white-space: nowrap;
+}
+
+/* To Do Status */
+.status-todo[b-3o0vdb22xq] {
+    background-color: var(--jira-todo-bg);
+    color: var(--jira-todo);
+}
+
+/* In Progress Status */
+.status-inprogress[b-3o0vdb22xq] {
+    background-color: var(--jira-inprogress-bg);
+    color: var(--jira-inprogress);
+}
+
+/* Done Status */
+.status-done[b-3o0vdb22xq] {
+    background-color: var(--jira-done-bg);
+    color: var(--jira-done);
+}
+
+/* Hover effect for interactive contexts */
+.jira-status-badge:hover[b-3o0vdb22xq] {
+    opacity: 0.9;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .jira-status-badge[b-3o0vdb22xq] {
+        transition: none;
+    }
+}

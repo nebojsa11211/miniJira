@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Navigacija -->
+  <data name="Nav.Home" xml:space="preserve">
+    <value>Početna</value>
+  </data>
+  <data name="Nav.Board" xml:space="preserve">
+    <value>Ploča</value>
+  </data>
+  <data name="Nav.Backlog" xml:space="preserve">
+    <value>Backlog</value>
+  </data>
+  <data name="Nav.Timeline" xml:space="preserve">
+    <value>Vremenska linija</value>
+  </data>
+  <data name="Nav.Reports" xml:space="preserve">
+    <value>Izvještaji</value>
+  </data>
+  <data name="Nav.Settings" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+
+  <!-- Stranica postavki -->
+  <data name="Settings.Description" xml:space="preserve">
+    <value>Konfigurirajte svoje MiniJira postavke</value>
+  </data>
+  <data name="Settings.Language" xml:space="preserve">
+    <value>Jezik</value>
+  </data>
+  <data name="Settings.LanguageDescription" xml:space="preserve">
+    <value>Odaberite željeni jezik za sučelje</value>
+  </data>
+  <data name="Settings.FontSize" xml:space="preserve">
+    <value>Veličina fonta</value>
+  </data>
+  <data name="Settings.FontSizeDescription" xml:space="preserve">
+    <value>Prilagodite veličinu teksta u cijeloj aplikaciji</value>
+  </data>
+  <data name="Settings.SaveSettings" xml:space="preserve">
+    <value>Spremi postavke</value>
+  </data>
+  <data name="Settings.Saving" xml:space="preserve">
+    <value>Spremanje...</value>
+  </data>
+  <data name="Settings.SavedSuccessfully" xml:space="preserve">
+    <value>Postavke uspješno spremljene!</value>
+  </data>
+  <data name="Settings.SaveError" xml:space="preserve">
+    <value>Greška pri spremanju postavki: {0}</value>
+  </data>
+
+  <!-- Uobičajeni gumbi -->
+  <data name="Common.CreateTask" xml:space="preserve">
+    <value>Kreiraj zadatak</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Spremi promjene</value>
+  </data>
+  <data name="Common.Delete" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>Uredi</value>
+  </data>
+  <data name="Common.Back" xml:space="preserve">
+    <value>Povratak na ploču</value>
+  </data>
+  <data name="Common.Loading" xml:space="preserve">
+    <value>Učitavanje...</value>
+  </data>
+  <data name="Common.Error" xml:space="preserve">
+    <value>Greška:</value>
+  </data>
+  <data name="Common.About" xml:space="preserve">
+    <value>O nama</value>
+  </data>
+  <data name="Common.Logout" xml:space="preserve">
+    <value>Odjava</value>
+  </data>
+
+  <!-- Stranica ploče -->
+  <data name="Board.Title" xml:space="preserve">
+    <value>Ploča</value>
+  </data>
+  <data name="Board.Task" xml:space="preserve">
+    <value>zadatak</value>
+  </data>
+  <data name="Board.Tasks" xml:space="preserve">
+    <value>zadataka</value>
+  </data>
+  <data name="Board.LoadingBoard" xml:space="preserve">
+    <value>Učitavanje ploče...</value>
+  </data>
+  <data name="Board.ColumnToDo" xml:space="preserve">
+    <value>ZA NAPRAVITI</value>
+  </data>
+  <data name="Board.ColumnInProgress" xml:space="preserve">
+    <value>U TIJEKU</value>
+  </data>
+  <data name="Board.ColumnDone" xml:space="preserve">
+    <value>ZAVRŠENO</value>
+  </data>
+  <data name="Board.NoTasks" xml:space="preserve">
+    <value>Nema zadataka</value>
+  </data>
+  <data name="Board.FailedToLoad" xml:space="preserve">
+    <value>Neuspjelo učitavanje zadataka: {0}</value>
+  </data>
+
+  <!-- Statusi zadataka -->
+  <data name="TaskStatus.ToDo" xml:space="preserve">
+    <value>Za napraviti</value>
+  </data>
+  <data name="TaskStatus.InProgress" xml:space="preserve">
+    <value>U tijeku</value>
+  </data>
+  <data name="TaskStatus.Done" xml:space="preserve">
+    <value>Završeno</value>
+  </data>
+
+  <!-- Prioriteti zadataka -->
+  <data name="TaskPriority.Low" xml:space="preserve">
+    <value>Nizak</value>
+  </data>
+  <data name="TaskPriority.Medium" xml:space="preserve">
+    <value>Srednji</value>
+  </data>
+  <data name="TaskPriority.High" xml:space="preserve">
+    <value>Visok</value>
+  </data>
+
+  <!-- Stranica kreiranja zadatka -->
+  <data name="CreateTask.Title" xml:space="preserve">
+    <value>Kreiraj zadatak</value>
+  </data>
+  <data name="CreateTask.TaskTitle" xml:space="preserve">
+    <value>Naslov zadatka *</value>
+  </data>
+  <data name="CreateTask.Description" xml:space="preserve">
+    <value>Opis *</value>
+  </data>
+  <data name="CreateTask.Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="CreateTask.TitlePlaceholder" xml:space="preserve">
+    <value>Unesite naslov zadatka</value>
+  </data>
+  <data name="CreateTask.DescriptionPlaceholder" xml:space="preserve">
+    <value>Opišite zadatak detaljno...</value>
+  </data>
+  <data name="CreateTask.Creating" xml:space="preserve">
+    <value>Kreiranje...</value>
+  </data>
+  <data name="CreateTask.TipsTitle" xml:space="preserve">
+    <value>Savjeti za kreiranje dobrih zadataka</value>
+  </data>
+  <data name="CreateTask.Tip1" xml:space="preserve">
+    <value>Koristite jasne, sažete naslove koji opisuju zadatak na prvi pogled</value>
+  </data>
+  <data name="CreateTask.Tip2" xml:space="preserve">
+    <value>Pružite detaljan opis kako biste dali kontekst i zahtjeve</value>
+  </data>
+  <data name="CreateTask.Tip3" xml:space="preserve">
+    <value>Postavite prioritet na temelju hitnosti i važnosti</value>
+  </data>
+  <data name="CreateTask.Tip4" xml:space="preserve">
+    <value>Razložite velike zadatke na manje, lakše izvedive dijelove</value>
+  </data>
+  <data name="CreateTask.Customer" xml:space="preserve">
+    <value>Kupac</value>
+  </data>
+  <data name="CreateTask.CustomerPlaceholder" xml:space="preserve">
+    <value>Unesite ime kupca (opcionalno)</value>
+  </data>
+
+  <!-- Stranica detalja zadatka -->
+  <data name="TaskDetail.LoadingTask" xml:space="preserve">
+    <value>Učitavanje zadatka...</value>
+  </data>
+  <data name="TaskDetail.Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TaskDetail.Priority" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="TaskDetail.Customer" xml:space="preserve">
+    <value>Kupac</value>
+  </data>
+  <data name="TaskDetail.CustomerPlaceholder" xml:space="preserve">
+    <value>Ime kupca</value>
+  </data>
+  <data name="TaskDetail.Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="TaskDetail.QuickStatusChange" xml:space="preserve">
+    <value>Brza promjena statusa</value>
+  </data>
+  <data name="TaskDetail.Details" xml:space="preserve">
+    <value>Detalji</value>
+  </data>
+  <data name="TaskDetail.Created" xml:space="preserve">
+    <value>Kreirano</value>
+  </data>
+  <data name="TaskDetail.Updated" xml:space="preserve">
+    <value>Ažurirano</value>
+  </data>
+  <data name="TaskDetail.EditTask" xml:space="preserve">
+    <value>Uredi zadatak</value>
+  </data>
+  <data name="TaskDetail.Saving" xml:space="preserve">
+    <value>Spremanje...</value>
+  </data>
+  <data name="TaskDetail.DeleteTask" xml:space="preserve">
+    <value>Obriši zadatak</value>
+  </data>
+  <data name="TaskDetail.DeleteConfirmation" xml:space="preserve">
+    <value>Jeste li sigurni da želite obrisati</value>
+  </data>
+  <data name="TaskDetail.DeleteWarning" xml:space="preserve">
+    <value>Ova radnja se ne može poništiti.</value>
+  </data>
+  <data name="TaskDetail.TaskNotFound" xml:space="preserve">
+    <value>Zadatak nije pronađen</value>
+  </data>
+  <data name="TaskDetail.FailedToLoad" xml:space="preserve">
+    <value>Neuspjelo učitavanje zadatka: {0}</value>
+  </data>
+  <data name="TaskDetail.FailedToUpdate" xml:space="preserve">
+    <value>Neuspjelo ažuriranje zadatka: {0}</value>
+  </data>
+  <data name="TaskDetail.FailedToUpdateStatus" xml:space="preserve">
+    <value>Neuspjela promjena statusa: {0}</value>
+  </data>
+  <data name="TaskDetail.FailedToDelete" xml:space="preserve">
+    <value>Neuspjelo brisanje zadatka: {0}</value>
+  </data>
+  <data name="TaskDetail.FailedToSave" xml:space="preserve">
+    <value>Neuspjelo spremanje promjena: {0}</value>
+  </data>
+
+  <!-- Poruke validacije -->
+  <data name="Validation.Required" xml:space="preserve">
+    <value>Ovo polje je obavezno</value>
+  </data>
+  <data name="Validation.TitleRequired" xml:space="preserve">
+    <value>Naslov je obavezan</value>
+  </data>
+  <data name="Validation.DescriptionRequired" xml:space="preserve">
+    <value>Opis je obavezan</value>
+  </data>
+  <data name="Validation.FixErrors" xml:space="preserve">
+    <value>Molimo ispravite greške validacije.</value>
+  </data>
+  <data name="Validation.InvalidTaskId" xml:space="preserve">
+    <value>Neispravan ID zadatka</value>
+  </data>
+  <data name="Validation.InvalidTaskStatus" xml:space="preserve">
+    <value>Neispravan status zadatka</value>
+  </data>
+  <data name="Validation.UnexpectedError" xml:space="preserve">
+    <value>Došlo je do neočekivane greške: {0}</value>
+  </data>
+
+  <!-- Kategorije zadataka (za TaskCard) -->
+  <data name="Category.Billing" xml:space="preserve">
+    <value>NAPLATA</value>
+  </data>
+  <data name="Category.Accounts" xml:space="preserve">
+    <value>RAČUNI</value>
+  </data>
+  <data name="Category.Forms" xml:space="preserve">
+    <value>OBRASCI</value>
+  </data>
+  <data name="Category.General" xml:space="preserve">
+    <value>OPĆE</value>
+  </data>
+
+  <!-- Odabir jezika -->
+  <data name="Language.English" xml:space="preserve">
+    <value>Engleski</value>
+  </data>
+  <data name="Language.Croatian" xml:space="preserve">
+    <value>Hrvatski</value>
+  </data>
+  <data name="Language.SelectLanguage" xml:space="preserve">
+    <value>Odaberi jezik</value>
+  </data>
+
+  <!-- Odabir veličine fonta -->
+  <data name="FontSize.Normal" xml:space="preserve">
+    <value>Normalno</value>
+  </data>
+  <data name="FontSize.Bigger10" xml:space="preserve">
+    <value>10% Veće</value>
+  </data>
+  <data name="FontSize.Bigger20" xml:space="preserve">
+    <value>20% Veće</value>
+  </data>
+  <data name="FontSize.Bigger30" xml:space="preserve">
+    <value>30% Veće</value>
+  </data>
+  <data name="FontSize.Bigger40" xml:space="preserve">
+    <value>40% Veće</value>
+  </data>
+  <data name="FontSize.Bigger50" xml:space="preserve">
+    <value>50% Veće</value>
+  </data>
+
+  <!-- Promjena teme -->
+  <data name="Theme.SwitchToDark" xml:space="preserve">
+    <value>Prebaci na tamni način</value>
+  </data>
+  <data name="Theme.SwitchToLight" xml:space="preserve">
+    <value>Prebaci na svijetli način</value>
+  </data>
+
+  <!-- Upravljanje stupcima -->
+  <data name="Nav.ColumnManagement" xml:space="preserve">
+    <value>Upravljanje stupcima</value>
+  </data>
+  <data name="ColumnManagement.Title" xml:space="preserve">
+    <value>Upravljanje stupcima</value>
+  </data>
+  <data name="ColumnManagement.CreateColumn" xml:space="preserve">
+    <value>Stvori novi stupac</value>
+  </data>
+  <data name="ColumnManagement.EditColumn" xml:space="preserve">
+    <value>Uredi stupac</value>
+  </data>
+  <data name="ColumnManagement.DeleteColumn" xml:space="preserve">
+    <value>Izbriši stupac</value>
+  </data>
+  <data name="ColumnManagement.SystemColumn" xml:space="preserve">
+    <value>Sistemski stupac</value>
+  </data>
+  <data name="ColumnManagement.TaskCount" xml:space="preserve">
+    <value>{0} zadataka</value>
+  </data>
+  <data name="ColumnManagement.NoColumns" xml:space="preserve">
+    <value>Nema pronađenih stupaca</value>
+  </data>
+  <data name="ColumnManagement.LoadingColumns" xml:space="preserve">
+    <value>Učitavanje stupaca...</value>
+  </data>
+  <data name="ColumnManagement.DeleteWarning" xml:space="preserve">
+    <value>Ova radnja se ne može poništiti</value>
+  </data>
+  <data name="ColumnManagement.DeleteConfirmation" xml:space="preserve">
+    <value>Jeste li sigurni da želite izbrisati stupac</value>
+  </data>
+  <data name="ColumnManagement.CannotDelete" xml:space="preserve">
+    <value>Ne može se izbrisati stupac sa zadacima</value>
+  </data>
+  <data name="ColumnManagement.CannotDeleteSystem" xml:space="preserve">
+    <value>Ne može se izbrisati sistemski stupac</value>
+  </data>
+  <data name="ColumnManagement.DragHandle" xml:space="preserve">
+    <value>Povucite za promjenu redoslijeda</value>
+  </data>
+  <data name="ColumnManagement.ColumnCreated" xml:space="preserve">
+    <value>Stupac uspješno stvoren</value>
+  </data>
+  <data name="ColumnManagement.ColumnUpdated" xml:space="preserve">
+    <value>Stupac uspješno ažuriran</value>
+  </data>
+  <data name="ColumnManagement.ColumnDeleted" xml:space="preserve">
+    <value>Stupac uspješno izbrisan</value>
+  </data>
+  <data name="ColumnManagement.ColumnsReordered" xml:space="preserve">
+    <value>Stupci uspješno preraspoređeni</value>
+  </data>
+  <data name="ColumnManagement.FailedToLoad" xml:space="preserve">
+    <value>Učitavanje stupaca nije uspjelo: {0}</value>
+  </data>
+  <data name="ColumnManagement.FailedToSave" xml:space="preserve">
+    <value>Spremanje stupca nije uspjelo: {0}</value>
+  </data>
+  <data name="ColumnManagement.FailedToDelete" xml:space="preserve">
+    <value>Brisanje stupca nije uspjelo: {0}</value>
+  </data>
+  <data name="ColumnManagement.FailedToReorder" xml:space="preserve">
+    <value>Promjena redoslijeda stupaca nije uspjela: {0}</value>
+  </data>
+
+  <!-- Dijalog stupca -->
+  <data name="ColumnDialog.EnglishTab" xml:space="preserve">
+    <value>Engleski</value>
+  </data>
+  <data name="ColumnDialog.CroatianTab" xml:space="preserve">
+    <value>Hrvatski</value>
+  </data>
+  <data name="ColumnDialog.Name" xml:space="preserve">
+    <value>Naziv stupca</value>
+  </data>
+  <data name="ColumnDialog.Description" xml:space="preserve">
+    <value>Opis (neobavezno)</value>
+  </data>
+  <data name="ColumnDialog.Color" xml:space="preserve">
+    <value>Boja stupca</value>
+  </data>
+  <data name="ColumnDialog.ColorPreview" xml:space="preserve">
+    <value>Pregled boje</value>
+  </data>
+  <data name="ColumnDialog.NamePlaceholder" xml:space="preserve">
+    <value>Unesite naziv stupca</value>
+  </data>
+  <data name="ColumnDialog.DescriptionPlaceholder" xml:space="preserve">
+    <value>Unesite opis stupca (neobavezno)</value>
+  </data>
+  <data name="ColumnDialog.NameRequired" xml:space="preserve">
+    <value>Naziv stupca je obavezan</value>
+  </data>
+  <data name="ColumnDialog.EnglishNameRequired" xml:space="preserve">
+    <value>Engleski naziv je obavezan</value>
+  </data>
+  <data name="ColumnDialog.CroatianNameRequired" xml:space="preserve">
+    <value>Hrvatski naziv je obavezan</value>
+  </data>
+  <data name="ColumnDialog.ColorInvalid" xml:space="preserve">
+    <value>Boja mora biti valjani hex kod (npr. #DFE1E6)</value>
+  </data>
+  <data name="ColumnDialog.SaveError" xml:space="preserve">
+    <value>Spremanje stupca nije uspjelo: {0}</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+  <data name="Common.Saving" xml:space="preserve">
+    <value>Spremanje...</value>
+  </data>
+
+  <!-- Opisi (Tooltips) -->
+  <data name="Tooltip.CreateTask" xml:space="preserve">
+    <value>Kreiraj novi zadatak</value>
+  </data>
+  <data name="Tooltip.Logout" xml:space="preserve">
+    <value>Odjavi se s računa</value>
+  </data>
+  <data name="Tooltip.Back" xml:space="preserve">
+    <value>Povratak na ploču</value>
+  </data>
+  <data name="Tooltip.Edit" xml:space="preserve">
+    <value>Uredi ovaj zadatak</value>
+  </data>
+  <data name="Tooltip.Delete" xml:space="preserve">
+    <value>Obriši ovaj zadatak</value>
+  </data>
+  <data name="Tooltip.Save" xml:space="preserve">
+    <value>Spremi promjene</value>
+  </data>
+  <data name="Tooltip.Cancel" xml:space="preserve">
+    <value>Odustani i vrati se</value>
+  </data>
+  <data name="Tooltip.TitleInput" xml:space="preserve">
+    <value>Unesi jasan i sažet naslov</value>
+  </data>
+  <data name="Tooltip.DescriptionInput" xml:space="preserve">
+    <value>Pruži detaljne informacije o zadatku</value>
+  </data>
+  <data name="Tooltip.PrioritySelect" xml:space="preserve">
+    <value>Postavi razinu prioriteta</value>
+  </data>
+  <data name="Tooltip.CustomerInput" xml:space="preserve">
+    <value>Unesite ime kupca za ovaj zadatak</value>
+  </data>
+  <data name="Tooltip.StatusSelect" xml:space="preserve">
+    <value>Promijeni status zadatka</value>
+  </data>
+  <data name="Tooltip.AssigneeSelect" xml:space="preserve">
+    <value>Dodijeli zadatak članu tima</value>
+  </data>
+  <data name="Tooltip.QuickStatusChange" xml:space="preserve">
+    <value>Klikni za premještanje zadatka u ovaj stupac</value>
+  </data>
+  <data name="Tooltip.CreateColumn" xml:space="preserve">
+    <value>Dodaj novi stupac</value>
+  </data>
+  <data name="Tooltip.EditColumn" xml:space="preserve">
+    <value>Uredi postavke stupca</value>
+  </data>
+  <data name="Tooltip.DeleteColumn" xml:space="preserve">
+    <value>Ukloni ovaj stupac</value>
+  </data>
+  <data name="Tooltip.DragColumn" xml:space="preserve">
+    <value>Povuci za promjenu redoslijeda stupaca</value>
+  </data>
+  <data name="Tooltip.CloseDialog" xml:space="preserve">
+    <value>Zatvori ovaj dijalog</value>
+  </data>
+  <data name="Tooltip.ColorPicker" xml:space="preserve">
+    <value>Odaberi boju za ovaj stupac</value>
+  </data>
+  <data name="Tooltip.LanguageSelector" xml:space="preserve">
+    <value>Promijeni jezik sučelja</value>
+  </data>
+  <data name="Tooltip.FontSizeSelector" xml:space="preserve">
+    <value>Prilagodi veličinu teksta</value>
+  </data>
+  <data name="Tooltip.ThemeToggle" xml:space="preserve">
+    <value>Prebaci između svijetlog i tamnog načina</value>
+  </data>
+  <data name="Tooltip.ColumnNameInput" xml:space="preserve">
+    <value>Unesi naziv stupca</value>
+  </data>
+  <data name="Tooltip.ColumnDescriptionInput" xml:space="preserve">
+    <value>Unesi opcionalni opis stupca</value>
+  </data>
+  <data name="Tooltip.ColorPickerInput" xml:space="preserve">
+    <value>Odaberi ili unesi hex boju za stupac</value>
+  </data>
+  <data name="Tooltip.AddComment" xml:space="preserve">
+    <value>Dodaj svoj komentar</value>
+  </data>
+  <data name="Tooltip.EditComment" xml:space="preserve">
+    <value>Uredi ovaj komentar</value>
+  </data>
+  <data name="Tooltip.DeleteComment" xml:space="preserve">
+    <value>Obriši ovaj komentar</value>
+  </data>
+  <data name="Tooltip.SaveComment" xml:space="preserve">
+    <value>Spremi promjene komentara</value>
+  </data>
+  <data name="Tooltip.FormatBold" xml:space="preserve">
+    <value>Podebljaj označeni tekst</value>
+  </data>
+  <data name="Tooltip.FormatItalic" xml:space="preserve">
+    <value>Nagnuti označeni tekst</value>
+  </data>
+  <data name="Tooltip.FormatStrikethrough" xml:space="preserve">
+    <value>Precrtaj označeni tekst</value>
+  </data>
+  <data name="Tooltip.FormatCode" xml:space="preserve">
+    <value>Formatiraj kao kôd</value>
+  </data>
+  <data name="Tooltip.FormatBulletList" xml:space="preserve">
+    <value>Kreiraj popis s točkama</value>
+  </data>
+  <data name="Tooltip.FormatNumberedList" xml:space="preserve">
+    <value>Kreiraj numerirani popis</value>
+  </data>
+  <data name="Tooltip.AddEmoji" xml:space="preserve">
+    <value>Dodaj emoji</value>
+  </data>
+  <data name="Tooltip.UploadFile" xml:space="preserve">
+    <value>Prenesi datoteku s računala</value>
+  </data>
+  <data name="Tooltip.DownloadFile" xml:space="preserve">
+    <value>Preuzmi ovu datoteku</value>
+  </data>
+  <data name="Tooltip.DeleteFile" xml:space="preserve">
+    <value>Obriši ovu datoteku</value>
+  </data>
+
+  <!-- Komentari -->
+  <data name="Comments.Title" xml:space="preserve">
+    <value>Komentari</value>
+  </data>
+  <data name="Comments.AddPlaceholder" xml:space="preserve">
+    <value>Dodaj komentar... (podržava **podebljano**, _kurziv_, ~~precrtano~~, `kôd`)</value>
+  </data>
+  <data name="Comments.AddButton" xml:space="preserve">
+    <value>Dodaj komentar</value>
+  </data>
+  <data name="Comments.Save" xml:space="preserve">
+    <value>Spremi</value>
+  </data>
+  <data name="Comments.Cancel" xml:space="preserve">
+    <value>Odustani</value>
+  </data>
+  <data name="Comments.Loading" xml:space="preserve">
+    <value>Učitavanje komentara...</value>
+  </data>
+  <data name="Comments.NoComments" xml:space="preserve">
+    <value>Još nema komentara. Budite prvi koji će komentirati!</value>
+  </data>
+  <data name="Comments.Edited" xml:space="preserve">
+    <value>(uređeno {0})</value>
+  </data>
+  <data name="Comments.Comment" xml:space="preserve">
+    <value>komentar</value>
+  </data>
+  <data name="Comments.Comments" xml:space="preserve">
+    <value>komentara</value>
+  </data>
+  <data name="Comments.Anonymous" xml:space="preserve">
+    <value>Anonimno</value>
+  </data>
+
+  <!-- Vremenski formati -->
+  <data name="Time.JustNow" xml:space="preserve">
+    <value>Upravo sada</value>
+  </data>
+  <data name="Time.MinutesAgo" xml:space="preserve">
+    <value>prije {0}m</value>
+  </data>
+  <data name="Time.MinutesAgoLong" xml:space="preserve">
+    <value>prije {0} minuta</value>
+  </data>
+  <data name="Time.HoursAgo" xml:space="preserve">
+    <value>prije {0}h</value>
+  </data>
+  <data name="Time.HoursAgoLong" xml:space="preserve">
+    <value>prije {0} sati</value>
+  </data>
+  <data name="Time.DaysAgo" xml:space="preserve">
+    <value>prije {0}d</value>
+  </data>
+  <data name="Time.DaysAgoLong" xml:space="preserve">
+    <value>prije {0} dana</value>
+  </data>
+
+  <!-- Povijest stupca -->
+  <data name="ColumnHistory.Title" xml:space="preserve">
+    <value>Povijest stupca</value>
+  </data>
+  <data name="ColumnHistory.LoadingHistory" xml:space="preserve">
+    <value>Učitavanje povijesti...</value>
+  </data>
+  <data name="ColumnHistory.MovedFrom" xml:space="preserve">
+    <value>Premješteno iz</value>
+  </data>
+  <data name="ColumnHistory.To" xml:space="preserve">
+    <value>u</value>
+  </data>
+  <data name="ColumnHistory.CreatedIn" xml:space="preserve">
+    <value>Kreirano u</value>
+  </data>
+  <data name="ColumnHistory.By" xml:space="preserve">
+    <value>od</value>
+  </data>
+  <data name="ColumnHistory.NoHistory" xml:space="preserve">
+    <value>Još nema promjena stupca</value>
+  </data>
+
+  <!-- Privici datoteka -->
+  <data name="FileAttachments.Title" xml:space="preserve">
+    <value>Privici</value>
+  </data>
+  <data name="FileAttachments.ChooseFile" xml:space="preserve">
+    <value>Odaberi datoteku za prijenos</value>
+  </data>
+  <data name="FileAttachments.Uploading" xml:space="preserve">
+    <value>Prijenos...</value>
+  </data>
+  <data name="FileAttachments.Phase" xml:space="preserve">
+    <value>Faza:</value>
+  </data>
+  <data name="FileAttachments.NoAttachments" xml:space="preserve">
+    <value>Još nema privitaka</value>
+  </data>
+  <data name="FileAttachments.LoadError" xml:space="preserve">
+    <value>Neuspjelo učitavanje privitaka: {0}</value>
+  </data>
+  <data name="FileAttachments.FileSizeExceeded" xml:space="preserve">
+    <value>Veličina datoteke prelazi limit od 10MB</value>
+  </data>
+  <data name="FileAttachments.UploadError" xml:space="preserve">
+    <value>Greška pri prijenosu: {0}</value>
+  </data>
+  <data name="FileAttachments.DownloadError" xml:space="preserve">
+    <value>Neuspjelo preuzimanje: {0}</value>
+  </data>
+  <data name="FileAttachments.DeleteFailed" xml:space="preserve">
+    <value>Neuspjelo brisanje datoteke</value>
+  </data>
+  <data name="FileAttachments.DeleteError" xml:space="preserve">
+    <value>Greška pri brisanju: {0}</value>
+  </data>
+  <data name="FileAttachments.Images" xml:space="preserve">
+    <value>Slike</value>
+  </data>
+  <data name="FileAttachments.OtherFiles" xml:space="preserve">
+    <value>Ostale datoteke</value>
+  </data>
+
+  <!-- Odabir korisnika -->
+  <data name="UserSelection.PageTitle" xml:space="preserve">
+    <value>Odabir korisnika - Radni Nalozi</value>
+  </data>
+  <data name="UserSelection.Title" xml:space="preserve">
+    <value>Dobrodošli u Radne Naloge</value>
+  </data>
+  <data name="UserSelection.Subtitle" xml:space="preserve">
+    <value>Molimo odaberite korisnika za nastavak</value>
+  </data>
+  <data name="UserSelection.LoadingUsers" xml:space="preserve">
+    <value>Učitavanje korisnika...</value>
+  </data>
+  <data name="UserSelection.ErrorTitle" xml:space="preserve">
+    <value>Nije moguće učitati korisnike</value>
+  </data>
+  <data name="UserSelection.TryAgain" xml:space="preserve">
+    <value>Pokušaj ponovno</value>
+  </data>
+  <data name="UserSelection.SearchPlaceholder" xml:space="preserve">
+    <value>Pretraži korisnike po imenu ili emailu...</value>
+  </data>
+  <data name="UserSelection.ClearSearch" xml:space="preserve">
+    <value>Obriši pretragu</value>
+  </data>
+  <data name="UserSelection.UserFound" xml:space="preserve">
+    <value>korisnik pronađen</value>
+  </data>
+  <data name="UserSelection.UsersFound" xml:space="preserve">
+    <value>korisnika pronađeno</value>
+  </data>
+  <data name="UserSelection.SelectUser" xml:space="preserve">
+    <value>Odaberi korisnika</value>
+  </data>
+  <data name="UserSelection.NoUsersFound" xml:space="preserve">
+    <value>Nema pronađenih korisnika</value>
+  </data>
+  <data name="UserSelection.TryAdjustingSearch" xml:space="preserve">
+    <value>Pokušajte prilagoditi pojmove pretrage</value>
+  </data>
+  <data name="UserSelection.NavigationHint" xml:space="preserve">
+    <value>Koristi tipke ↑↓ za navigaciju, Enter za odabir ili klikni na korisnika</value>
+  </data>
+
+  <!-- Uobičajeno -->
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Nepoznato</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Zatvori</value>
+  </data>
+
+  <!-- Sekcije navigacije -->
+  <data name="Nav.PlanningSection" xml:space="preserve">
+    <value>PLANIRANJE</value>
+  </data>
+  <data name="Nav.DevelopmentSection" xml:space="preserve">
+    <value>RAZVOJ</value>
+  </data>
+  <data name="Nav.Code" xml:space="preserve">
+    <value>Kod</value>
+  </data>
+  <data name="Nav.Security" xml:space="preserve">
+    <value>Sigurnost</value>
+  </data>
+  <data name="Nav.Releases" xml:space="preserve">
+    <value>Izdanja</value>
+  </data>
+  <data name="Nav.ProjectSettings" xml:space="preserve">
+    <value>Postavke projekta</value>
+  </data>
+  <data name="Nav.HiddenTasks" xml:space="preserve">
+    <value>Skriveni zadaci</value>
+  </data>
+
+  <!-- Kartice detalja zadatka i akcije -->
+  <data name="TaskDetail.DetailsTab" xml:space="preserve">
+    <value>Detalji</value>
+  </data>
+  <data name="TaskDetail.WorkOrderTab" xml:space="preserve">
+    <value>Radni nalog</value>
+  </data>
+  <data name="TaskDetail.Hide" xml:space="preserve">
+    <value>Sakrij</value>
+  </data>
+  <data name="TaskDetail.HideTask" xml:space="preserve">
+    <value>Sakrij zadatak</value>
+  </data>
+  <data name="TaskDetail.NoCustomer" xml:space="preserve">
+    <value>Bez kupca</value>
+  </data>
+  <data name="TaskDetail.Assignee" xml:space="preserve">
+    <value>Dodijeljeno</value>
+  </data>
+  <data name="TaskDetail.Unassigned" xml:space="preserve">
+    <value>Nedodijeljeno</value>
+  </data>
+
+  <!-- Radni nalog -->
+  <data name="WorkOrder.Loading" xml:space="preserve">
+    <value>Učitavanje radnog naloga...</value>
+  </data>
+  <data name="WorkOrder.NoWorkOrder" xml:space="preserve">
+    <value>Ne postoji radni nalog za ovaj zadatak.</value>
+  </data>
+  <data name="WorkOrder.CreateWorkOrder" xml:space="preserve">
+    <value>Kreiraj radni nalog</value>
+  </data>
+  <data name="WorkOrder.SaveChanges" xml:space="preserve">
+    <value>Spremi promjene</value>
+  </data>
+  <data name="WorkOrder.ExportCSV" xml:space="preserve">
+    <value>Izvezi CSV</value>
+  </data>
+  <data name="WorkOrder.ExportExcel" xml:space="preserve">
+    <value>Izvezi Excel</value>
+  </data>
+  <data name="WorkOrder.ImportExcel" xml:space="preserve">
+    <value>Uvezi Excel</value>
+  </data>
+  <data name="WorkOrder.Importing" xml:space="preserve">
+    <value>Uvoz u tijeku...</value>
+  </data>
+  <data name="WorkOrder.Customer" xml:space="preserve">
+    <value>Kupac</value>
+  </data>
+  <data name="WorkOrder.Object" xml:space="preserve">
+    <value>Objekt</value>
+  </data>
+  <data name="WorkOrder.Product" xml:space="preserve">
+    <value>Proizvod</value>
+  </data>
+  <data name="WorkOrder.WorkOrderNumber" xml:space="preserve">
+    <value>RN.BR.</value>
+  </data>
+  <data name="WorkOrder.Order" xml:space="preserve">
+    <value>Narudžba</value>
+  </data>
+  <data name="WorkOrder.OrderDate" xml:space="preserve">
+    <value>Datum narudžbe</value>
+  </data>
+  <data name="WorkOrder.Delivery" xml:space="preserve">
+    <value>Isporuka</value>
+  </data>
+  <data name="WorkOrder.Page" xml:space="preserve">
+    <value>Str.</value>
+  </data>
+  <data name="WorkOrder.MaterialAndProcessing" xml:space="preserve">
+    <value>Materijal i obrada</value>
+  </data>
+  <data name="WorkOrder.Surface" xml:space="preserve">
+    <value>Ploha</value>
+  </data>
+  <data name="WorkOrder.Cut" xml:space="preserve">
+    <value>Rez</value>
+  </data>
+  <data name="WorkOrder.Processing" xml:space="preserve">
+    <value>Obrada</value>
+  </data>
+  <data name="WorkOrder.Packing" xml:space="preserve">
+    <value>Pakiranje</value>
+  </data>
+  <data name="WorkOrder.Notes" xml:space="preserve">
+    <value>Bilješka</value>
+  </data>
+  <data name="WorkOrder.Length" xml:space="preserve">
+    <value>Dužina</value>
+  </data>
+  <data name="WorkOrder.Width" xml:space="preserve">
+    <value>Širina</value>
+  </data>
+  <data name="WorkOrder.Thickness" xml:space="preserve">
+    <value>Debljina</value>
+  </data>
+  <data name="WorkOrder.Pieces" xml:space="preserve">
+    <value>Kom</value>
+  </data>
+  <data name="WorkOrder.FromPieces" xml:space="preserve">
+    <value>Iz kom</value>
+  </data>
+  <data name="WorkOrder.Description" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="WorkOrder.Totals" xml:space="preserve">
+    <value>Ukupno</value>
+  </data>
+  <data name="WorkOrder.TotalPieces" xml:space="preserve">
+    <value>Ukupno komada:</value>
+  </data>
+  <data name="WorkOrder.TotalSquareMeters" xml:space="preserve">
+    <value>Ukupno M²:</value>
+  </data>
+  <data name="WorkOrder.TotalLinearMeters" xml:space="preserve">
+    <value>Ukupno M¹:</value>
+  </data>
+  <data name="WorkOrder.TotalCubicMeters" xml:space="preserve">
+    <value>Ukupno M³:</value>
+  </data>
+  <data name="WorkOrder.TotalKilograms" xml:space="preserve">
+    <value>Ukupno KG:</value>
+  </data>
+
+  <!-- Skriveni zadaci -->
+  <data name="HiddenTasks.Title" xml:space="preserve">
+    <value>Skriveni zadaci</value>
+  </data>
+  <data name="HiddenTasks.PageTitle" xml:space="preserve">
+    <value>Skriveni zadaci - MiniJira</value>
+  </data>
+  <data name="HiddenTasks.BackToDashboard" xml:space="preserve">
+    <value>Povratak na nadzornu ploču</value>
+  </data>
+  <data name="HiddenTasks.Loading" xml:space="preserve">
+    <value>Učitavanje...</value>
+  </data>
+  <data name="HiddenTasks.LoadingMessage" xml:space="preserve">
+    <value>Učitavanje skrivenih zadataka...</value>
+  </data>
+  <data name="HiddenTasks.NoHiddenTasks" xml:space="preserve">
+    <value>Nema skrivenih zadataka.</value>
+  </data>
+  <data name="HiddenTasks.HiddenOn" xml:space="preserve">
+    <value>Skriveno:</value>
+  </data>
+  <data name="HiddenTasks.Unhide" xml:space="preserve">
+    <value>Prikaži</value>
+  </data>
+  <data name="HiddenTasks.ViewDetails" xml:space="preserve">
+    <value>Prikaži detalje</value>
+  </data>
+
+  <!-- Povijest vlasnika -->
+  <data name="OwnerHistory.Title" xml:space="preserve">
+    <value>Povijest vlasnika</value>
+  </data>
+  <data name="OwnerHistory.NoChanges" xml:space="preserve">
+    <value>Nema zabilježenih promjena vlasnika.</value>
+  </data>
+  <data name="OwnerHistory.ChangedFrom" xml:space="preserve">
+    <value>promijenio vlasnika iz</value>
+  </data>
+  <data name="OwnerHistory.To" xml:space="preserve">
+    <value>u</value>
+  </data>
+
+  <!-- Panel filtera -->
+  <data name="Filter.CollapseFilters" xml:space="preserve">
+    <value>Skupi filtere</value>
+  </data>
+  <data name="Filter.ExpandFilters" xml:space="preserve">
+    <value>Proširi filtere</value>
+  </data>
+  <data name="Filter.ClearAll" xml:space="preserve">
+    <value>Očisti sve filtere i sortiranje</value>
+  </data>
+  <data name="Filter.SortBy" xml:space="preserve">
+    <value>Sortiraj po:</value>
+  </data>
+  <data name="Filter.SortNone" xml:space="preserve">
+    <value>Bez sortiranja</value>
+  </data>
+  <data name="Filter.SortPriorityHighToLow" xml:space="preserve">
+    <value>Prioritet: Visok prema Niskom</value>
+  </data>
+  <data name="Filter.SortPriorityLowToHigh" xml:space="preserve">
+    <value>Prioritet: Nizak prema Visokom</value>
+  </data>
+  <data name="Filter.SortAssigneeAZ" xml:space="preserve">
+    <value>Dodijeljeno: A-Z</value>
+  </data>
+  <data name="Filter.SortCreatedNewest" xml:space="preserve">
+    <value>Kreirano: Najnovije prvo</value>
+  </data>
+  <data name="Filter.SortCreatedOldest" xml:space="preserve">
+    <value>Kreirano: Najstarije prvo</value>
+  </data>
+  <data name="Filter.SortTitleAZ" xml:space="preserve">
+    <value>Naslov: A-Z</value>
+  </data>
+  <data name="Filter.Priority" xml:space="preserve">
+    <value>Prioritet:</value>
+  </data>
+  <data name="Filter.Assignee" xml:space="preserve">
+    <value>Dodijeljeno:</value>
+  </data>
+
+  <!-- Stranica izvještaja -->
+  <data name="Reports.Subtitle" xml:space="preserve">
+    <value>Statistika i uvidi zadataka</value>
+  </data>
+  <data name="Reports.LoadingReports" xml:space="preserve">
+    <value>Učitavanje izvještaja...</value>
+  </data>
+  <data name="Reports.TotalTasks" xml:space="preserve">
+    <value>Ukupno zadataka</value>
+  </data>
+  <data name="Reports.CompletedTasks" xml:space="preserve">
+    <value>Završeni zadaci</value>
+  </data>
+  <data name="Reports.InProgress" xml:space="preserve">
+    <value>U tijeku</value>
+  </data>
+  <data name="Reports.ToDo" xml:space="preserve">
+    <value>Za napraviti</value>
+  </data>
+  <data name="Reports.StatusDistribution" xml:space="preserve">
+    <value>Distribucija statusa</value>
+  </data>
+  <data name="Reports.PriorityDistribution" xml:space="preserve">
+    <value>Distribucija prioriteta</value>
+  </data>
+  <data name="Reports.TasksByColumn" xml:space="preserve">
+    <value>Zadaci po stupcu</value>
+  </data>
+  <data name="Reports.RecentActivity" xml:space="preserve">
+    <value>Nedavna aktivnost</value>
+  </data>
+  <data name="Reports.Updated" xml:space="preserve">
+    <value>Ažurirano</value>
+  </data>
+  <data name="Reports.Column" xml:space="preserve">
+    <value>Stupac</value>
+  </data>
+
+  <!-- Relativni vremenski formati -->
+  <data name="Time.JustNowLong" xml:space="preserve">
+    <value>upravo sada</value>
+  </data>
+  <data name="Time.MinutesAgoFormat" xml:space="preserve">
+    <value>prije {0} minuta</value>
+  </data>
+  <data name="Time.HoursAgoFormat" xml:space="preserve">
+    <value>prije {0} sati</value>
+  </data>
+  <data name="Time.DaysAgoFormat" xml:space="preserve">
+    <value>prije {0} dana</value>
+  </data>
+  <data name="Time.WeeksAgo" xml:space="preserve">
+    <value>prije {0} tjedana</value>
+  </data>
+  <data name="Time.MonthsAgo" xml:space="preserve">
+    <value>prije {0} mjeseci</value>
+  </data>
+  <data name="Time.YearsAgo" xml:space="preserve">
+    <value>prije {0} godina</value>
+  </data>
+
+  <!-- Emoji opisi -->
+  <data name="Emoji.ThumbsUp" xml:space="preserve">
+    <value>Palac gore</value>
+  </data>
+  <data name="Emoji.Check" xml:space="preserve">
+    <value>Kvačica</value>
+  </data>
+  <data name="Emoji.Cross" xml:space="preserve">
+    <value>Križ</value>
+  </data>
+  <data name="Emoji.Smile" xml:space="preserve">
+    <value>Osmijeh</value>
+  </data>
+
+  <!-- Kartica zadatka -->
+  <data name="TaskCard.AssignedUser" xml:space="preserve">
+    <value>Dodijeljeni korisnik</value>
+  </data>
+  <data name="TaskCard.CreatedDate" xml:space="preserve">
+    <value>Datum kreiranja</value>
+  </data>
+  <data name="TaskCard.MovedDate" xml:space="preserve">
+    <value>Zadnje premješteno</value>
+  </data>
+
+  <!-- Postavke paleta boja -->
+  <data name="Settings.ColorPalette" xml:space="preserve">
+    <value>Paleta Boja</value>
+  </data>
+  <data name="Settings.ColorPaletteDescription" xml:space="preserve">
+    <value>Odaberite shemu boja za aplikaciju</value>
+  </data>
+  <data name="ColorPalette" xml:space="preserve">
+    <value>Paleta Boja</value>
+  </data>
+
+  <!-- Opcije paleta boja -->
+  <data name="Palette.ClassicRed" xml:space="preserve">
+    <value>Klasična Crvena</value>
+  </data>
+  <data name="Palette.ClassicRed.Desc" xml:space="preserve">
+    <value>Profesionalna crvena tema koja odgovara MiniJira brendu</value>
+  </data>
+  <data name="Palette.OceanBlue" xml:space="preserve">
+    <value>Ocean Plava</value>
+  </data>
+  <data name="Palette.OceanBlue.Desc" xml:space="preserve">
+    <value>Mirni plavi tonovi za fokusiran rad</value>
+  </data>
+  <data name="Palette.ForestGreen" xml:space="preserve">
+    <value>Šumska Zelena</value>
+  </data>
+  <data name="Palette.ForestGreen.Desc" xml:space="preserve">
+    <value>Prirodna zelena paleta za održive timove</value>
+  </data>
+</root>

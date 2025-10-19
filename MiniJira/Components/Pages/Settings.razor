@@ -1,0 +1,266 @@
+@page "/settings"
+@using MiniJira.Components.Shared
+@using MiniJira.Resources
+@using MiniJira.Services
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Localization> Localizer
+@inject ILocalizationService LocalizationService
+@inject IFontSizeService FontSizeService
+@inject IColorPaletteService ColorPaletteService
+
+<PageTitle>@Localizer["Nav.Settings"] - MiniJira</PageTitle>
+
+<AuthGuard>
+<div id="settings-container" class="settings-container">
+    <div id="settings-header" class="settings-header">
+        <h1>@Localizer["Nav.Settings"]</h1>
+        <p class="settings-description">@Localizer["Settings.Description"]</p>
+    </div>
+
+    <div id="settings-content" class="settings-content">
+        <div id="settings-section-language" class="settings-section">
+            <h2 class="section-title">
+                <svg class="section-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                </svg>
+                @Localizer["Settings.Language"]
+            </h2>
+            <p class="section-description">@Localizer["Settings.LanguageDescription"]</p>
+            <div id="language-selector-wrapper" class="language-selector-container">
+                <LanguageSelector />
+            </div>
+        </div>
+
+        <div id="settings-section-font-size" class="settings-section">
+            <h2 class="section-title">
+                <svg class="section-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M2 20h20v-4H2v4zm2-3h2v2H4v-2zM2 4v4h20V4H2zm4 3H4V5h2v2zm-4 7h20v-4H2v4zm2-3h2v2H4v-2z"/>
+                </svg>
+                @Localizer["Settings.FontSize"]
+            </h2>
+            <p class="section-description">@Localizer["Settings.FontSizeDescription"]</p>
+            <div id="font-size-selector-wrapper" class="language-selector-container">
+                <FontSizeSelector />
+            </div>
+        </div>
+
+        <div id="settings-section-color-palette" class="settings-section">
+            <h2 class="section-title">
+                <svg class="section-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                </svg>
+                @Localizer["Settings.ColorPalette"]
+            </h2>
+            <p class="section-description">@Localizer["Settings.ColorPaletteDescription"]</p>
+            <div id="color-palette-selector-wrapper" class="language-selector-container">
+                <ColorPaletteSelector />
+            </div>
+        </div>
+
+        <!-- You can add more settings sections here -->
+
+        <div id="settings-actions" class="settings-actions">
+            @if (!string.IsNullOrEmpty(feedbackMessage))
+            {
+                <div class="feedback-message @feedbackClass">
+                    @feedbackMessage
+                </div>
+            }
+            <button id="save-settings-btn" class="save-button" @onclick="SaveSettings" disabled="@isSaving">
+                @if (isSaving)
+                {
+                    <span>@Localizer["Settings.Saving"]</span>
+                }
+                else
+                {
+                    <span>@Localizer["Settings.SaveSettings"]</span>
+                }
+            </button>
+        </div>
+    </div>
+</div>
+</AuthGuard>
+
+@code {
+    private bool isSaving = false;
+    private string feedbackMessage = string.Empty;
+    private string feedbackClass = string.Empty;
+
+    private async System.Threading.Tasks.Task SaveSettings()
+    {
+        try
+        {
+            isSaving = true;
+            feedbackMessage = string.Empty;
+            StateHasChanged();
+
+            // Save all settings
+            await LocalizationService.SaveAsync();
+            await FontSizeService.SaveAsync();
+            await ColorPaletteService.SaveAsync();
+
+            // Show success message
+            feedbackMessage = Localizer["Settings.SavedSuccessfully"];
+            feedbackClass = "success";
+            StateHasChanged();
+
+            // Clear the message after 3 seconds
+            await System.Threading.Tasks.Task.Delay(3000);
+            feedbackMessage = string.Empty;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            feedbackMessage = string.Format(Localizer["Settings.SaveError"], ex.Message);
+            feedbackClass = "error";
+            StateHasChanged();
+        }
+        finally
+        {
+            isSaving = false;
+            StateHasChanged();
+        }
+    }
+}
+
+<style>
+    .settings-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .settings-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 2px solid #DFE1E6;
+    }
+
+    .settings-header h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #172B4D;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .settings-description {
+        color: #5E6C84;
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    .settings-content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .settings-section {
+        background: white;
+        border-radius: 8px;
+        padding: 2rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .settings-section:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .section-title {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #172B4D;
+        margin: 0 0 0.5rem 0;
+    }
+
+    .section-icon {
+        color: #0052CC;
+    }
+
+    .section-description {
+        color: #5E6C84;
+        margin: 0 0 1.5rem 0;
+        font-size: 0.9rem;
+    }
+
+    .language-selector-container {
+        padding: 1rem;
+        background: #F4F5F7;
+        border-radius: 6px;
+    }
+
+    .settings-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 2px solid #DFE1E6;
+    }
+
+    .save-button {
+        background: #0052CC;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+        min-width: 200px;
+    }
+
+    .save-button:hover:not(:disabled) {
+        background: #0065FF;
+        transform: translateY(-1px);
+    }
+
+    .save-button:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    .save-button:disabled {
+        background: #A5ADBA;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    .feedback-message {
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 500;
+        text-align: center;
+        animation: fadeIn 0.3s ease;
+        min-width: 300px;
+    }
+
+    .feedback-message.success {
+        background: #E3FCEF;
+        color: #006644;
+        border: 1px solid #79F2C0;
+    }
+
+    .feedback-message.error {
+        background: #FFEBE6;
+        color: #BF2600;
+        border: 1px solid #FF8F73;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>

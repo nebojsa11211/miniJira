@@ -1,0 +1,103 @@
+@page "/create-task"
+@using MiniJira.Models
+@using MiniJira.Services
+@using MiniJira.Services.DTOs
+@using MiniJira.Resources
+@using Microsoft.Extensions.Localization
+@inject ITaskService TaskService
+@inject NavigationManager NavigationManager
+@inject IStringLocalizer<Localization> Localizer
+
+<PageTitle>@Localizer["CreateTask.Title"] - MiniJira</PageTitle>
+
+<div id="create-task-container" class="create-task-container">
+    <div id="create-task-header" class="create-task-header">
+        <button class="back-button btn-icon" @onclick='() => NavigationManager.NavigateTo("/")' aria-label="@Localizer["Common.Back"]" title="@Localizer["Tooltip.Back"]">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 16L6 10L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <h1>@Localizer["CreateTask.Title"]</h1>
+    </div>
+
+    <div id="create-task-content" class="create-task-content">
+        <EditForm Model="@model" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit" class="task-form">
+            <DataAnnotationsValidator />
+
+            @if (errorMessage != null)
+            {
+                <div id="create-task-error-message" class="alert alert-danger error-message" role="alert">
+                    <strong>@Localizer["Common.Error"]</strong> @errorMessage
+                </div>
+            }
+
+            <div id="form-group-title" class="form-group">
+                <label for="Title" class="form-label">@Localizer["CreateTask.TaskTitle"]</label>
+                <InputText id="Title" name="Title" class="form-control" @bind-Value="model.Title" placeholder="@Localizer["CreateTask.TitlePlaceholder"]" title="@Localizer["Tooltip.TitleInput"]" />
+                <ValidationMessage For="@(() => model.Title)" class="validation-message" />
+            </div>
+
+            <div id="form-group-description" class="form-group">
+                <label for="Description" class="form-label">@Localizer["CreateTask.Description"]</label>
+                <InputTextArea id="Description" name="Description" class="form-control" rows="6" @bind-Value="model.Description" placeholder="@Localizer["CreateTask.DescriptionPlaceholder"]" title="@Localizer["Tooltip.DescriptionInput"]" />
+                <ValidationMessage For="@(() => model.Description)" class="validation-message" />
+            </div>
+
+            <div id="form-row-priority" class="form-row">
+                <div id="form-group-priority" class="form-group">
+                    <label for="Priority" class="form-label">@Localizer["CreateTask.Priority"]</label>
+                    <div id="priority-select-wrapper" class="priority-select-wrapper">
+                        <InputSelect id="Priority" name="Priority" class="form-select priority-select" @bind-Value="model.Priority" title="@Localizer["Tooltip.PrioritySelect"]">
+                            <option value="@TaskPriority.Low">@Localizer["TaskPriority.Low"]</option>
+                            <option value="@TaskPriority.Medium">@Localizer["TaskPriority.Medium"]</option>
+                            <option value="@TaskPriority.High">@Localizer["TaskPriority.High"]</option>
+                        </InputSelect>
+                        <div id="priority-indicator" class="priority-indicator priority-@model.Priority.ToString().ToLower()">
+                            <PriorityIcon Priority="@model.Priority" />
+                        </div>
+                    </div>
+                    <ValidationMessage For="@(() => model.Priority)" class="validation-message" />
+                </div>
+            </div>
+
+            <div id="form-group-customer" class="form-group">
+                <label for="Customer" class="form-label">@Localizer["CreateTask.Customer"]</label>
+                <InputText id="Customer" name="Customer" class="form-control" @bind-Value="model.Customer" placeholder="@Localizer["CreateTask.CustomerPlaceholder"]" title="@Localizer["Tooltip.CustomerInput"]" list="customer-suggestions" />
+                <datalist id="customer-suggestions">
+                    @foreach (var customer in existingCustomers)
+                    {
+                        <option value="@customer" />
+                    }
+                </datalist>
+                <ValidationMessage For="@(() => model.Customer)" class="validation-message" />
+            </div>
+
+            <div id="form-actions" class="form-actions">
+                <button type="submit" class="btn btn-primary btn-ripple" disabled="@isSaving" title="@Localizer["Tooltip.CreateTask"]">
+                    @if (isSaving)
+                    {
+                        <span class="spinner-modern" style="width: 20px; height: 20px; border-width: 2px; margin-right: 8px;" role="status" aria-hidden="true"></span>
+                        <span>@Localizer["CreateTask.Creating"]</span>
+                    }
+                    else
+                    {
+                        <span>@Localizer["Common.CreateTask"]</span>
+                    }
+                </button>
+                <button type="button" class="btn btn-secondary btn-ripple" data-action="cancel" @onclick='() => NavigationManager.NavigateTo("/")' disabled="@isSaving" title="@Localizer["Tooltip.Cancel"]">
+                    @Localizer["Common.Cancel"]
+                </button>
+            </div>
+        </EditForm>
+
+        <div id="form-help" class="form-help">
+            <h3>@Localizer["CreateTask.TipsTitle"]</h3>
+            <ul>
+                <li>@Localizer["CreateTask.Tip1"]</li>
+                <li>@Localizer["CreateTask.Tip2"]</li>
+                <li>@Localizer["CreateTask.Tip3"]</li>
+                <li>@Localizer["CreateTask.Tip4"]</li>
+            </ul>
+        </div>
+    </div>
+</div>

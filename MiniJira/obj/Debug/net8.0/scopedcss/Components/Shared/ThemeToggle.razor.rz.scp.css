@@ -1,0 +1,28 @@
+.theme-toggle[b-w1en3uldbc] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: var(--jira-radius-circle);
+    background-color: transparent;
+    color: var(--jira-text-secondary);
+    cursor: pointer;
+    transition: background-color 0.08s linear, color 0.08s linear;
+    padding: var(--jira-space-100);
+}
+
+.theme-toggle:hover[b-w1en3uldbc] {
+    background-color: var(--jira-bg-secondary);
+    color: var(--jira-text-primary);
+}
+
+.theme-toggle:active[b-w1en3uldbc] {
+    background-color: var(--jira-bg-tertiary);
+}
+
+.theme-toggle svg[b-w1en3uldbc] {
+    width: 20px;
+    height: 20px;
+}

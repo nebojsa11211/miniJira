@@ -1,0 +1,22 @@
+<span class="priority-icon priority-@Priority.ToString().ToLower()" title="Priority: @Priority" role="img" aria-label="Priority: @Priority">
+    @if (Priority == TaskPriority.High)
+    {
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 3L8 10M8 3L5 6M8 3L11 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 13H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    }
+    else if (Priority == TaskPriority.Medium)
+    {
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 6L8 10M8 10L5 7M8 10L11 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    }
+    else
+    {
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 13L8 6M8 13L5 10M8 13L11 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 3H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    }
+</span>

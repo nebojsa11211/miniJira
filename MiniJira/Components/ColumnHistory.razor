@@ -1,0 +1,247 @@
+@using MiniJira.Data
+@using MiniJira.Models
+@using MiniJira.Resources
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.Extensions.Localization
+@inject ApplicationDbContext DbContext
+@inject IServiceProvider ServiceProvider
+@inject IStringLocalizer<Localization> Localizer
+
+<div id="column-history-section" class="column-history-section">
+    <h3 class="section-title">@Localizer["ColumnHistory.Title"]</h3>
+
+    @if (isLoading)
+    {
+        <div id="column-history-loading-container" class="loading-container">
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">@Localizer["Common.Loading"]</span>
+            </div>
+            <span class="ms-2">@Localizer["ColumnHistory.LoadingHistory"]</span>
+        </div>
+    }
+    else if (history.Any())
+    {
+        <div id="column-history-timeline" class="history-timeline">
+            @foreach (var entry in history.OrderByDescending(h => h.ChangedAt))
+            {
+                <div id="history-item-@entry.Id" class="history-item">
+                    <div id="history-icon-@entry.Id" class="history-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div id="history-content-@entry.Id" class="history-content">
+                        <div id="history-action-@entry.Id" class="history-action">
+                            @if (entry.FromColumn != null)
+                            {
+                                <span>@Localizer["ColumnHistory.MovedFrom"] <strong style="color: @entry.FromColumn.Color">@GetColumnName(entry.FromColumn)</strong> @Localizer["ColumnHistory.To"] <strong style="color: @entry.ToColumn.Color">@GetColumnName(entry.ToColumn)</strong></span>
+                            }
+                            else
+                            {
+                                <span>@Localizer["ColumnHistory.CreatedIn"] <strong style="color: @entry.ToColumn.Color">@GetColumnName(entry.ToColumn)</strong></span>
+                            }
+                        </div>
+                        <div id="history-meta-@entry.Id" class="history-meta">
+                            <span class="history-time">@FormatTime(entry.ChangedAt)</span>
+                            @if (!string.IsNullOrEmpty(entry.ChangedBy))
+                            {
+                                <span class="separator">•</span>
+                                <span class="history-user">@Localizer["ColumnHistory.By"] @entry.ChangedBy</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div id="column-history-no-history" class="no-history">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.3">
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <p>@Localizer["ColumnHistory.NoHistory"]</p>
+        </div>
+    }
+</div>
+
+<style>
+    .column-history-section {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: var(--jira-bg-primary);
+        border-radius: var(--jira-radius-large);
+        box-shadow: var(--jira-shadow-card);
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--jira-text-primary);
+    }
+
+    .loading-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        color: var(--jira-text-secondary);
+    }
+
+    .history-timeline {
+        position: relative;
+        padding-left: 2rem;
+    }
+
+    .history-timeline::before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background: var(--jira-border);
+    }
+
+    .history-item {
+        position: relative;
+        display: flex;
+        gap: 1rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .history-item:last-child {
+        padding-bottom: 0;
+    }
+
+    .history-icon {
+        position: absolute;
+        left: -2rem;
+        width: 16px;
+        height: 16px;
+        background: var(--jira-bg-primary);
+        border: 2px solid var(--jira-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--jira-primary);
+        z-index: 1;
+    }
+
+    .history-icon svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .history-content {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        background: var(--jira-bg-secondary);
+        border-radius: var(--jira-radius-small);
+        border: 1px solid var(--jira-border);
+    }
+
+    .history-action {
+        font-size: 0.95rem;
+        color: var(--jira-text-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .history-action strong {
+        font-weight: 600;
+    }
+
+    .history-meta {
+        font-size: 0.875rem;
+        color: var(--jira-text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .separator {
+        color: var(--jira-text-subtle);
+    }
+
+    .no-history {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--jira-text-secondary);
+    }
+
+    .no-history svg {
+        margin-bottom: 1rem;
+    }
+
+    .no-history p {
+        margin: 0;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public Guid TaskId { get; set; }
+
+    private List<TaskColumnHistory> history = new();
+    private bool isLoading = true;
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        await LoadHistory();
+    }
+
+    private async System.Threading.Tasks.Task LoadHistory()
+    {
+        try
+        {
+            isLoading = true;
+
+            // Create a new scope to get a fresh DbContext
+            using var scope = ServiceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            history = await dbContext.TaskColumnHistories
+                .Include(h => h.FromColumn)
+                    .ThenInclude(c => c.Translations)
+                .Include(h => h.ToColumn)
+                    .ThenInclude(c => c.Translations)
+                .Where(h => h.TaskId == TaskId)
+                .OrderByDescending(h => h.ChangedAt)
+                .ToListAsync();
+        }
+        catch (Exception ex)
+        {
+            // Log error if needed
+            Console.WriteLine($"Error loading column history: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private string GetColumnName(Column column)
+    {
+        return column?.Translations?.FirstOrDefault()?.Name ?? Localizer["Common.Unknown"];
+    }
+
+    private string FormatTime(DateTime dateTime)
+    {
+        var now = DateTime.UtcNow;
+        var diff = now - dateTime;
+
+        if (diff.TotalMinutes < 1)
+            return Localizer["Time.JustNow"];
+        if (diff.TotalMinutes < 60)
+            return string.Format(Localizer["Time.MinutesAgoLong"], (int)diff.TotalMinutes);
+        if (diff.TotalHours < 24)
+            return string.Format(Localizer["Time.HoursAgoLong"], (int)diff.TotalHours);
+        if (diff.TotalDays < 7)
+            return string.Format(Localizer["Time.DaysAgoLong"], (int)diff.TotalDays);
+
+        return dateTime.ToString("MMM dd, yyyy HH:mm");
+    }
+}

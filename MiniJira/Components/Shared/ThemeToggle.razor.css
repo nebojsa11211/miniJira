@@ -1,0 +1,28 @@
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: var(--jira-radius-circle);
+    background-color: transparent;
+    color: var(--jira-text-secondary);
+    cursor: pointer;
+    transition: background-color 0.08s linear, color 0.08s linear;
+    padding: var(--jira-space-100);
+}
+
+.theme-toggle:hover {
+    background-color: var(--jira-bg-secondary);
+    color: var(--jira-text-primary);
+}
+
+.theme-toggle:active {
+    background-color: var(--jira-bg-tertiary);
+}
+
+.theme-toggle svg {
+    width: 20px;
+    height: 20px;
+}

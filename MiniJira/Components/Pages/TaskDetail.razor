@@ -1,0 +1,283 @@
+@page "/task/{Id:guid}"
+@using MiniJira.Models
+@using MiniJira.Services.DTOs
+@using MiniJira.Resources
+@using MiniJira.Components.WorkOrder
+
+<PageTitle>@(task?.Title ?? Localizer["TaskDetail.Details"]) - MiniJira</PageTitle>
+
+<div id="task-detail-container" class="task-detail-container">
+    @if (isLoading)
+    {
+        <div id="task-detail-loading-container" class="loading-container fade-in">
+            <div class="skeleton skeleton-title" style="width: 200px; margin-bottom: 24px;"></div>
+            <div class="skeleton skeleton-card" style="height: 300px; margin-bottom: 16px;"></div>
+            <div class="skeleton skeleton-card" style="height: 200px;"></div>
+            <p id="loading-text" class="loading-text" style="text-align: center; margin-top: 24px;">@Localizer["TaskDetail.LoadingTask"]</p>
+        </div>
+    }
+    else if (errorMessage != null)
+    {
+        <div id="task-detail-error-message" class="alert alert-danger error-message" role="alert">
+            <strong>@Localizer["Common.Error"]</strong> @errorMessage
+        </div>
+        <button id="error-back-button" class="btn btn-primary btn-ripple" data-action="back" @onclick='() => NavigationManager.NavigateTo("/")'>@Localizer["Common.Back"]</button>
+    }
+    else if (task != null)
+    {
+        <div id="task-detail-header" class="task-detail-header">
+            <button id="back-button" class="back-button btn-ripple" @onclick='() => NavigationManager.NavigateTo("/")' aria-label="@Localizer["Common.Back"]" title="@Localizer["Tooltip.Back"]">
+                <svg id="back-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 16L6 10L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                @Localizer["Common.Back"]
+            </button>
+            <div id="task-actions" class="task-actions">
+                @if (!isEditing)
+                {
+                    <button id="edit-button" type="button" class="btn btn-secondary btn-ripple" data-action="edit" @onclick="EnableEditMode" title="@Localizer["Tooltip.Edit"]">@Localizer["Common.Edit"]</button>
+                    @if (task.Status == Models.TaskStatus.Done)
+                    {
+                        <button id="hide-button" type="button" class="btn btn-warning btn-ripple" data-action="hide" @onclick="HandleHide" title="@Localizer["TaskDetail.HideTask"]">@Localizer["TaskDetail.Hide"]</button>
+                    }
+                    <button id="delete-button" type="button" class="btn btn-danger btn-ripple" data-action="delete" @onclick="ShowDeleteConfirmation" title="@Localizer["Tooltip.Delete"]">@Localizer["Common.Delete"]</button>
+                }
+            </div>
+        </div>
+
+        @if (!isEditing)
+        {
+            <!-- Tab Navigation -->
+            <div class="task-tabs">
+                <button class="task-tab @(activeTab == "details" ? "active" : "")" @onclick='() => SetActiveTab("details")'>
+                    @Localizer["TaskDetail.DetailsTab"]
+                </button>
+                <button class="task-tab @(activeTab == "workorder" ? "active" : "")" @onclick='() => SetActiveTab("workorder")'>
+                    @Localizer["TaskDetail.WorkOrderTab"]
+                </button>
+            </div>
+
+            @if (activeTab == "details")
+            {
+                <div id="task-detail-content" class="task-detail-content">
+                    <div id="task-main" class="task-main">
+                        <div id="task-id" class="task-id">TASK-@task.Id.ToString().Substring(0, 8).ToUpper()</div>
+                        <h1 id="task-title" class="task-title">@task.Title</h1>
+
+                    <div id="task-meta" class="task-meta">
+                        <div id="meta-item-status" class="meta-item">
+                            <span id="status-label" class="meta-label">@Localizer["TaskDetail.Status"]</span>
+                            <StatusBadge Status="@task.Status" />
+                        </div>
+                        <div id="meta-item-priority" class="meta-item">
+                            <span id="priority-label" class="meta-label">@Localizer["TaskDetail.Priority"]</span>
+                            <div id="priority-display" class="priority-display">
+                                <PriorityIcon Priority="@task.Priority" />
+                                <span id="priority-text">@GetPriorityText(task.Priority)</span>
+                            </div>
+                        </div>
+                        <div id="meta-item-customer" class="meta-item">
+                            <span id="customer-label" class="meta-label">@Localizer["TaskDetail.Customer"]</span>
+                            <div id="customer-display" class="customer-display @(string.IsNullOrEmpty(task.Customer) ? "no-customer" : "")">
+                                <svg class="customer-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1c-3.315 0-6 2.015-6 4.5V15h12v-1.5c0-2.485-2.685-4.5-6-4.5z"/>
+                                </svg>
+                                <span id="customer-text">@(string.IsNullOrEmpty(task.Customer) ? @Localizer["TaskDetail.NoCustomer"] : task.Customer)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="task-section-description" class="task-section">
+                        <h2 id="description-title" class="section-title">@Localizer["TaskDetail.Description"]</h2>
+                        <p id="task-description" class="task-description">@task.Description</p>
+                    </div>
+
+                    <div id="task-section-status-change" class="task-section">
+                        <h2 id="status-change-title" class="section-title">@Localizer["TaskDetail.QuickStatusChange"]</h2>
+                        <div id="status-buttons" class="status-buttons">
+                            @foreach (var column in columns.OrderBy(c => c.Order))
+                            {
+                                var isActive = task.ColumnId == column.Id;
+                                var btnClass = isActive ? "status-btn-active" : "status-btn-inactive";
+
+                                <button type="button"
+                                        class="status-btn @btnClass"
+                                        style="@(isActive ? $"border-color: {column.Color}; background-color: {column.Color}15;" : "")"
+                                        @onclick="() => ChangeToColumn(column.Id)"
+                                        disabled="@isActive"
+                                        title="@Localizer["Tooltip.QuickStatusChange"]">
+                                    @column.Name
+                                </button>
+                            }
+                        </div>
+                    </div>
+
+                    @* Comments Section *@
+                    @if (task.ColumnId.HasValue)
+                    {
+                        <TaskComments TaskId="@task.Id" ColumnId="@task.ColumnId.Value" />
+                    }
+                </div>
+
+                <div id="task-sidebar" class="task-sidebar">
+                    <div id="sidebar-section" class="sidebar-section">
+                        <h3 id="sidebar-details-title" class="sidebar-title">@Localizer["TaskDetail.Details"]</h3>
+                        <div id="detail-item-assignee" class="detail-item">
+                            <span id="assignee-label" class="detail-label">@Localizer["TaskDetail.Assignee"]</span>
+                            <div id="assignee-selector" class="assignee-selector">
+                                <select id="assignee-select" class="form-select form-select-sm"
+                                        value="@(task.AssignedUserId?.ToString() ?? "")"
+                                        @onchange="HandleOwnerChange"
+                                        title="@Localizer["Tooltip.AssigneeSelect"]">
+                                    <option value="">@Localizer["TaskDetail.Unassigned"]</option>
+                                    @foreach (var user in availableUsers)
+                                    {
+                                        <option value="@user.Id">@user.FullName</option>
+                                    }
+                                </select>
+                                @if (!string.IsNullOrWhiteSpace(task.AssignedUserName))
+                                {
+                                    <div id="assignee-info" class="assignee-info mt-2">
+                                        <div id="user-avatar" class="user-avatar-small">@GetUserInitials(task.AssignedUserName)</div>
+                                        <div id="assignee-details" class="assignee-details">
+                                            <div id="assignee-name" class="assignee-name">@task.AssignedUserName</div>
+                                            <div id="assignee-email" class="assignee-email">@task.AssignedUserEmail</div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div id="detail-item-created" class="detail-item">
+                            <span id="created-label" class="detail-label">@Localizer["TaskDetail.Created"]</span>
+                            <span id="created-value" class="detail-value">@task.CreatedAt.ToString("MMM dd, yyyy")</span>
+                            <span id="created-time" class="detail-time">@task.CreatedAt.ToString("HH:mm") UTC</span>
+                        </div>
+                        <div id="detail-item-updated" class="detail-item">
+                            <span id="updated-label" class="detail-label">@Localizer["TaskDetail.Updated"]</span>
+                            <span id="updated-value" class="detail-value">@task.UpdatedAt.ToString("MMM dd, yyyy")</span>
+                            <span id="updated-time" class="detail-time">@task.UpdatedAt.ToString("HH:mm") UTC</span>
+                        </div>
+                    </div>
+
+                    @* File Attachments Section *@
+                    @if (task.ColumnId.HasValue)
+                    {
+                        <div id="sidebar-section-attachments" class="sidebar-section">
+                            <FileAttachments TaskId="@task.Id" ColumnId="@task.ColumnId.Value" />
+                        </div>
+                    }
+
+                    @* Column History Section *@
+                    <div id="sidebar-section-column-history" class="sidebar-section">
+                        <ColumnHistory TaskId="@task.Id" />
+                    </div>
+
+                    @* Owner History Section *@
+                    <div id="sidebar-section-owner-history" class="sidebar-section">
+                        <TaskOwnerHistory TaskId="@task.Id" />
+                    </div>
+                </div>
+            </div>
+            }
+            else if (activeTab == "workorder")
+            {
+                <div class="work-order-tab-content">
+                    <WorkOrderView TaskId="@task.Id" />
+                </div>
+            }
+        }
+        else
+        {
+            <div id="task-edit-form" class="task-edit-form">
+                <h2 id="edit-title" class="edit-title">@Localizer["TaskDetail.EditTask"]</h2>
+
+                <EditForm id="edit-form" Model="@updateModel" OnValidSubmit="@HandleSave">
+                    <DataAnnotationsValidator />
+
+                    <div id="edit-form-group-title" class="form-group">
+                        <label id="title-label" for="Title" class="form-label">@Localizer["CreateTask.TaskTitle"]</label>
+                        <InputText id="Title" name="Title" class="form-control" @bind-Value="updateModel.Title" title="@Localizer["Tooltip.TitleInput"]" />
+                        <ValidationMessage For="@(() => updateModel.Title)" class="validation-message" />
+                    </div>
+
+                    <div id="edit-form-group-description" class="form-group">
+                        <label id="description-label" for="Description" class="form-label">@Localizer["CreateTask.Description"]</label>
+                        <InputTextArea id="Description" name="Description" class="form-control" rows="6" @bind-Value="updateModel.Description" title="@Localizer["Tooltip.DescriptionInput"]" />
+                        <ValidationMessage For="@(() => updateModel.Description)" class="validation-message" />
+                    </div>
+
+                    <div id="edit-form-row" class="form-row">
+                        <div id="edit-form-group-status" class="form-group">
+                            <label id="status-label-edit" for="Status" class="form-label">@Localizer["TaskDetail.Status"]</label>
+                            <InputSelect id="Status" name="Status" class="form-select" @bind-Value="updateModel.Status" title="@Localizer["Tooltip.StatusSelect"]">
+                                <option value="@Models.TaskStatus.ToDo">@Localizer["TaskStatus.ToDo"]</option>
+                                <option value="@Models.TaskStatus.InProgress">@Localizer["TaskStatus.InProgress"]</option>
+                                <option value="@Models.TaskStatus.Done">@Localizer["TaskStatus.Done"]</option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => updateModel.Status)" class="validation-message" />
+                        </div>
+
+                        <div id="edit-form-group-priority" class="form-group">
+                            <label id="priority-label-edit" for="Priority" class="form-label">@Localizer["TaskDetail.Priority"]</label>
+                            <InputSelect id="Priority" name="Priority" class="form-select" @bind-Value="updateModel.Priority" title="@Localizer["Tooltip.PrioritySelect"]">
+                                <option value="@TaskPriority.Low">@Localizer["TaskPriority.Low"]</option>
+                                <option value="@TaskPriority.Medium">@Localizer["TaskPriority.Medium"]</option>
+                                <option value="@TaskPriority.High">@Localizer["TaskPriority.High"]</option>
+                            </InputSelect>
+                            <ValidationMessage For="@(() => updateModel.Priority)" class="validation-message" />
+                        </div>
+                    </div>
+
+                    <div id="edit-form-group-customer" class="form-group">
+                        <label id="customer-label-edit" for="Customer" class="form-label">@Localizer["TaskDetail.Customer"]</label>
+                        <InputText id="Customer" name="Customer" class="form-control" @bind-Value="updateModel.Customer" placeholder="@Localizer["TaskDetail.CustomerPlaceholder"]" title="@Localizer["Tooltip.CustomerInput"]" list="customer-suggestions-detail" />
+                        <datalist id="customer-suggestions-detail">
+                            @foreach (var customer in existingCustomers)
+                            {
+                                <option value="@customer" />
+                            }
+                        </datalist>
+                        <ValidationMessage For="@(() => updateModel.Customer)" class="validation-message" />
+                    </div>
+
+                    <div id="edit-form-actions" class="form-actions">
+                        <button id="save-button" type="submit" class="btn btn-primary btn-ripple" data-action="save" disabled="@isSaving" title="@Localizer["Tooltip.Save"]">
+                            @if (isSaving)
+                            {
+                                <span id="saving-spinner" class="spinner-modern" style="width: 20px; height: 20px; border-width: 2px; margin-right: 8px;" role="status" aria-hidden="true"></span>
+                                <span id="saving-text">@Localizer["TaskDetail.Saving"]</span>
+                            }
+                            else
+                            {
+                                <span id="save-text">@Localizer["Common.Save"]</span>
+                            }
+                        </button>
+                        <button id="cancel-button" type="button" class="btn btn-secondary btn-ripple" data-action="cancel" @onclick="CancelEdit" disabled="@isSaving" title="@Localizer["Tooltip.Cancel"]">@Localizer["Common.Cancel"]</button>
+                    </div>
+                </EditForm>
+            </div>
+        }
+
+        @if (showDeleteConfirmation)
+        {
+            <div id="delete-modal" class="modal show d-block" tabindex="-1" style="background-color: rgba(9, 30, 66, 0.54);">
+                <div id="modal-dialog" class="modal-dialog modal-dialog-centered">
+                    <div id="modal-content" class="modal-content">
+                        <div id="modal-header" class="modal-header">
+                            <h5 id="modal-title" class="modal-title">@Localizer["TaskDetail.DeleteTask"]</h5>
+                            <button id="modal-close" type="button" class="btn-close" @onclick="HideDeleteConfirmation" aria-label="@Localizer["Common.Close"]"></button>
+                        </div>
+                        <div id="modal-body" class="modal-body">
+                            <p id="modal-confirmation-text">@Localizer["TaskDetail.DeleteConfirmation"] <strong>@task.Title</strong>?</p>
+                            <p id="modal-warning-text" class="text-muted mb-0">@Localizer["TaskDetail.DeleteWarning"]</p>
+                        </div>
+                        <div id="modal-footer" class="modal-footer">
+                            <button id="modal-cancel-button" type="button" class="btn btn-secondary btn-ripple" @onclick="HideDeleteConfirmation">@Localizer["Common.Cancel"]</button>
+                            <button id="modal-delete-button" type="button" class="btn btn-danger btn-ripple" data-action="confirm-delete" @onclick="HandleDelete">@Localizer["TaskDetail.DeleteTask"]</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

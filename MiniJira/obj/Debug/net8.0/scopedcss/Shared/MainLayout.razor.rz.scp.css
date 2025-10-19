@@ -1,0 +1,271 @@
+/* ATLASSIAN JIRA LAYOUT - EXACT REPLICA */
+/* Main layout container matching Jira's 2025 design */
+
+.page[b-vao9ygnkhj] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--jira-bg-page);
+}
+
+main[b-vao9ygnkhj] {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Jira-style sidebar - clean white background with subtle border */
+.sidebar[b-vao9ygnkhj] {
+    background-color: var(--jira-bg-primary);
+    border-right: 2px solid var(--jira-border);
+    box-shadow: 2px 0 4px rgba(9, 30, 66, 0.08);
+}
+
+/* Top navigation bar - Jira 2025 style */
+.top-row[b-vao9ygnkhj] {
+    background-color: var(--jira-bg-primary);
+    border-bottom: 2px solid var(--jira-border);
+    justify-content: flex-end;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--jira-space-300);
+    flex-shrink: 0;
+    z-index: 100;
+    gap: var(--jira-space-100);
+}
+
+.top-row[b-vao9ygnkhj]  a,
+.top-row .btn-link[b-vao9ygnkhj] {
+    white-space: nowrap;
+    margin-left: var(--jira-space-200);
+    color: var(--jira-text-secondary);
+    text-decoration: none;
+    font-size: calc(14px * var(--font-size-multiplier));
+    font-weight: 500;
+    line-height: 20px;
+    transition: color 0.08s linear;
+    padding: var(--jira-space-050) var(--jira-space-100);
+    border-radius: var(--jira-radius-small);
+}
+
+.top-row[b-vao9ygnkhj]  a:hover,
+.top-row .btn-link:hover[b-vao9ygnkhj] {
+    color: var(--jira-primary);
+    background-color: var(--jira-bg-secondary);
+}
+
+.top-row a:first-child[b-vao9ygnkhj] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Content area - Jira page background */
+article.content[b-vao9ygnkhj] {
+    flex: 1;
+    background-color: var(--jira-bg-page);
+    padding: var(--jira-space-300);
+    min-height: calc(100vh - 56px);
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
+
+/* Mobile responsive layout (< 768px) */
+@media (max-width: 767px) {
+    .page[b-vao9ygnkhj] {
+        flex-direction: column;
+    }
+
+    .sidebar[b-vao9ygnkhj] {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid var(--jira-border);
+        box-shadow: none;
+    }
+
+    .top-row[b-vao9ygnkhj] {
+        height: 56px;
+        padding: 0 var(--jira-space-200);
+    }
+
+    .top-row:not(.auth)[b-vao9ygnkhj] {
+        display: none;
+    }
+
+    .top-row.auth[b-vao9ygnkhj] {
+        justify-content: space-between;
+    }
+
+    .top-row a[b-vao9ygnkhj],
+    .top-row .btn-link[b-vao9ygnkhj] {
+        margin-left: 0;
+        padding: var(--jira-space-075) var(--jira-space-100);
+        font-size: calc(13px * var(--font-size-multiplier));
+    }
+
+    article.content[b-vao9ygnkhj] {
+        padding: var(--jira-space-200);
+        min-height: calc(100vh - 56px);
+    }
+}
+
+/* Tablet layout (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .page[b-vao9ygnkhj] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-vao9ygnkhj] {
+        width: 240px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        flex-shrink: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: width 0.2s ease-in-out;
+    }
+
+    .sidebar:has(.jira-sidebar.sidebar-collapsed)[b-vao9ygnkhj] {
+        width: 64px;
+    }
+
+    main[b-vao9ygnkhj] {
+        flex: 1;
+        width: auto;
+    }
+
+    .top-row[b-vao9ygnkhj] {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 0 var(--jira-space-300);
+        box-shadow: 0 1px 0 rgba(9, 30, 66, 0.08);
+    }
+
+    article.content[b-vao9ygnkhj] {
+        padding: var(--jira-space-300) var(--jira-space-400);
+    }
+}
+
+/* Desktop layout (1024px - 1439px) */
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .page[b-vao9ygnkhj] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-vao9ygnkhj] {
+        width: 260px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        flex-shrink: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: width 0.2s ease-in-out;
+    }
+
+    .sidebar:has(.jira-sidebar.sidebar-collapsed)[b-vao9ygnkhj] {
+        width: 64px;
+    }
+
+    main[b-vao9ygnkhj] {
+        flex: 1;
+        width: auto;
+        transition: margin-left 0.2s ease-in-out;
+    }
+
+    .top-row[b-vao9ygnkhj] {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 1px 0 rgba(9, 30, 66, 0.08);
+    }
+
+    article.content[b-vao9ygnkhj] {
+        padding: var(--jira-space-400) var(--jira-space-500);
+    }
+}
+
+/* Large desktop - Jira optimal viewing (1440px+) */
+@media (min-width: 1440px) {
+    .page[b-vao9ygnkhj] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-vao9ygnkhj] {
+        width: 280px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        flex-shrink: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: width 0.2s ease-in-out;
+    }
+
+    .sidebar:has(.jira-sidebar.sidebar-collapsed)[b-vao9ygnkhj] {
+        width: 64px;
+    }
+
+    main[b-vao9ygnkhj] {
+        flex: 1;
+        width: auto;
+        max-width: calc(100vw - 280px);
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+
+    article.content[b-vao9ygnkhj] {
+        padding: var(--jira-space-500) var(--jira-space-600);
+        max-width: 100%;
+        margin: 0;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+}
+
+/* Scrollbar styling for sidebar */
+.sidebar[b-vao9ygnkhj]::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar[b-vao9ygnkhj]::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.sidebar[b-vao9ygnkhj]::-webkit-scrollbar-thumb {
+    background-color: var(--jira-border);
+    border-radius: 4px;
+}
+
+.sidebar[b-vao9ygnkhj]::-webkit-scrollbar-thumb:hover {
+    background-color: var(--jira-text-subtle);
+}
+
+.sidebar[b-vao9ygnkhj] {
+    scrollbar-width: thin;
+    scrollbar-color: var(--jira-border) transparent;
+}
+
+/* Print styles */
+@media print {
+    .sidebar[b-vao9ygnkhj] {
+        display: none;
+    }
+
+    .top-row[b-vao9ygnkhj] {
+        display: none;
+    }
+
+    main[b-vao9ygnkhj] {
+        width: 100%;
+    }
+
+    article.content[b-vao9ygnkhj] {
+        padding: 0;
+    }
+}

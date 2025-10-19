@@ -1,0 +1,8 @@
+<div id="font-size-selector-container" class="font-size-selector">
+    <select class="form-select form-select-sm" @onchange="OnFontSizeChanged" value="@currentFontSize" title="@Localizer["Tooltip.FontSizeSelector"]">
+        @foreach (var option in FontSizeService.AvailableOptions)
+        {
+            <option value="@option.Multiplier">@Localizer[option.DisplayKey]</option>
+        }
+    </select>
+</div>

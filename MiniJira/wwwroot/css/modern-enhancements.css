@@ -1,0 +1,946 @@
+/* ===================================
+   MODERN UI ENHANCEMENTS
+   Additional polish and modern effects for MiniJira
+   =================================== */
+
+/* ===================================
+   GLASSMORPHISM & MODERN EFFECTS
+   =================================== */
+
+/* Glass morphism for elevated surfaces */
+.glass-effect {
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+[data-theme="dark"] .glass-effect {
+    background: linear-gradient(135deg,
+        rgba(34, 39, 43, 0.9) 0%,
+        rgba(44, 51, 58, 0.8) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Gradient backgrounds for modern look */
+.gradient-bg-primary {
+    background: linear-gradient(135deg,
+        var(--jira-primary) 0%,
+        var(--jira-primary-hover) 100%);
+}
+
+.gradient-bg-subtle {
+    background: linear-gradient(180deg,
+        var(--jira-bg-primary) 0%,
+        var(--jira-bg-secondary) 100%);
+}
+
+/* ===================================
+   ENHANCED BUTTON EFFECTS
+   =================================== */
+
+/* Ripple effect button */
+.btn-ripple {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn-ripple:active::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* Floating action button */
+.btn-float {
+    position: fixed;
+    bottom: var(--jira-space-400);
+    right: var(--jira-space-400);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.12);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+}
+
+.btn-float:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px) scale(1.05);
+}
+
+.btn-float:active {
+    transform: translateY(0) scale(0.95);
+}
+
+/* Pill button style */
+.btn-pill {
+    border-radius: 24px !important;
+    padding-left: var(--jira-space-250);
+    padding-right: var(--jira-space-250);
+}
+
+/* Icon button - perfect circle */
+.btn-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-icon svg {
+    transition: transform 0.2s ease;
+}
+
+.btn-icon:hover svg {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* ===================================
+   MODERN CARD ENHANCEMENTS
+   =================================== */
+
+/* Elevated card on hover */
+.card-elevated {
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevated:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(9, 30, 66, 0.15),
+                0 4px 8px rgba(9, 30, 66, 0.1);
+}
+
+/* Card with gradient border */
+.card-gradient-border {
+    position: relative;
+    border: none;
+    background: var(--jira-bg-primary);
+}
+
+.card-gradient-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg,
+        var(--jira-primary) 0%,
+        var(--jira-accent-teal) 100%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+                  linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* ===================================
+   MODERN INPUT ENHANCEMENTS
+   =================================== */
+
+/* Floating label input */
+.form-floating-modern {
+    position: relative;
+}
+
+.form-floating-modern .form-control {
+    padding-top: var(--jira-space-200);
+}
+
+.form-floating-modern label {
+    position: absolute;
+    top: var(--jira-space-100);
+    left: var(--jira-space-100);
+    font-size: calc(12px * var(--font-size-multiplier));
+    color: var(--jira-text-subtle);
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+.form-floating-modern .form-control:focus ~ label,
+.form-floating-modern .form-control:not(:placeholder-shown) ~ label {
+    top: var(--jira-space-050);
+    font-size: calc(10px * var(--font-size-multiplier));
+    color: var(--jira-primary);
+}
+
+/* Animated input border */
+.form-control-animated {
+    position: relative;
+    background: transparent;
+    border-bottom: 2px solid var(--jira-border);
+    border-radius: 0;
+    transition: border-color 0.3s ease;
+}
+
+.form-control-animated::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--jira-primary);
+    transition: width 0.3s ease;
+}
+
+.form-control-animated:focus::after {
+    width: 100%;
+}
+
+/* Input with icon */
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon svg,
+.input-with-icon .icon {
+    position: absolute;
+    left: var(--jira-space-150);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--jira-text-subtle);
+    pointer-events: none;
+}
+
+.input-with-icon .form-control {
+    padding-left: var(--jira-space-500);
+}
+
+/* ===================================
+   SKELETON LOADERS
+   =================================== */
+
+.skeleton {
+    background: linear-gradient(90deg,
+        var(--jira-bg-secondary) 25%,
+        var(--jira-bg-tertiary) 50%,
+        var(--jira-bg-secondary) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: var(--jira-radius-small);
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-text {
+    height: 16px;
+    margin-bottom: var(--jira-space-100);
+}
+
+.skeleton-title {
+    height: 24px;
+    width: 60%;
+    margin-bottom: var(--jira-space-150);
+}
+
+.skeleton-card {
+    height: 120px;
+    width: 100%;
+}
+
+.skeleton-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+/* ===================================
+   TOOLTIPS & POPOVERS
+   =================================== */
+
+.tooltip-modern {
+    position: absolute;
+    background: var(--jira-n800);
+    color: var(--jira-n0);
+    padding: var(--jira-space-075) var(--jira-space-150);
+    border-radius: var(--jira-radius-small);
+    font-size: calc(12px * var(--font-size-multiplier));
+    white-space: nowrap;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.tooltip-trigger:hover .tooltip-modern {
+    opacity: 1;
+    transform: translateY(-4px);
+}
+
+[data-theme="dark"] .tooltip-modern {
+    background: var(--jira-dn400);
+    color: var(--jira-dn10);
+}
+
+/* ===================================
+   BADGES & PILLS
+   =================================== */
+
+/* Modern pill badge */
+.badge-pill-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--jira-space-050);
+    padding: var(--jira-space-050) var(--jira-space-150);
+    border-radius: 16px;
+    font-size: calc(12px * var(--font-size-multiplier));
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.badge-pill-modern:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Pulsing badge for notifications */
+.badge-pulse {
+    position: relative;
+    animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.05);
+        opacity: 0.9;
+    }
+}
+
+.badge-pulse::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    background: inherit;
+    animation: pulse-ring 2s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* ===================================
+   PROGRESS INDICATORS
+   =================================== */
+
+/* Modern progress bar */
+.progress-modern {
+    width: 100%;
+    height: 8px;
+    background: var(--jira-bg-tertiary);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress-bar-modern {
+    height: 100%;
+    background: linear-gradient(90deg,
+        var(--jira-primary) 0%,
+        var(--jira-primary-hover) 100%);
+    border-radius: 4px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-modern::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%);
+    animation: progress-shine 2s ease-in-out infinite;
+}
+
+@keyframes progress-shine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Circular progress */
+.spinner-modern {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--jira-bg-tertiary);
+    border-top-color: var(--jira-primary);
+    border-radius: 50%;
+    animation: spinner-rotate 1s linear infinite;
+}
+
+@keyframes spinner-rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===================================
+   MICRO-INTERACTIONS
+   =================================== */
+
+/* Bounce on click */
+.bounce-click:active {
+    animation: bounce-once 0.4s ease;
+}
+
+@keyframes bounce-once {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(0.95);
+    }
+}
+
+/* Shake on error */
+.shake-error {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-4px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(4px);
+    }
+}
+
+/* Fade in animation */
+.fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide in from right */
+.slide-in-right {
+    animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Scale in */
+.scale-in {
+    animation: scaleIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ===================================
+   MODERN SCROLLBAR
+   =================================== */
+
+.scrollbar-modern::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.scrollbar-modern::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 5px;
+}
+
+.scrollbar-modern::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg,
+        var(--jira-n50) 0%,
+        var(--jira-n100) 100%);
+    border-radius: 5px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+.scrollbar-modern::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg,
+        var(--jira-n100) 0%,
+        var(--jira-n200) 100%);
+    background-clip: content-box;
+}
+
+/* ===================================
+   DIVIDERS & SEPARATORS
+   =================================== */
+
+.divider-gradient {
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--jira-border) 50%,
+        transparent 100%);
+    margin: var(--jira-space-300) 0;
+}
+
+.divider-text {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: var(--jira-space-300) 0;
+    color: var(--jira-text-subtle);
+    font-size: calc(12px * var(--font-size-multiplier));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.divider-text::before,
+.divider-text::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--jira-border);
+}
+
+.divider-text::before {
+    margin-right: var(--jira-space-150);
+}
+
+.divider-text::after {
+    margin-left: var(--jira-space-150);
+}
+
+/* ===================================
+   EMPTY STATES
+   =================================== */
+
+.empty-state-modern {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--jira-space-600) var(--jira-space-300);
+    text-align: center;
+}
+
+.empty-state-icon {
+    width: 120px;
+    height: 120px;
+    margin-bottom: var(--jira-space-300);
+    color: var(--jira-text-subtle);
+    opacity: 0.5;
+}
+
+.empty-state-title {
+    font-size: calc(20px * var(--font-size-multiplier));
+    font-weight: 600;
+    color: var(--jira-text-primary);
+    margin-bottom: var(--jira-space-100);
+}
+
+.empty-state-description {
+    font-size: calc(14px * var(--font-size-multiplier));
+    color: var(--jira-text-secondary);
+    max-width: 400px;
+    margin-bottom: var(--jira-space-300);
+}
+
+/* ===================================
+   FOCUS RINGS
+   =================================== */
+
+/* Enhanced focus ring */
+.focus-ring-modern:focus-visible {
+    outline: 3px solid var(--jira-primary);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(228, 30, 38, 0.2);
+}
+
+[data-theme="dark"] .focus-ring-modern:focus-visible {
+    box-shadow: 0 0 0 6px rgba(248, 113, 113, 0.2);
+}
+
+/* ===================================
+   GRADIENT TEXT
+   =================================== */
+
+.text-gradient {
+    background: linear-gradient(135deg,
+        var(--jira-primary) 0%,
+        var(--jira-accent-teal) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+/* ===================================
+   MODERN TABLES
+   =================================== */
+
+.table-modern {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-modern thead th {
+    background: var(--jira-bg-secondary);
+    color: var(--jira-text-secondary);
+    font-weight: 600;
+    font-size: calc(12px * var(--font-size-multiplier));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--jira-space-150) var(--jira-space-200);
+    border-bottom: 2px solid var(--jira-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table-modern tbody tr {
+    transition: background-color 0.08s ease;
+}
+
+.table-modern tbody tr:hover {
+    background-color: var(--jira-bg-secondary);
+}
+
+.table-modern tbody td {
+    padding: var(--jira-space-200);
+    border-bottom: 1px solid var(--jira-border);
+}
+
+/* ===================================
+   CHIP / TAG COMPONENT
+   =================================== */
+
+.chip-modern {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--jira-space-075);
+    padding: var(--jira-space-075) var(--jira-space-150);
+    background: var(--jira-bg-tertiary);
+    border: 1px solid var(--jira-border);
+    border-radius: 16px;
+    font-size: calc(13px * var(--font-size-multiplier));
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.chip-modern:hover {
+    background: var(--jira-n40);
+    border-color: var(--jira-n50);
+}
+
+.chip-modern .chip-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.chip-modern .chip-remove:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* ===================================
+   ACCESSIBILITY IMPROVEMENTS
+   =================================== */
+
+/* Skip to main content link */
+.skip-to-main {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--jira-primary);
+    color: var(--jira-n0);
+    padding: var(--jira-space-150) var(--jira-space-300);
+    z-index: 10000;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 0 0 var(--jira-radius-small) 0;
+}
+
+.skip-to-main:focus {
+    top: 0;
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ===================================
+   PRINT STYLES
+   =================================== */
+
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .print-only {
+        display: block !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .card, .btn, .form-control {
+        box-shadow: none !important;
+    }
+}
+
+/* ===================================
+   RESPONSIVE UTILITIES
+   =================================== */
+
+/* Hide on mobile */
+@media (max-width: 767px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Hide on tablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .hide-tablet {
+        display: none !important;
+    }
+}
+
+/* Hide on desktop */
+@media (min-width: 1024px) {
+    .hide-desktop {
+        display: none !important;
+    }
+}
+
+/* Show only on mobile */
+.show-mobile {
+    display: none !important;
+}
+
+@media (max-width: 767px) {
+    .show-mobile {
+        display: block !important;
+    }
+}
+
+/* ===================================
+   DARK MODE SPECIFIC ENHANCEMENTS
+   =================================== */
+
+[data-theme="dark"] .skeleton {
+    background: linear-gradient(90deg,
+        var(--jira-dn30) 25%,
+        var(--jira-dn40) 50%,
+        var(--jira-dn30) 75%);
+    background-size: 200% 100%;
+}
+
+[data-theme="dark"] .progress-modern {
+    background: var(--jira-dn40);
+}
+
+[data-theme="dark"] .progress-bar-modern {
+    background: linear-gradient(90deg,
+        var(--jira-primary) 0%,
+        var(--jira-primary-hover) 100%);
+}
+
+[data-theme="dark"] .table-modern thead th {
+    background: var(--jira-dn30);
+}
+
+[data-theme="dark"] .table-modern tbody tr:hover {
+    background: var(--jira-dn30);
+}
+
+[data-theme="dark"] .chip-modern {
+    background: var(--jira-dn40);
+    border-color: var(--jira-dn50);
+}
+
+[data-theme="dark"] .chip-modern:hover {
+    background: var(--jira-dn50);
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+/* Spacing utilities */
+.mt-auto { margin-top: auto; }
+.mb-auto { margin-bottom: auto; }
+.ml-auto { margin-left: auto; }
+.mr-auto { margin-right: auto; }
+
+/* Flex utilities */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-nowrap { flex-wrap: nowrap; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+.gap-1 { gap: var(--jira-space-100); }
+.gap-2 { gap: var(--jira-space-200); }
+.gap-3 { gap: var(--jira-space-300); }
+
+/* Width utilities */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.max-w-sm { max-width: 600px; }
+.max-w-md { max-width: 900px; }
+.max-w-lg { max-width: 1200px; }
+
+/* Text utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+.font-normal { font-weight: 400; }
+.uppercase { text-transform: uppercase; }
+.capitalize { text-transform: capitalize; }
+
+/* Border utilities */
+.rounded { border-radius: var(--jira-radius-small); }
+.rounded-lg { border-radius: var(--jira-radius-large); }
+.rounded-full { border-radius: 50%; }
+
+/* Shadow utilities */
+.shadow { box-shadow: var(--jira-shadow-card); }
+.shadow-lg { box-shadow: var(--jira-shadow-raised); }
+.shadow-xl { box-shadow: var(--jira-shadow-overlay); }
+.shadow-none { box-shadow: none; }
+
+/* Overflow utilities */
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }
+.overflow-scroll { overflow: scroll; }
+
+/* Position utilities */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.sticky { position: sticky; }
+
+/* Z-index utilities */
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
+
+/* Cursor utilities */
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+/* Select utilities */
+.select-none { user-select: none; }
+.select-text { user-select: text; }
+.select-all { user-select: all; }
+
+/* Pointer events */
+.pointer-events-none { pointer-events: none; }
+.pointer-events-auto { pointer-events: auto; }

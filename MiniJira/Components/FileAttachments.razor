@@ -1,0 +1,638 @@
+@using MiniJira.Services
+@using MiniJira.Models
+@using MiniJira.Resources
+@using Microsoft.Extensions.Localization
+@inject IFileStorageService FileStorageService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject IStringLocalizer<Localization> Localizer
+
+<div id="file-attachments-section" class="file-attachments-section">
+    <h3 class="section-title">@Localizer["FileAttachments.Title"]</h3>
+
+    @if (errorMessage != null)
+    {
+        <div id="file-attachments-error-message" class="alert alert-danger" role="alert">
+            @errorMessage
+        </div>
+    }
+
+    <div id="file-upload-area" class="upload-area">
+        <InputFile OnChange="HandleFileSelected" class="file-input" id="@($"file-upload-{TaskId}")" />
+        <label for="@($"file-upload-{TaskId}")" class="file-upload-label" title="@Localizer["Tooltip.UploadFile"]">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>@Localizer["FileAttachments.ChooseFile"]</span>
+        </label>
+
+        @if (isUploading)
+        {
+            <div id="file-upload-progress" class="upload-progress">
+                <div class="spinner-border spinner-border-sm" role="status">
+                    <span class="visually-hidden">@Localizer["FileAttachments.Uploading"]</span>
+                </div>
+                <span class="ms-2">@Localizer["FileAttachments.Uploading"]</span>
+            </div>
+        }
+    </div>
+
+    @if (attachments.Any())
+    {
+        @* Image Gallery Section *@
+        @if (imageAttachments.Any())
+        {
+            <div id="images-section" class="images-section">
+                <h4 class="subsection-title">@Localizer["FileAttachments.Images"]</h4>
+                <div id="image-gallery" class="image-gallery">
+                    @foreach (var image in imageAttachments.OrderByDescending(a => a.UploadedAt))
+                    {
+                        <div id="image-tile-@image.Id" class="image-tile" @onclick="() => OpenLightbox(image.Id)">
+                            <img src="/api/FileAttachment/image/@image.Id" alt="@image.FileName" class="image-thumbnail" />
+                            <div class="image-overlay">
+                                <div class="image-name">@image.FileName</div>
+                            </div>
+                            <button class="image-delete-btn" @onclick="() => DeleteFile(image.Id)" @onclick:stopPropagation="true" title="@Localizer["Tooltip.DeleteFile"]">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+
+        @* Other Files Section *@
+        @if (otherAttachments.Any())
+        {
+            <div id="files-section" class="files-section">
+                <h4 class="subsection-title">@Localizer["FileAttachments.OtherFiles"]</h4>
+                <div id="attachments-list" class="attachments-list">
+                    @foreach (var attachment in otherAttachments.OrderByDescending(a => a.UploadedAt))
+                    {
+                        <div id="attachment-item-@attachment.Id" class="attachment-item">
+                            <div id="attachment-info-@attachment.Id" class="attachment-info">
+                                <svg class="attachment-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-7-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M13 2v7h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <div id="attachment-details-@attachment.Id" class="attachment-details">
+                                    <div class="attachment-name">@attachment.FileName</div>
+                                    <div id="attachment-meta-@attachment.Id" class="attachment-meta">
+                                        <span class="file-size">@FormatFileSize(attachment.FileSizeBytes)</span>
+                                        <span class="separator">•</span>
+                                        <span class="upload-date">@attachment.UploadedAt.ToString("MMM dd, yyyy")</span>
+                                        <span class="separator">•</span>
+                                        <span class="column-phase">@Localizer["FileAttachments.Phase"] @attachment.ColumnName</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="attachment-actions-@attachment.Id" class="attachment-actions">
+                                <button class="btn btn-sm btn-outline-primary" @onclick="() => DownloadFile(attachment.Id, attachment.FileName)" title="@Localizer["Tooltip.DownloadFile"]">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteFile(attachment.Id)" title="@Localizer["Tooltip.DeleteFile"]">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else if (!isLoading)
+    {
+        <div id="file-attachments-no-attachments" class="no-attachments">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.3">
+                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-7-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13 2v7h7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p>@Localizer["FileAttachments.NoAttachments"]</p>
+        </div>
+    }
+</div>
+
+@* Lightbox Modal *@
+@if (showLightbox && currentImage != null)
+{
+    <div id="image-lightbox" class="lightbox" @onclick="CloseLightbox">
+        <div class="lightbox-content" @onclick:stopPropagation="true">
+            <button class="lightbox-close" @onclick="CloseLightbox" title="Close">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            <img src="/api/FileAttachment/image/@currentImage.Id" alt="@currentImage.FileName" class="lightbox-image" />
+            <div class="lightbox-info">
+                <div class="lightbox-filename">@currentImage.FileName</div>
+                <div class="lightbox-meta">
+                    <span>@FormatFileSize(currentImage.FileSizeBytes)</span>
+                    <span class="separator">•</span>
+                    <span>@currentImage.UploadedAt.ToString("MMM dd, yyyy")</span>
+                </div>
+            </div>
+            <div class="lightbox-actions">
+                <button class="btn btn-sm btn-outline-light" @onclick="() => DownloadFile(currentImage.Id, currentImage.FileName)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Download
+                </button>
+                <button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteImageFromLightbox(currentImage.Id)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .file-attachments-section {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: var(--jira-bg-primary);
+        border-radius: var(--jira-radius-large);
+        box-shadow: var(--jira-shadow-card);
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--jira-text-primary);
+    }
+
+    .upload-area {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        border: 2px dashed var(--jira-border);
+        border-radius: var(--jira-radius-large);
+        text-align: center;
+        background: var(--jira-bg-secondary);
+    }
+
+    .file-input {
+        display: none;
+    }
+
+    .file-upload-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: var(--jira-primary);
+        color: var(--jira-n0);
+        border-radius: var(--jira-radius-small);
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .file-upload-label:hover {
+        background: var(--jira-primary-hover);
+    }
+
+    .upload-progress {
+        margin-top: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--jira-text-primary);
+    }
+
+    .attachments-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .attachment-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        background: var(--jira-bg-secondary);
+        border-radius: 6px;
+        transition: background 0.2s;
+        border: 1px solid var(--jira-border);
+    }
+
+    .attachment-item:hover {
+        background: var(--jira-bg-tertiary);
+    }
+
+    .attachment-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex: 1;
+    }
+
+    .attachment-icon {
+        color: var(--jira-text-secondary);
+        flex-shrink: 0;
+    }
+
+    .attachment-details {
+        flex: 1;
+    }
+
+    .attachment-name {
+        font-weight: 500;
+        color: var(--jira-text-primary);
+        margin-bottom: 0.25rem;
+    }
+
+    .attachment-meta {
+        font-size: 0.875rem;
+        color: var(--jira-text-secondary);
+    }
+
+    .separator {
+        margin: 0 0.5rem;
+    }
+
+    .attachment-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .no-attachments {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--jira-text-secondary);
+    }
+
+    .no-attachments p {
+        margin-top: 1rem;
+        margin-bottom: 0;
+    }
+
+    /* Image Gallery Styles */
+    .images-section, .files-section {
+        margin-bottom: 1.5rem;
+    }
+
+    .subsection-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: var(--jira-text-primary);
+    }
+
+    .image-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .image-tile {
+        position: relative;
+        aspect-ratio: 1;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        background: var(--jira-bg-secondary);
+        border: 2px solid var(--jira-border);
+        transition: all 0.2s;
+    }
+
+    .image-tile:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--jira-shadow-card);
+        border-color: var(--jira-primary);
+    }
+
+    .image-thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .image-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        padding: 0.75rem 0.5rem 0.5rem;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+
+    .image-tile:hover .image-overlay {
+        opacity: 1;
+    }
+
+    .image-name {
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .image-delete-btn {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        background: rgba(220, 38, 38, 0.9);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 0.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        transition: all 0.2s;
+        z-index: 10;
+    }
+
+    .image-tile:hover .image-delete-btn {
+        opacity: 1;
+    }
+
+    .image-delete-btn:hover {
+        background: rgba(185, 28, 28, 1);
+        transform: scale(1.1);
+    }
+
+    /* Lightbox Styles */
+    .lightbox {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        animation: fadeIn 0.2s;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .lightbox-content {
+        position: relative;
+        max-width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .lightbox-close {
+        position: absolute;
+        top: -3rem;
+        right: 0;
+        background: transparent;
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s;
+    }
+
+    .lightbox-close:hover {
+        transform: scale(1.1);
+    }
+
+    .lightbox-image {
+        max-width: 90vw;
+        max-height: 70vh;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .lightbox-info {
+        text-align: center;
+        color: white;
+    }
+
+    .lightbox-filename {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .lightbox-meta {
+        font-size: 0.875rem;
+        opacity: 0.8;
+    }
+
+    .lightbox-actions {
+        display: flex;
+        gap: 0.75rem;
+    }
+
+    .lightbox-actions .btn {
+        padding: 0.5rem 1rem;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .image-gallery {
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .lightbox-image {
+            max-width: 95vw;
+            max-height: 60vh;
+        }
+    }
+</style>
+
+@code {
+    [Parameter]
+    public Guid TaskId { get; set; }
+
+    [Parameter]
+    public Guid ColumnId { get; set; }
+
+    private List<AttachmentDto> attachments = new();
+    private List<AttachmentDto> imageAttachments => attachments
+        .Where(a => !string.IsNullOrEmpty(a.ContentType) && a.ContentType.StartsWith("image/"))
+        .ToList();
+    private List<AttachmentDto> otherAttachments => attachments
+        .Where(a => string.IsNullOrEmpty(a.ContentType) || !a.ContentType.StartsWith("image/"))
+        .ToList();
+    private bool isLoading = true;
+    private bool isUploading = false;
+    private string? errorMessage;
+    private bool showLightbox = false;
+    private AttachmentDto? currentImage = null;
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        await LoadAttachments();
+    }
+
+    private async System.Threading.Tasks.Task LoadAttachments()
+    {
+        try
+        {
+            isLoading = true;
+            var taskAttachments = await FileStorageService.GetTaskAttachmentsAsync(TaskId);
+            attachments = taskAttachments.Select(a => new AttachmentDto
+            {
+                Id = a.Id,
+                FileName = a.FileName,
+                FileSizeBytes = a.FileSizeBytes,
+                ContentType = a.ContentType,
+                UploadedAt = a.UploadedAt,
+                UploadedBy = a.UploadedBy,
+                ColumnId = a.ColumnId,
+                ColumnName = a.Column?.Translations?.FirstOrDefault()?.Name ?? Localizer["Common.Unknown"]
+            }).ToList();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = string.Format(Localizer["FileAttachments.LoadError"], ex.Message);
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async System.Threading.Tasks.Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        errorMessage = null;
+        isUploading = true;
+
+        try
+        {
+            var file = e.File;
+            if (file.Size > 10 * 1024 * 1024) // 10MB limit
+            {
+                errorMessage = Localizer["FileAttachments.FileSizeExceeded"];
+                return;
+            }
+
+            using var stream = file.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024);
+            await FileStorageService.SaveFileAsync(
+                TaskId,
+                ColumnId,
+                stream,
+                file.Name,
+                file.ContentType);
+
+            await LoadAttachments();
+        }
+        catch (InvalidOperationException ex)
+        {
+            errorMessage = ex.Message;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = string.Format(Localizer["FileAttachments.UploadError"], ex.Message);
+        }
+        finally
+        {
+            isUploading = false;
+        }
+    }
+
+    private async System.Threading.Tasks.Task DownloadFile(Guid attachmentId, string fileName)
+    {
+        try
+        {
+            var url = $"/api/FileAttachment/download/{attachmentId}";
+            await JSRuntime.InvokeVoidAsync("open", url, "_blank");
+        }
+        catch (Exception ex)
+        {
+            errorMessage = string.Format(Localizer["FileAttachments.DownloadError"], ex.Message);
+        }
+    }
+
+    private async System.Threading.Tasks.Task DeleteFile(Guid attachmentId)
+    {
+        try
+        {
+            var result = await FileStorageService.DeleteFileAsync(attachmentId);
+            if (result)
+            {
+                await LoadAttachments();
+            }
+            else
+            {
+                errorMessage = Localizer["FileAttachments.DeleteFailed"];
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = string.Format(Localizer["FileAttachments.DeleteError"], ex.Message);
+        }
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        string[] sizes = { "B", "KB", "MB", "GB" };
+        double len = bytes;
+        int order = 0;
+        while (len >= 1024 && order < sizes.Length - 1)
+        {
+            order++;
+            len = len / 1024;
+        }
+        return $"{len:0.##} {sizes[order]}";
+    }
+
+    private void OpenLightbox(Guid imageId)
+    {
+        currentImage = imageAttachments.FirstOrDefault(img => img.Id == imageId);
+        if (currentImage != null)
+        {
+            showLightbox = true;
+        }
+    }
+
+    private void CloseLightbox()
+    {
+        showLightbox = false;
+        currentImage = null;
+    }
+
+    private async System.Threading.Tasks.Task DeleteImageFromLightbox(Guid imageId)
+    {
+        CloseLightbox();
+        await DeleteFile(imageId);
+    }
+
+    public class AttachmentDto
+    {
+        public Guid Id { get; set; }
+        public string FileName { get; set; } = string.Empty;
+        public long FileSizeBytes { get; set; }
+        public string? ContentType { get; set; }
+        public DateTime UploadedAt { get; set; }
+        public string? UploadedBy { get; set; }
+        public Guid ColumnId { get; set; }
+        public string ColumnName { get; set; } = string.Empty;
+    }
+}

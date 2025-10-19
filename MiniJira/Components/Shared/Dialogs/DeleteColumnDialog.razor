@@ -1,0 +1,76 @@
+@using MiniJira.Services.DTOs
+@using MiniJira.Resources
+@using Microsoft.Extensions.Localization
+
+<div id="delete-column-dialog-backdrop" class="modal-backdrop" @onclick="HandleCancel"></div>
+
+<div id="delete-column-dialog" class="delete-column-dialog modal show d-block" tabindex="-1" role="dialog" aria-labelledby="deleteDialogTitle" aria-modal="true">
+    <div id="delete-column-dialog-modal" class="modal-dialog modal-dialog-centered" @onclick:stopPropagation="true">
+        <div id="delete-column-dialog-content" class="modal-content">
+            <div id="delete-column-dialog-header" class="modal-header">
+                <h5 id="deleteDialogTitle" class="modal-title">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="var(--jira-red)" opacity="0.2"/>
+                        <path d="M2 17L12 22L22 17M2 12L12 17L22 12" stroke="var(--jira-red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="9" r="1.5" fill="var(--jira-red)"/>
+                    </svg>
+                    @Localizer["ColumnManagement.DeleteColumn"]
+                </h5>
+                <button type="button" class="btn-close" @onclick="HandleCancel" aria-label="@Localizer["Common.Close"]" title="@Localizer["Tooltip.CloseDialog"]">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="delete-column-dialog-body" class="modal-body">
+                <p class="warning-text">
+                    @Localizer["ColumnManagement.DeleteConfirmation"] <strong>@Column?.Name</strong>?
+                </p>
+                <div id="delete-column-warning-box" class="warning-box" role="alert">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M10 2L2 17H18L10 2Z" fill="var(--jira-yellow-bg)" stroke="var(--jira-yellow-dark)" stroke-width="1.5"/>
+                        <path d="M10 8V11M10 14V14.5" stroke="var(--jira-yellow-dark)" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span>@Localizer["ColumnManagement.DeleteWarning"]</span>
+                </div>
+            </div>
+
+            <div id="delete-column-dialog-footer" class="modal-footer">
+                <button type="button" class="btn btn-secondary" @onclick="HandleCancel" title="@Localizer["Tooltip.Cancel"]">
+                    @Localizer["Common.Cancel"]
+                </button>
+                <button type="button" class="btn btn-danger" @onclick="HandleConfirm" title="@Localizer["Tooltip.DeleteColumn"]">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M2 4H14M6 4V2H10V4M5 6V12M8 6V12M11 6V12M4 4L5 14H11L12 4H4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    @Localizer["ColumnManagement.DeleteColumn"]
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ColumnDto? Column { get; set; }
+
+    [Parameter]
+    public EventCallback OnConfirm { get; set; }
+
+    [Parameter]
+    public EventCallback OnCancel { get; set; }
+
+    [Inject]
+    private IStringLocalizer<Localization> Localizer { get; set; } = null!;
+
+    private async System.Threading.Tasks.Task HandleConfirm()
+    {
+        await OnConfirm.InvokeAsync();
+    }
+
+    private async System.Threading.Tasks.Task HandleCancel()
+    {
+        await OnCancel.InvokeAsync();
+    }
+}

@@ -1,0 +1,27 @@
+@using MiniJira.Services
+@inject ICurrentUserService CurrentUserService
+@inject NavigationManager NavigationManager
+
+@if (isAuthorized)
+{
+    @ChildContent
+}
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private bool isAuthorized = false;
+
+    protected override void OnInitialized()
+    {
+        if (!CurrentUserService.IsUserSelected())
+        {
+            NavigationManager.NavigateTo("/", forceLoad: false);
+        }
+        else
+        {
+            isAuthorized = true;
+        }
+    }
+}

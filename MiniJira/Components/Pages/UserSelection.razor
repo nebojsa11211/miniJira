@@ -1,0 +1,1075 @@
+@page "/"
+@using MiniJira.Models
+@using MiniJira.Services
+@using MiniJira.Resources
+@using Microsoft.Extensions.Localization
+@inject IUserService UserService
+@inject ICurrentUserService CurrentUserService
+@inject ILocalizationService LocalizationService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+@inject IStringLocalizer<Localization> Localizer
+
+<PageTitle>@Localizer["UserSelection.PageTitle"]</PageTitle>
+
+<div id="user-selection-container" class="user-selection-container">
+    <div id="user-selection-card" class="user-selection-card">
+        <div class="app-logo-section">
+            <div class="app-logo">
+                <img src="/LogoHrastic.jpg" alt="Klesarija Hrast Logo" width="120" height="120" />
+            </div>
+            <h1 class="user-selection-title">@Localizer["UserSelection.Title"]</h1>
+            <p class="user-selection-subtitle">@Localizer["UserSelection.Subtitle"]</p>
+        </div>
+
+        @if (isLoading)
+        {
+            <div id="user-selection-loading-container" class="loading-container">
+                <div class="loading-spinner">
+                    <div class="spinner-circle"></div>
+                    <div class="spinner-circle"></div>
+                    <div class="spinner-circle"></div>
+                </div>
+                <p class="loading-text">@Localizer["UserSelection.LoadingUsers"]</p>
+                <div class="loading-progress">
+                    <div class="progress-bar" style="width: @loadingProgress%"></div>
+                </div>
+            </div>
+        }
+        else if (errorMessage != null)
+        {
+            <div id="user-selection-error-message" class="error-container" role="alert">
+                <div class="error-icon">⚠️</div>
+                <div class="error-content">
+                    <h3 class="error-title">@Localizer["UserSelection.ErrorTitle"]</h3>
+                    <p class="error-message">@errorMessage</p>
+                </div>
+                <button class="retry-button" @onclick="RetryLoadUsers">
+                    <span>@Localizer["UserSelection.TryAgain"]</span>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
+                    </svg>
+                </button>
+            </div>
+        }
+        else
+        {
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.35-4.35"/>
+                    </svg>
+                    <input
+                        type="text"
+                        class="search-input"
+                        placeholder="@Localizer["UserSelection.SearchPlaceholder"]"
+                        @bind="searchTerm"
+                        @bind:event="oninput"
+                        @onkeyup="HandleSearchKeyUp"
+                        @ref="searchInputElement" />
+                    @if (!string.IsNullOrEmpty(searchTerm))
+                    {
+                        <button class="clear-search" @onclick="ClearSearch" title="@Localizer["UserSelection.ClearSearch"]">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18"/>
+                                <line x1="6" y1="6" x2="18" y2="18"/>
+                            </svg>
+                        </button>
+                    }
+                </div>
+                <div class="user-count">@filteredUsers.Count @(filteredUsers.Count != 1 ? Localizer["UserSelection.UsersFound"] : Localizer["UserSelection.UserFound"])</div>
+            </div>
+
+            <div id="user-list" class="user-list" role="list">
+                @if (filteredUsers.Any())
+                {
+                    @foreach (var user in filteredUsers)
+                    {
+                        <div id="user-card-@user.Id"
+                             class="user-card @(selectedUserId == user.Id ? "selected" : "")"
+                             @onclick="() => SelectUser(user)"
+                             @onkeydown="async (e) => await HandleUserCardKeyDown(e, user)"
+                             role="listitem"
+                             tabindex="0"
+                             aria-label="@($"{Localizer["UserSelection.SelectUser"]} {user.FullName} - {user.Email}")">
+                            <div id="user-avatar-@user.Id" class="user-avatar" style="background: @GetAvatarGradient(user.Id)">
+                                <span class="user-initials">@GetInitials(user.FullName)</span>
+                            </div>
+                            <div id="user-info-@user.Id" class="user-info">
+                                <h3 class="user-name">@user.FullName</h3>
+                                <p class="user-email">@user.Email</p>
+                            </div>
+                            <div id="user-arrow-@user.Id" class="user-arrow">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h3 class="no-results-title">@Localizer["UserSelection.NoUsersFound"]</h3>
+                        <p class="no-results-message">@Localizer["UserSelection.TryAdjustingSearch"]</p>
+                    </div>
+                }
+            </div>
+
+            @if (filteredUsers.Any())
+            {
+                <div class="selection-hint">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    <span>@Localizer["UserSelection.NavigationHint"]</span>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+<style>
+    /* Enhanced User Selection Container Styles with Modern 2025 Design */
+    .user-selection-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--jira-primary) 0%, var(--jira-primary-active) 50%, var(--jira-red-800, #7F1012) 100%);
+        position: relative;
+        padding: 20px;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        overflow: hidden;
+    }
+
+    /* Animated gradient background */
+    .user-selection-container::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background:
+            radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(0, 0, 0, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 40% 80%, rgba(255, 87, 87, 0.1) 0%, transparent 40%);
+        pointer-events: none;
+        animation: backgroundFloat 20s ease-in-out infinite;
+    }
+
+    /* Floating particles effect */
+    .user-selection-container::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image:
+            radial-gradient(2px 2px at 20% 30%, white, transparent),
+            radial-gradient(2px 2px at 60% 70%, rgba(255, 255, 255, 0.8), transparent),
+            radial-gradient(1px 1px at 50% 50%, rgba(255, 255, 255, 0.6), transparent),
+            radial-gradient(1px 1px at 80% 10%, rgba(255, 255, 255, 0.4), transparent),
+            radial-gradient(2px 2px at 90% 60%, rgba(255, 255, 255, 0.5), transparent),
+            radial-gradient(1px 1px at 33% 90%, rgba(255, 255, 255, 0.7), transparent),
+            radial-gradient(1px 1px at 10% 80%, rgba(255, 255, 255, 0.3), transparent);
+        background-size: 200% 200%;
+        background-position: 0% 0%;
+        animation: particlesFloat 30s ease-in-out infinite;
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    @@keyframes backgroundFloat {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        33% { transform: translate(5%, -5%) rotate(1deg); }
+        66% { transform: translate(-5%, 5%) rotate(-1deg); }
+    }
+
+    @@keyframes particlesFloat {
+        0%, 100% { background-position: 0% 0%; }
+        50% { background-position: 100% 100%; }
+    }
+
+    .user-selection-card {
+        /* Modern Glassmorphism Effect - 2025 Trend */
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border-radius: 32px;
+        padding: 48px;
+        max-width: 600px;
+        width: 100%;
+        box-shadow:
+            0 25px 80px rgba(var(--jira-primary-rgb, 228, 30, 38), 0.25),
+            0 10px 40px rgba(var(--jira-primary-rgb, 228, 30, 38), 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.9),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.02);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        position: relative;
+        z-index: 1;
+        animation: cardEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        transform-origin: center;
+    }
+
+    /* Card entrance animation */
+    @@keyframes cardEntrance {
+        from {
+            opacity: 0;
+            transform: scale(0.9) translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    /* Glow effect on card */
+    .user-selection-card::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(135deg,
+            rgba(228, 30, 38, 0.3) 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            rgba(228, 30, 38, 0.3) 100%);
+        border-radius: 32px;
+        z-index: -1;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    .user-selection-card:hover::before {
+        opacity: 1;
+    }
+
+    @@keyframes glowPulse {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.6; }
+    }
+
+    /* App Logo Section */
+    .app-logo-section {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .app-logo {
+        margin-bottom: 24px;
+        display: inline-block;
+        animation:
+            logoFloat 3s ease-in-out infinite,
+            logoEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+        position: relative;
+    }
+
+    @@keyframes logoEntrance {
+        from {
+            opacity: 0;
+            transform: scale(0.5) rotate(-10deg);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+    }
+
+    .app-logo img {
+        border-radius: 16px;
+        box-shadow:
+            0 8px 24px rgba(228, 30, 38, 0.3),
+            0 4px 12px rgba(228, 30, 38, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        object-fit: contain;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .app-logo img:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow:
+            0 12px 32px rgba(228, 30, 38, 0.4),
+            0 6px 16px rgba(228, 30, 38, 0.25),
+            inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    }
+
+    @@keyframes logoFloat {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-10px) rotate(1deg); }
+    }
+
+    .user-selection-title {
+        font-size: 36px;
+        font-weight: 800;
+        color: #1a202c;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, var(--jira-primary) 0%, var(--jira-primary-active) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: 0 2px 4px rgba(228, 30, 38, 0.1);
+    }
+
+    .user-selection-subtitle {
+        font-size: 18px;
+        color: #718096;
+        margin-bottom: 40px;
+        font-weight: 400;
+    }
+
+    /* Enhanced Loading States with Modern Animations */
+    .loading-container {
+        text-align: center;
+        padding: 60px 40px;
+        animation: fadeIn 0.4s ease;
+    }
+
+    @@keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    .loading-spinner {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 24px;
+    }
+
+    .spinner-circle {
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--jira-primary) 0%, var(--jira-primary-active) 100%);
+        animation:
+            spinnerBounce 1.4s infinite ease-in-out both,
+            spinnerGlow 2s infinite ease-in-out;
+        box-shadow:
+            0 2px 6px rgba(228, 30, 38, 0.4),
+            0 0 20px rgba(228, 30, 38, 0.3);
+        will-change: transform;
+    }
+
+    .spinner-circle:nth-child(1) { animation-delay: -0.32s, 0s; }
+    .spinner-circle:nth-child(2) { animation-delay: -0.16s, 0.3s; }
+    .spinner-circle:nth-child(3) { animation-delay: 0s, 0.6s; }
+
+    @@keyframes spinnerBounce {
+        0%, 80%, 100% {
+            transform: scale(0) translateY(0);
+            opacity: 0.5;
+        }
+        40% {
+            transform: scale(1.2) translateY(-8px);
+            opacity: 1;
+        }
+    }
+
+    @@keyframes spinnerGlow {
+        0%, 100% {
+            box-shadow:
+                0 2px 6px rgba(228, 30, 38, 0.4),
+                0 0 20px rgba(228, 30, 38, 0.3);
+        }
+        50% {
+            box-shadow:
+                0 4px 12px rgba(228, 30, 38, 0.6),
+                0 0 30px rgba(228, 30, 38, 0.5);
+        }
+    }
+
+    .loading-text {
+        margin-bottom: 20px;
+        color: #4a5568;
+        font-size: 16px;
+        font-weight: 500;
+    }
+
+    .loading-progress {
+        width: 100%;
+        height: 4px;
+        background: #e2e8f0;
+        border-radius: 2px;
+        overflow: hidden;
+        margin: 0 auto;
+        max-width: 200px;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: linear-gradient(90deg, var(--jira-primary) 0%, var(--jira-primary-light) 50%, var(--jira-primary) 100%);
+        background-size: 200% 100%;
+        border-radius: 2px;
+        transition: width 0.3s ease;
+        animation: shimmer 2s infinite;
+    }
+
+    @@keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+    }
+
+    /* Enhanced Error State with Glassmorphism */
+    .error-container {
+        background: rgba(254, 242, 242, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 2px solid rgba(252, 165, 165, 0.6);
+        border-radius: 20px;
+        padding: 24px;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+        box-shadow:
+            0 8px 20px rgba(228, 30, 38, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        animation: errorShake 0.5s ease, fadeIn 0.4s ease;
+    }
+
+    @@keyframes errorShake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-8px); }
+        75% { transform: translateX(8px); }
+    }
+
+    .error-icon {
+        font-size: 32px;
+        flex-shrink: 0;
+    }
+
+    .error-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .error-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--jira-primary-active);
+        margin: 0 0 4px 0;
+    }
+
+    .error-message {
+        color: var(--jira-primary);
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .retry-button {
+        background: linear-gradient(135deg, var(--jira-primary) 0%, var(--jira-primary-hover) 50%, var(--jira-primary-active) 100%);
+        background-size: 200% 200%;
+        background-position: 0% 0%;
+        color: white;
+        border: none;
+        padding: 14px 24px;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition:
+            transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+            box-shadow 0.3s ease,
+            background-position 0.5s ease;
+        flex-shrink: 0;
+        box-shadow:
+            0 4px 12px rgba(228, 30, 38, 0.3),
+            0 2px 6px rgba(228, 30, 38, 0.2);
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Button shine effect */
+    .retry-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.3),
+            transparent);
+        transition: left 0.5s ease;
+    }
+
+    .retry-button:hover::before {
+        left: 100%;
+    }
+
+    .retry-button:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow:
+            0 8px 20px rgba(228, 30, 38, 0.4),
+            0 4px 12px rgba(228, 30, 38, 0.3);
+        background-position: 100% 100%;
+    }
+
+    .retry-button:active {
+        transform: translateY(-1px) scale(0.98);
+        box-shadow:
+            0 4px 10px rgba(228, 30, 38, 0.35),
+            0 2px 6px rgba(228, 30, 38, 0.25);
+    }
+
+    /* Search Container */
+    .search-container {
+        margin-bottom: 24px;
+    }
+
+    .search-input-wrapper {
+        position: relative;
+        margin-bottom: 12px;
+    }
+
+    .search-icon {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #a0aec0;
+        pointer-events: none;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 16px 16px 16px 48px;
+        border: 2px solid rgba(226, 232, 240, 0.5);
+        border-radius: 16px;
+        font-size: 16px;
+        /* Glassmorphism for search input */
+        background: rgba(247, 250, 252, 0.8);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition:
+            all 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            transform 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .search-input:hover {
+        border-color: rgba(228, 30, 38, 0.3);
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .search-input:focus {
+        outline: none;
+        border-color: var(--jira-primary);
+        background: rgba(255, 255, 255, 1);
+        transform: translateY(-2px);
+        box-shadow:
+            0 0 0 4px rgba(228, 30, 38, 0.15),
+            0 8px 20px rgba(228, 30, 38, 0.12);
+    }
+
+    .clear-search {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: #a0aec0;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+    }
+
+    .clear-search:hover {
+        color: #4a5568;
+        background: #e2e8f0;
+    }
+
+    .user-count {
+        font-size: 14px;
+        color: #718096;
+        text-align: center;
+    }
+
+    /* Enhanced User List */
+    .user-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+
+    .user-card {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        border: 2px solid rgba(226, 232, 240, 0.6);
+        border-radius: 20px;
+        cursor: pointer;
+        /* GPU-accelerated transitions for performance */
+        transition:
+            transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+            box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+            border-color 0.2s ease,
+            background 0.3s ease;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+        will-change: transform;
+        /* Staggered entrance animation */
+        animation: cardSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    }
+
+    /* Staggered animation delays */
+    .user-card:nth-child(1) { animation-delay: 0.1s; }
+    .user-card:nth-child(2) { animation-delay: 0.2s; }
+    .user-card:nth-child(3) { animation-delay: 0.3s; }
+    .user-card:nth-child(4) { animation-delay: 0.4s; }
+    .user-card:nth-child(5) { animation-delay: 0.5s; }
+    .user-card:nth-child(n+6) { animation-delay: 0.6s; }
+
+    @@keyframes cardSlideIn {
+        from {
+            opacity: 0;
+            transform: translateX(-30px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+        }
+    }
+
+    /* Shimmer effect on hover */
+    .user-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            45deg,
+            transparent 30%,
+            rgba(228, 30, 38, 0.1) 50%,
+            transparent 70%
+        );
+        transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        transition: transform 0.6s ease;
+    }
+
+    .user-card:hover::before {
+        transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+
+    /* Ripple effect container */
+    .user-card::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(228, 30, 38, 0.1);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .user-card:active::after {
+        width: 300px;
+        height: 300px;
+    }
+
+    /* Modern hover state with 3D tilt effect */
+    .user-card:hover {
+        border-color: rgba(228, 30, 38, 0.4);
+        background: linear-gradient(135deg,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(254, 242, 242, 0.95) 100%);
+        /* 3D perspective tilt - GPU accelerated */
+        transform: translateY(-6px) perspective(1000px) rotateX(2deg);
+        box-shadow:
+            0 20px 40px rgba(228, 30, 38, 0.2),
+            0 10px 20px rgba(228, 30, 38, 0.12),
+            0 0 0 1px rgba(228, 30, 38, 0.08);
+    }
+
+    /* Active state with press effect */
+    .user-card:active {
+        transform: translateY(-2px) scale(0.98);
+        box-shadow:
+            0 10px 20px rgba(228, 30, 38, 0.15),
+            0 5px 10px rgba(228, 30, 38, 0.1);
+    }
+
+    .user-card.selected {
+        border-color: var(--jira-primary);
+        border-width: 2px;
+        background: linear-gradient(135deg, var(--jira-red-bg, #FEF2F2) 0%, var(--jira-primary-lighter, #FEE2E2) 100%);
+        box-shadow: 0 0 0 3px rgba(228, 30, 38, 0.2);
+    }
+
+    .user-card:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(228, 30, 38, 0.35);
+    }
+
+    .user-avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--jira-primary) 0%, var(--jira-primary-active) 50%, var(--jira-primary) 100%);
+        background-size: 200% 200%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        flex-shrink: 0;
+        box-shadow:
+            0 4px 12px rgba(228, 30, 38, 0.35),
+            0 2px 6px rgba(228, 30, 38, 0.2),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+            inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        /* GPU-accelerated smooth transitions */
+        transition:
+            transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+            box-shadow 0.3s ease,
+            background-position 0.6s ease;
+        position: relative;
+        will-change: transform;
+        /* Subtle pulse animation */
+        animation: avatarPulse 3s ease-in-out infinite;
+    }
+
+    @@keyframes avatarPulse {
+        0%, 100% { box-shadow:
+            0 4px 12px rgba(228, 30, 38, 0.35),
+            0 2px 6px rgba(228, 30, 38, 0.2),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+            inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+        50% { box-shadow:
+            0 6px 16px rgba(228, 30, 38, 0.4),
+            0 3px 8px rgba(228, 30, 38, 0.25),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+            inset 0 1px 2px rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    /* Light reflection effect */
+    .user-avatar::after {
+        content: '';
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        right: 50%;
+        bottom: 50%;
+        background: radial-gradient(ellipse at top left,
+            rgba(255, 255, 255, 0.4) 0%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 100%);
+        border-radius: 50%;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Glow ring on hover */
+    .user-avatar::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border-radius: 50%;
+        background: linear-gradient(135deg,
+            rgba(228, 30, 38, 0.6) 0%,
+            rgba(166, 20, 25, 0.6) 50%,
+            rgba(228, 30, 38, 0.6) 100%);
+        opacity: 0;
+        filter: blur(8px);
+        transition: opacity 0.4s ease;
+        z-index: -1;
+    }
+
+    .user-card:hover .user-avatar {
+        /* Enhanced 3D transform with rotation */
+        transform: scale(1.15) rotate(5deg) translateZ(0);
+        background-position: 100% 100%;
+        box-shadow:
+            0 12px 32px rgba(228, 30, 38, 0.5),
+            0 6px 16px rgba(228, 30, 38, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.15),
+            inset 0 1px 2px rgba(255, 255, 255, 0.3);
+    }
+
+    .user-card:hover .user-avatar::before {
+        opacity: 1;
+        animation: glowRotate 2s linear infinite;
+    }
+
+    @@keyframes glowRotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .user-initials {
+        color: white;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .user-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .user-name {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1a202c;
+        margin: 0 0 6px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user-email {
+        font-size: 14px;
+        color: #718096;
+        margin: 0 0 4px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .user-role {
+        font-size: 12px;
+        color: var(--jira-primary);
+        background: rgba(228, 30, 38, 0.1);
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .user-arrow {
+        color: #cbd5e0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-left: 16px;
+        flex-shrink: 0;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    }
+
+    .user-card:hover .user-arrow {
+        color: var(--jira-primary);
+        transform: translateX(8px) scale(1.1);
+    }
+
+    .user-card.selected .user-arrow {
+        color: var(--jira-primary);
+        transform: translateX(8px) scale(1.1);
+    }
+
+    /* No Results State */
+    .no-results {
+        text-align: center;
+        padding: 60px 40px;
+        background: #f7fafc;
+        border-radius: 16px;
+        border: 2px dashed #e2e8f0;
+    }
+
+    .no-results-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+        opacity: 0.7;
+    }
+
+    .no-results-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #4a5568;
+        margin: 0 0 8px 0;
+    }
+
+    .no-results-message {
+        color: #718096;
+        margin: 0;
+        font-size: 14px;
+    }
+
+    /* Selection Hint with Modern Design */
+    .selection-hint {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 16px;
+        background: rgba(247, 250, 252, 0.7);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border-radius: 16px;
+        border: 1px solid rgba(226, 232, 240, 0.5);
+        color: #718096;
+        font-size: 14px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        animation: hintPulse 2s ease-in-out infinite;
+    }
+
+    @@keyframes hintPulse {
+        0%, 100% {
+            transform: scale(1);
+            opacity: 0.9;
+        }
+        50% {
+            transform: scale(1.02);
+            opacity: 1;
+        }
+    }
+
+    .selection-hint svg {
+        flex-shrink: 0;
+        animation: iconRotate 4s ease-in-out infinite;
+    }
+
+    @@keyframes iconRotate {
+        0%, 100% { transform: rotate(0deg); }
+        50% { transform: rotate(5deg); }
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 640px) {
+        .user-selection-card {
+            padding: 32px 24px;
+            margin: 16px;
+        }
+
+        .user-selection-title {
+            font-size: 28px;
+        }
+
+        .user-selection-subtitle {
+            font-size: 16px;
+        }
+
+        .user-card {
+            padding: 16px;
+        }
+
+        .user-avatar {
+            width: 56px;
+            height: 56px;
+            margin-right: 16px;
+        }
+
+        .user-initials {
+            font-size: 20px;
+        }
+
+        .user-name {
+            font-size: 16px;
+        }
+
+        .error-container {
+            flex-direction: column;
+            text-align: center;
+            gap: 12px;
+        }
+
+        .retry-button {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+
+    /* Accessibility Improvements - Respect User Motion Preferences */
+    @@media (prefers-reduced-motion: reduce) {
+        /* Disable all animations and transitions */
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+
+        /* Hide decorative animation elements */
+        .user-card::before,
+        .user-card::after,
+        .retry-button::before,
+        .user-avatar::before,
+        .user-selection-card::before,
+        .user-selection-container::before,
+        .user-selection-container::after {
+            display: none;
+        }
+
+        /* Simplify transforms */
+        .user-card:hover {
+            transform: none;
+        }
+
+        .user-avatar {
+            animation: none;
+        }
+
+        .app-logo {
+            animation: none;
+        }
+    }
+
+    /* High Contrast Mode Support */
+    @@media (prefers-contrast: high) {
+        .user-selection-container {
+            background: #000;
+        }
+
+        .user-selection-card {
+            border: 3px solid #fff;
+        }
+
+        .user-card {
+            border-width: 3px;
+        }
+
+        .user-card.selected {
+            border-width: 4px;
+            outline: 3px solid var(--jira-primary);
+            outline-offset: 2px;
+        }
+    }
+
+    /* Focus Visible for Keyboard Navigation - WCAG 2.1 AA Compliant */
+    .user-card:focus-visible {
+        outline: 3px solid var(--jira-primary);
+        outline-offset: 3px;
+        box-shadow: 0 0 0 6px rgba(228, 30, 38, 0.15);
+    }
+
+    .search-input:focus-visible {
+        outline: 3px solid var(--jira-primary);
+        outline-offset: 2px;
+    }
+
+    .retry-button:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 3px;
+        box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.3);
+    }
+</style>

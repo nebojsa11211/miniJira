@@ -1,0 +1,21 @@
+﻿@using MiniJira.Components.Shared
+@inherits LayoutComponentBase
+
+<PageTitle>Radni Nalozi</PageTitle>
+
+<div id="page" class="page">
+    <div id="sidebar" class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main id="main">
+        <div id="top-row" class="top-row">
+            <a href="https://docs.microsoft.com/aspnet/" target="_blank">@Localizer["Common.About"]</a>
+            <ThemeToggle />
+        </div>
+
+        <article id="content" class="content">
+            @Body
+        </article>
+    </main>
+</div>

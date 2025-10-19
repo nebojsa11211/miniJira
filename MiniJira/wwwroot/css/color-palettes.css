@@ -1,0 +1,222 @@
+/* ===================================
+   COLOR PALETTE SYSTEM
+   Multiple theme options for MiniJira
+   =================================== */
+
+/* ===================================
+   CLASSIC RED PALETTE (Default)
+   Professional, Action-Oriented
+   =================================== */
+
+/* Light Mode - Classic Red (Default - already in site.css) */
+[data-color-palette="classic-red"][data-theme="light"] {
+    /* Using existing site.css definitions - no overrides needed */
+}
+
+/* Dark Mode - Classic Red (Default - already in site.css) */
+[data-color-palette="classic-red"][data-theme="dark"] {
+    /* Using existing site.css definitions - no overrides needed */
+}
+
+/* ===================================
+   OCEAN BLUE PALETTE
+   Calm, Trustworthy, Corporate
+   =================================== */
+
+/* Light Mode - Ocean Blue */
+[data-color-palette="ocean-blue"][data-theme="light"] {
+    /* Primary Blue Scale */
+    --jira-primary: #0052CC;              /* Deep corporate blue */
+    --jira-primary-hover: #0043A8;        /* Darker blue on hover */
+    --jira-primary-active: #003684;       /* Darkest blue on active */
+    --jira-primary-light: #4C9AFF;        /* Light variant */
+    --jira-primary-lighter: #B3D4FF;      /* Very light */
+
+    /* Complementary Accent Colors */
+    --jira-accent-teal: #00B8D9;          /* Bright cyan accent */
+    --jira-accent-teal-light: #79E2F2;    /* Light cyan */
+    --jira-accent-teal-dark: #00A3BF;     /* Dark cyan */
+
+    --jira-accent-amber: #FFAB00;         /* Warm amber accent */
+    --jira-accent-amber-light: #FFC400;   /* Light amber */
+    --jira-accent-amber-dark: #FF8B00;    /* Dark amber */
+
+    /* Success Green */
+    --jira-green: #36B37E;                /* Success color */
+    --jira-green-light: #79F2C0;          /* Light green */
+    --jira-green-dark: #00875A;           /* Dark green */
+    --jira-green-bg: #E3FCEF;             /* Background tint */
+    --jira-green-text: #006644;           /* Text color */
+
+    /* Focus & Interaction States */
+    --jira-focus-ring: #0052CC;           /* Focus outline */
+    --jira-border-focus: #0052CC;         /* Focus border */
+    --jira-blue-focus: #0052CC;           /* Legacy support */
+
+    /* Status Colors */
+    --jira-inprogress: #0052CC;           /* Blue for in-progress */
+    --jira-inprogress-bg: #DEEBFF;        /* Light blue background */
+    --jira-done: #00875A;                 /* Green for completed */
+    --jira-done-bg: #E3FCEF;              /* Light green background */
+
+    /* Priority Colors */
+    --jira-priority-highest: #DE350B;     /* Red - critical */
+    --jira-priority-high: #FF5630;        /* Orange - high */
+    --jira-priority-medium: #FFAB00;      /* Amber - medium */
+    --jira-priority-low: #00B8D9;         /* Cyan - low */
+}
+
+/* Dark Mode - Ocean Blue (Midnight Blue) */
+[data-color-palette="ocean-blue"][data-theme="dark"] {
+    /* Primary Blue Scale - Lightened for dark backgrounds */
+    --jira-primary: #4C9AFF;              /* Lighter blue for visibility */
+    --jira-primary-hover: #B3D4FF;        /* Even lighter on hover */
+    --jira-primary-active: #DEEBFF;       /* Lightest on active */
+    --jira-primary-light: #0052CC;        /* Brand color as accent */
+    --jira-primary-lighter: #0043A8;      /* Darker variant */
+
+    /* Complementary Accent Colors - Brightened */
+    --jira-accent-teal: #79E2F2;          /* Brighter cyan */
+    --jira-accent-teal-light: #B3F5FF;    /* Very bright cyan */
+    --jira-accent-teal-dark: #00B8D9;     /* Vivid cyan */
+
+    --jira-accent-amber: #FFC400;         /* Brighter amber */
+    --jira-accent-amber-light: #FFECB3;   /* Light amber */
+    --jira-accent-amber-dark: #FFAB00;    /* Vivid amber */
+
+    /* Success Green - Brightened */
+    --jira-green: #57D9A3;                /* Lighter green */
+    --jira-green-light: #79F2C0;          /* Very light green */
+    --jira-green-dark: #36B37E;           /* Medium green */
+    --jira-green-bg: #164B35;             /* Dark green background */
+    --jira-green-text: #57D9A3;           /* Light green text */
+
+    /* Focus & Interaction States */
+    --jira-focus-ring: #4C9AFF;           /* Lighter blue for dark mode */
+    --jira-border-focus: #4C9AFF;         /* Focus border */
+    --jira-blue-focus: #4C9AFF;           /* Legacy support */
+    --jira-blue-bg: #09326C;              /* Dark blue background */
+    --jira-blue-light: #4C9AFF;           /* Light blue */
+
+    /* Status Colors */
+    --jira-inprogress: #4C9AFF;           /* Lighter blue */
+    --jira-inprogress-bg: #09326C;        /* Dark blue background */
+    --jira-done: #57D9A3;                 /* Lighter green */
+    --jira-done-bg: #164B35;              /* Dark green background */
+
+    /* Priority Colors - Increased visibility */
+    --jira-priority-highest: #FF8F73;     /* Light red - critical */
+    --jira-priority-high: #FFAB00;        /* Amber - high */
+    --jira-priority-medium: #FFC400;      /* Light amber - medium */
+    --jira-priority-low: #79E2F2;         /* Light cyan - low */
+}
+
+/* ===================================
+   FOREST GREEN PALETTE
+   Growth, Nature, Sustainability
+   =================================== */
+
+/* Light Mode - Forest Green */
+[data-color-palette="forest-green"][data-theme="light"] {
+    /* Primary Green Scale */
+    --jira-primary: #10B981;              /* Emerald green */
+    --jira-primary-hover: #059669;        /* Darker green on hover */
+    --jira-primary-active: #047857;       /* Darkest green on active */
+    --jira-primary-light: #34D399;        /* Light variant */
+    --jira-primary-lighter: #A7F3D0;      /* Very light */
+
+    /* Complementary Accent Colors */
+    --jira-accent-teal: #0EA5E9;          /* Sky blue accent */
+    --jira-accent-teal-light: #7DD3FC;    /* Light sky blue */
+    --jira-accent-teal-dark: #0369A1;     /* Dark sky blue */
+
+    --jira-accent-amber: #8B5CF6;         /* Purple accent */
+    --jira-accent-amber-light: #C4B5FD;   /* Light purple */
+    --jira-accent-amber-dark: #7C3AED;    /* Dark purple */
+
+    /* Success Green */
+    --jira-green: #10B981;                /* Primary green (same as primary) */
+    --jira-green-light: #6EE7B7;          /* Light green */
+    --jira-green-dark: #059669;           /* Dark green */
+    --jira-green-bg: #D1FAE5;             /* Background tint */
+    --jira-green-text: #065F46;           /* Text color */
+
+    /* Focus & Interaction States */
+    --jira-focus-ring: #10B981;           /* Green focus outline */
+    --jira-border-focus: #10B981;         /* Green focus border */
+    --jira-blue-focus: #10B981;           /* Legacy support */
+
+    /* Status Colors */
+    --jira-inprogress: #10B981;           /* Green for in-progress */
+    --jira-inprogress-bg: #D1FAE5;        /* Light green background */
+    --jira-done: #059669;                 /* Dark green for completed */
+    --jira-done-bg: #A7F3D0;              /* Light green background */
+
+    /* Priority Colors */
+    --jira-priority-highest: #DC2626;     /* Red - critical */
+    --jira-priority-high: #F59E0B;        /* Amber - high */
+    --jira-priority-medium: #8B5CF6;      /* Purple - medium */
+    --jira-priority-low: #0EA5E9;         /* Sky blue - low */
+}
+
+/* Dark Mode - Forest Green (Forest Night) */
+[data-color-palette="forest-green"][data-theme="dark"] {
+    /* Primary Green Scale - Lightened for dark backgrounds */
+    --jira-primary: #34D399;              /* Lighter green for visibility */
+    --jira-primary-hover: #6EE7B7;        /* Even lighter on hover */
+    --jira-primary-active: #A7F3D0;       /* Lightest on active */
+    --jira-primary-light: #10B981;        /* Brand color as accent */
+    --jira-primary-lighter: #059669;      /* Darker variant */
+
+    /* Complementary Accent Colors - Brightened */
+    --jira-accent-teal: #38BDF8;          /* Brighter sky blue */
+    --jira-accent-teal-light: #7DD3FC;    /* Very bright sky blue */
+    --jira-accent-teal-dark: #0EA5E9;     /* Vivid sky blue */
+
+    --jira-accent-amber: #A78BFA;         /* Brighter purple */
+    --jira-accent-amber-light: #C4B5FD;   /* Light purple */
+    --jira-accent-amber-dark: #8B5CF6;    /* Vivid purple */
+
+    /* Success Green - Brightened */
+    --jira-green: #6EE7B7;                /* Lighter green */
+    --jira-green-light: #A7F3D0;          /* Very light green */
+    --jira-green-dark: #34D399;           /* Medium green */
+    --jira-green-bg: #064E3B;             /* Dark green background */
+    --jira-green-text: #6EE7B7;           /* Light green text */
+
+    /* Focus & Interaction States */
+    --jira-focus-ring: #34D399;           /* Lighter green for dark mode */
+    --jira-border-focus: #34D399;         /* Focus border */
+    --jira-blue-focus: #34D399;           /* Legacy support */
+    --jira-blue-bg: #064E3B;              /* Dark green background */
+    --jira-blue-light: #34D399;           /* Light green */
+
+    /* Status Colors */
+    --jira-inprogress: #34D399;           /* Lighter green */
+    --jira-inprogress-bg: #064E3B;        /* Dark green background */
+    --jira-done: #6EE7B7;                 /* Very light green */
+    --jira-done-bg: #047857;              /* Medium dark green background */
+
+    /* Priority Colors - Increased visibility */
+    --jira-priority-highest: #FCA5A5;     /* Light red - critical */
+    --jira-priority-high: #FCD34D;        /* Light amber - high */
+    --jira-priority-medium: #A78BFA;      /* Light purple - medium */
+    --jira-priority-low: #38BDF8;         /* Light sky blue - low */
+}
+
+/* ===================================
+   PALETTE PREVIEW COLORS
+   Used in the color palette selector for visual preview
+   =================================== */
+
+.palette-preview-classic-red {
+    background: linear-gradient(135deg, #E41E26 0%, #C81820 50%, #0D9488 100%);
+}
+
+.palette-preview-ocean-blue {
+    background: linear-gradient(135deg, #0052CC 0%, #4C9AFF 50%, #00B8D9 100%);
+}
+
+.palette-preview-forest-green {
+    background: linear-gradient(135deg, #10B981 0%, #34D399 50%, #8B5CF6 100%);
+}

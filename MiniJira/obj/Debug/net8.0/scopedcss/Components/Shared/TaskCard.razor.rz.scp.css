@@ -1,0 +1,290 @@
+/* ATLASSIAN JIRA TASK CARD - EXACT REPLICA */
+/* Based on Jira's 2025 card design */
+
+.jira-task-card[b-gu3djdxol2] {
+    background-color: var(--jira-bg-primary);
+    border: none;
+    border-radius: var(--jira-radius-small);
+    padding: var(--jira-space-200);
+    cursor: pointer;
+    transition: background-color 0.08s linear, box-shadow 0.08s linear;
+    box-shadow: 0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
+    display: flex;
+    flex-direction: column;
+    gap: var(--jira-space-200);
+    position: relative;
+    min-height: 160px;
+}
+
+.jira-task-card:hover[b-gu3djdxol2] {
+    background-color: var(--jira-bg-page);
+    box-shadow: 0px 2px 4px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
+    position: relative;
+    z-index: 10;
+}
+
+.jira-task-card:active[b-gu3djdxol2] {
+    transform: none;
+    background-color: var(--jira-bg-secondary);
+}
+
+/* Focus state for accessibility */
+.jira-task-card:focus[b-gu3djdxol2] {
+    outline: 2px solid var(--jira-border-focus);
+    outline-offset: 2px;
+}
+
+/* Task Card Header */
+.task-card-header[b-gu3djdxol2] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--jira-space-050);
+}
+
+.task-card-title[b-gu3djdxol2] {
+    font-size: calc(14px * var(--font-size-multiplier));
+    font-weight: 400;
+    line-height: 20px;
+    color: var(--jira-text-primary);
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    letter-spacing: -0.003em;
+}
+
+/* Task Card Customer */
+.task-card-customer[b-gu3djdxol2] {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: calc(11px * var(--font-size-multiplier));
+    color: var(--jira-text-secondary);
+    margin-top: 2px;
+}
+
+.customer-icon[b-gu3djdxol2] {
+    flex-shrink: 0;
+    opacity: 0.7;
+}
+
+.customer-name[b-gu3djdxol2] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 16px;
+}
+
+/* Style for empty customer state */
+.task-card-customer.no-customer .customer-name[b-gu3djdxol2] {
+    opacity: 0.5;
+    font-style: italic;
+}
+
+/* Task Card Category Badge - Jira lozenge style */
+.task-card-category[b-gu3djdxol2] {
+    display: inline-block;
+    background-color: var(--jira-bg-tertiary);
+    color: var(--jira-text-primary);
+    font-size: calc(11px * var(--font-size-multiplier));
+    font-weight: 700;
+    padding: 2px var(--jira-space-075);
+    border-radius: var(--jira-radius-small);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.task-card-category.billing[b-gu3djdxol2] {
+    background-color: var(--jira-purple-bg);
+    color: var(--jira-purple);
+}
+
+.task-card-category.accounts[b-gu3djdxol2] {
+    background-color: var(--jira-blue-bg);
+    color: var(--jira-primary);
+}
+
+.task-card-category.forms[b-gu3djdxol2] {
+    background-color: var(--jira-purple-bg);
+    color: var(--jira-purple);
+}
+
+.task-card-category.feedback[b-gu3djdxol2] {
+    background-color: var(--jira-yellow-bg);
+    color: var(--jira-yellow-dark);
+}
+
+/* Task Card Description */
+.task-card-description[b-gu3djdxol2] {
+    font-size: calc(13px * var(--font-size-multiplier));
+    line-height: 18px;
+    color: var(--jira-text-secondary);
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Task Card Footer - Jira metadata layout */
+.task-card-footer[b-gu3djdxol2] {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0;
+    gap: var(--jira-space-100);
+}
+
+.task-card-meta[b-gu3djdxol2] {
+    display: flex;
+    align-items: center;
+    gap: var(--jira-space-075);
+    flex: 1;
+}
+
+.task-card-dates[b-gu3djdxol2] {
+    display: flex;
+    align-items: center;
+    gap: var(--jira-space-075);
+}
+
+.calendar-icon[b-gu3djdxol2] {
+    flex-shrink: 0;
+    color: var(--jira-text-secondary);
+    opacity: 0.7;
+}
+
+.dates-container[b-gu3djdxol2] {
+    display: flex;
+    align-items: center;
+    gap: var(--jira-space-050);
+    flex-wrap: nowrap;
+}
+
+.task-card-date[b-gu3djdxol2] {
+    font-size: calc(11px * var(--font-size-multiplier));
+    line-height: 16px;
+    color: var(--jira-text-secondary);
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+.date-separator[b-gu3djdxol2] {
+    font-size: calc(10px * var(--font-size-multiplier));
+    color: var(--jira-text-subtle);
+    opacity: 0.6;
+}
+
+/* Avatar placeholder - Jira avatar style */
+.task-card-avatar[b-gu3djdxol2] {
+    width: 24px;
+    height: 24px;
+    border-radius: var(--jira-radius-circle);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--jira-n0);
+    font-size: calc(10px * var(--font-size-multiplier));
+    font-weight: 600;
+    line-height: 1;
+    flex-shrink: 0;
+    text-transform: uppercase;
+    box-shadow: 0 0 0 2px var(--jira-bg-primary);
+}
+
+/* Responsive adjustments - Mobile-first with standardized breakpoints */
+
+/* Mobile (< 768px) - Touch-optimized */
+@media (max-width: 767px) {
+    .jira-task-card[b-gu3djdxol2] {
+        padding: var(--jira-space-250);
+        gap: var(--jira-space-200);
+        min-height: 165px; /* Ensure adequate touch target */
+        cursor: pointer;
+    }
+
+    .task-card-title[b-gu3djdxol2] {
+        font-size: calc(14px * var(--font-size-multiplier));
+        line-height: 20px;
+        font-weight: 500;
+    }
+
+    .task-card-description[b-gu3djdxol2] {
+        font-size: calc(13px * var(--font-size-multiplier));
+        line-height: 18px;
+    }
+
+    .task-card-date[b-gu3djdxol2] {
+        font-size: calc(10px * var(--font-size-multiplier));
+        line-height: 14px;
+    }
+
+    .calendar-icon[b-gu3djdxol2] {
+        width: 12px;
+        height: 12px;
+    }
+
+    .date-separator[b-gu3djdxol2] {
+        font-size: calc(9px * var(--font-size-multiplier));
+    }
+
+    .task-card-avatar[b-gu3djdxol2] {
+        width: 28px;
+        height: 28px;
+        font-size: calc(11px * var(--font-size-multiplier));
+    }
+
+    .task-card-category[b-gu3djdxol2] {
+        font-size: calc(10px * var(--font-size-multiplier));
+        padding: 3px var(--jira-space-075);
+    }
+
+    /* Increase tap target on mobile */
+    .task-card-footer[b-gu3djdxol2] {
+        margin-top: var(--jira-space-075);
+        padding-top: var(--jira-space-075);
+    }
+
+    /* Ensure adequate spacing for touch */
+    .task-card-meta[b-gu3djdxol2] {
+        gap: var(--jira-space-100);
+    }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .jira-task-card[b-gu3djdxol2] {
+        padding: var(--jira-space-250);
+        min-height: 145px;
+    }
+
+    .task-card-title[b-gu3djdxol2] {
+        font-size: calc(14px * var(--font-size-multiplier));
+        line-height: 20px;
+    }
+}
+
+/* Desktop (1024px+) - Default styles apply */
+@media (min-width: 1024px) {
+    .jira-task-card[b-gu3djdxol2] {
+        /* Default padding and sizing from base styles */
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .jira-task-card[b-gu3djdxol2] {
+        border: 1px solid var(--jira-n300);
+    }
+
+    .jira-task-card:hover[b-gu3djdxol2] {
+        border-color: var(--jira-primary);
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .jira-task-card[b-gu3djdxol2] {
+        transition: none;
+    }
+}

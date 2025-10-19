@@ -1,0 +1,749 @@
+@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+/* ===================================
+   ATLASSIAN DESIGN SYSTEM - OFFICIAL JIRA DESIGN
+   Based on atlassian.design specifications
+   =================================== */
+
+/* Typography - Atlassian Sans */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Color Palette - Professional Red-Based Design System */
+:root {
+    /* Primary Red Scale - Based on logo color (#E41E26) */
+    --jira-red-50: #FEF2F2;      /* Lightest tint - backgrounds */
+    --jira-red-100: #FEE2E2;     /* Very light - subtle backgrounds */
+    --jira-red-200: #FECACA;     /* Light - disabled states */
+    --jira-red-300: #FCA5A5;     /* Medium light - hover backgrounds */
+    --jira-red-400: #F87171;     /* Medium - secondary actions */
+    --jira-red-500: #E41E26;     /* Primary brand color (logo match) */
+    --jira-red-600: #C81820;     /* Primary hover - darker for contrast */
+    --jira-red-700: #A61419;     /* Primary active - darkest interactive */
+    --jira-red-800: #7F1012;     /* Dark accent - emphasis */
+    --jira-red-900: #580B0D;     /* Darkest - text on light backgrounds */
+
+    /* Primary Action Colors - Semantic tokens */
+    --jira-primary: #E41E26;           /* Main brand color */
+    --jira-primary-hover: #C81820;     /* Hover state - 15% darker */
+    --jira-primary-active: #A61419;    /* Active/pressed state - 25% darker */
+    --jira-primary-light: #F87171;     /* Light variant for backgrounds */
+    --jira-primary-lighter: #FECACA;   /* Very light for subtle highlights */
+
+    /* Complementary Accent Colors */
+    --jira-accent-teal: #0D9488;       /* Complementary accent - teal/cyan */
+    --jira-accent-teal-light: #5EEAD4; /* Light teal for highlights */
+    --jira-accent-teal-dark: #0F766E;  /* Dark teal for contrast */
+
+    --jira-accent-amber: #F59E0B;      /* Warm accent - amber/gold */
+    --jira-accent-amber-light: #FCD34D; /* Light amber */
+    --jira-accent-amber-dark: #D97706;  /* Dark amber */
+
+    /* Neutrals (N-series) */
+    --jira-n0: #FFFFFF;
+    --jira-n10: #FAFBFC;
+    --jira-n20: #F4F5F7;
+    --jira-n30: #EBECF0;
+    --jira-n40: #DFE1E6;
+    --jira-n50: #C1C7D0;
+    --jira-n60: #B3BAC5;
+    --jira-n70: #A5ADBA;
+    --jira-n80: #97A0AF;
+    --jira-n90: #8993A4;
+    --jira-n100: #7A869A;
+    --jira-n200: #6B778C;
+    --jira-n300: #5E6C84;
+    --jira-n400: #505F79;
+    --jira-n500: #42526E;
+    --jira-n600: #344563;
+    --jira-n700: #253858;
+    --jira-n800: #172B4D;
+    --jira-n900: #091E42;
+
+    /* Success Green - Professional palette */
+    --jira-green: #10B981;           /* Primary success color */
+    --jira-green-light: #6EE7B7;     /* Light variant */
+    --jira-green-dark: #059669;      /* Dark variant */
+    --jira-green-bg: #D1FAE5;        /* Background tint */
+    --jira-green-text: #065F46;      /* Text on light backgrounds */
+
+    /* Error/Alert Red - Using brand red for errors */
+    --jira-red: #E41E26;             /* Primary error color (brand match) */
+    --jira-red-light: #F87171;       /* Light variant */
+    --jira-red-dark: #A61419;        /* Dark variant */
+    --jira-red-bg: #FEE2E2;          /* Background tint */
+    --jira-red-text: #7F1012;        /* Text on light backgrounds */
+
+    /* Warning Yellow/Amber - Harmonious with red */
+    --jira-yellow: #F59E0B;          /* Primary warning color */
+    --jira-yellow-light: #FCD34D;    /* Light variant */
+    --jira-yellow-dark: #D97706;     /* Dark variant */
+    --jira-yellow-bg: #FEF3C7;       /* Background tint */
+    --jira-yellow-text: #92400E;     /* Text on light backgrounds */
+
+    /* Focus & Interaction States */
+    --jira-focus-ring: #E41E26;      /* Focus outline color */
+    --jira-focus-ring-offset: #FFFFFF; /* Focus ring offset color */
+    --jira-blue-light: #F87171;      /* Legacy support - maps to primary light */
+    --jira-blue-bg: #FEE2E2;         /* Legacy support - maps to primary bg */
+    --jira-blue-focus: #E41E26;      /* Legacy support - maps to primary */
+
+    /* Purple */
+    --jira-purple: #5243AA;
+    --jira-purple-light: #998DD9;
+    --jira-purple-bg: #EAE6FF;
+
+    /* Semantic tokens - Light Mode */
+    --jira-text-primary: var(--jira-n800);
+    --jira-text-secondary: var(--jira-n300);
+    --jira-text-subtle: var(--jira-n100);
+    --jira-bg-primary: var(--jira-n0);
+    --jira-bg-secondary: var(--jira-n20);
+    --jira-bg-tertiary: var(--jira-n30);
+    --jira-bg-page: var(--jira-n10);
+    --jira-border: var(--jira-n40);
+    --jira-border-focus: var(--jira-blue-focus);
+
+    /* Status Colors - Semantic meaning with proper contrast */
+    --jira-todo: var(--jira-n500);                  /* Neutral gray for to-do */
+    --jira-todo-bg: var(--jira-n30);                /* Light gray background */
+    --jira-inprogress: var(--jira-primary);         /* Brand red for in-progress */
+    --jira-inprogress-bg: var(--jira-red-100);      /* Light red background */
+    --jira-done: var(--jira-green-dark);            /* Success green for completed */
+    --jira-done-bg: var(--jira-green-bg);           /* Light green background */
+
+    /* Priority Colors - Clear visual hierarchy */
+    --jira-priority-highest: var(--jira-red-700);   /* Darkest red - critical */
+    --jira-priority-high: var(--jira-red-600);      /* Dark red - high priority */
+    --jira-priority-medium: var(--jira-yellow-dark); /* Amber - medium priority */
+    --jira-priority-low: var(--jira-accent-teal);   /* Teal - low priority */
+    --jira-priority-lowest: var(--jira-n100);       /* Gray - lowest priority */
+
+    /* Shadows - Atlassian elevation system */
+    --jira-shadow-card: 0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
+    --jira-shadow-overlay: 0px 8px 16px -4px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
+    --jira-shadow-raised: 0px 4px 8px -2px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
+
+    /* Border Radius - Atlassian design tokens */
+    --jira-radius-small: 3px;
+
+    /* Font Size Multiplier - default 1.0 (normal), can be 1.1 (10% bigger) or 1.2 (20% bigger) */
+    --font-size-multiplier: 1.0;
+    --jira-radius-medium: 3px;
+    --jira-radius-large: 8px;
+    --jira-radius-circle: 50%;
+
+    /* Spacing - 4px grid system */
+    --jira-space-025: 2px;
+    --jira-space-050: 4px;
+    --jira-space-075: 6px;
+    --jira-space-100: 8px;
+    --jira-space-150: 12px;
+    --jira-space-200: 16px;
+    --jira-space-250: 20px;
+    --jira-space-300: 24px;
+    --jira-space-400: 32px;
+    --jira-space-500: 40px;
+    --jira-space-600: 48px;
+}
+
+/* Dark Mode - Atlassian Dark Theme */
+[data-theme="dark"] {
+    /* Dark Mode Neutrals */
+    --jira-dn0: #161A1D;
+    --jira-dn10: #1D2125;
+    --jira-dn20: #22272B;
+    --jira-dn30: #2C333A;
+    --jira-dn40: #38414A;
+    --jira-dn50: #454F59;
+    --jira-dn60: #596773;
+    --jira-dn70: #738496;
+    --jira-dn80: #8C9BAB;
+    --jira-dn90: #9FADBC;
+    --jira-dn100: #B6C2CF;
+    --jira-dn200: #C7D1DB;
+    --jira-dn300: #DEE4EA;
+    --jira-dn400: #FFFFFF;
+
+    /* Dark Mode Primary Red - Lightened for dark backgrounds */
+    --jira-primary: #F87171;              /* Lighter red for visibility */
+    --jira-primary-hover: #FCA5A5;        /* Even lighter on hover */
+    --jira-primary-active: #FEE2E2;       /* Lightest on active */
+    --jira-primary-light: #E41E26;        /* Brand color as accent */
+    --jira-primary-lighter: #C81820;      /* Darker variant for dark mode */
+
+    /* Dark Mode Accent Colors */
+    --jira-accent-teal: #5EEAD4;          /* Brighter teal for dark mode */
+    --jira-accent-teal-light: #99F6E4;    /* Even brighter */
+    --jira-accent-teal-dark: #2DD4BF;     /* Vivid teal */
+
+    --jira-accent-amber: #FCD34D;         /* Brighter amber */
+    --jira-accent-amber-light: #FDE68A;   /* Light amber */
+    --jira-accent-amber-dark: #FBBF24;    /* Vivid amber */
+
+    /* Dark Mode Status Colors */
+    --jira-green-dark: #6EE7B7;           /* Lighter green for visibility */
+    --jira-green-bg: #064E3B;             /* Dark green background */
+    --jira-red-dark: #FCA5A5;             /* Lighter red for visibility */
+    --jira-red-bg: #450A0A;               /* Dark red background */
+    --jira-yellow-dark: #FCD34D;          /* Lighter amber for visibility */
+    --jira-yellow-bg: #451A03;            /* Dark amber background */
+
+    /* Semantic tokens - Dark Mode */
+    --jira-text-primary: var(--jira-dn400);
+    --jira-text-secondary: var(--jira-dn200);
+    --jira-text-subtle: var(--jira-dn90);
+    --jira-bg-primary: var(--jira-dn20);
+    --jira-bg-secondary: var(--jira-dn30);
+    --jira-bg-tertiary: var(--jira-dn40);
+    --jira-bg-page: var(--jira-dn10);
+    --jira-border: var(--jira-dn40);
+    --jira-border-focus: #85B8FF;
+
+    /* Focus & Interaction - Dark Mode */
+    --jira-focus-ring: #F87171;           /* Lighter red for dark backgrounds */
+    --jira-focus-ring-offset: #1D2125;    /* Dark background color */
+    --jira-blue-bg: #450A0A;              /* Legacy support - dark red bg */
+    --jira-blue-light: #F87171;           /* Legacy support - light red */
+    --jira-border-focus: #F87171;         /* Focus border color */
+
+    /* Status Colors - Dark Mode */
+    --jira-todo: var(--jira-dn200);       /* Light gray text */
+    --jira-todo-bg: var(--jira-dn40);     /* Dark gray background */
+    --jira-inprogress: var(--jira-primary); /* Lighter red text */
+    --jira-inprogress-bg: #450A0A;        /* Dark red background */
+    --jira-done: var(--jira-green-dark);  /* Lighter green text */
+    --jira-done-bg: var(--jira-green-bg); /* Dark green background */
+
+    /* Priority Colors - Dark Mode - Increased visibility */
+    --jira-priority-highest: #FCA5A5;     /* Light red - critical */
+    --jira-priority-high: #F87171;        /* Medium red - high priority */
+    --jira-priority-medium: #FCD34D;      /* Light amber - medium priority */
+    --jira-priority-low: #5EEAD4;         /* Light teal - low priority */
+    --jira-priority-lowest: var(--jira-dn90); /* Gray - lowest priority */
+
+    /* Shadows - Dark Mode */
+    --jira-shadow-card: 0px 1px 1px rgba(3, 4, 4, 0.5), 0px 0px 1px rgba(3, 4, 4, 0.6);
+    --jira-shadow-overlay: 0px 8px 16px -4px rgba(3, 4, 4, 0.5), 0px 0px 1px rgba(3, 4, 4, 0.6);
+    --jira-shadow-raised: 0px 4px 8px -2px rgba(3, 4, 4, 0.5), 0px 0px 1px rgba(3, 4, 4, 0.6);
+}
+
+/* Dark Mode Form Control Overrides */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    color: var(--jira-dn400) !important;
+    background-color: var(--jira-dn20) !important;
+    border-color: var(--jira-dn40) !important;
+}
+
+[data-theme="dark"] .form-control:hover,
+[data-theme="dark"] .form-select:hover,
+[data-theme="dark"] input:hover,
+[data-theme="dark"] textarea:hover,
+[data-theme="dark"] select:hover {
+    background-color: var(--jira-dn30) !important;
+}
+
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus,
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+    background-color: var(--jira-dn20) !important;
+    border-color: var(--jira-border-focus) !important;
+    color: var(--jira-dn400) !important;
+}
+
+[data-theme="dark"] .form-control::placeholder,
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: var(--jira-dn90) !important;
+}
+
+[data-theme="dark"] .form-control:disabled,
+[data-theme="dark"] input:disabled,
+[data-theme="dark"] textarea:disabled,
+[data-theme="dark"] select:disabled {
+    background-color: var(--jira-dn30) !important;
+    color: var(--jira-dn90) !important;
+    opacity: 0.6;
+}
+
+/* Base Styles - Atlassian Typography System */
+html, body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Noto Sans', 'Ubuntu', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    color: var(--jira-text-primary);
+    background-color: var(--jira-bg-page);
+    font-size: calc(14px * var(--font-size-multiplier));
+    line-height: calc(20px * var(--font-size-multiplier));
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Typography - Atlassian Design System scale */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--jira-text-primary);
+    font-weight: 600;
+    margin: 0 0 var(--jira-space-100) 0;
+}
+
+h1 {
+    font-size: calc(29px * var(--font-size-multiplier));
+    line-height: calc(32px * var(--font-size-multiplier));
+    letter-spacing: -0.01em;
+}
+
+h2 {
+    font-size: calc(24px * var(--font-size-multiplier));
+    line-height: calc(28px * var(--font-size-multiplier));
+    letter-spacing: -0.01em;
+}
+
+h3 {
+    font-size: calc(20px * var(--font-size-multiplier));
+    line-height: calc(24px * var(--font-size-multiplier));
+    letter-spacing: -0.008em;
+}
+
+h4 {
+    font-size: calc(16px * var(--font-size-multiplier));
+    line-height: calc(20px * var(--font-size-multiplier));
+    letter-spacing: -0.006em;
+}
+
+h5 {
+    font-size: calc(14px * var(--font-size-multiplier));
+    line-height: calc(16px * var(--font-size-multiplier));
+    letter-spacing: -0.003em;
+}
+
+h6 {
+    font-size: calc(12px * var(--font-size-multiplier));
+    line-height: calc(16px * var(--font-size-multiplier));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+}
+
+p {
+    margin: 0 0 var(--jira-space-100) 0;
+}
+
+a, .btn-link {
+    color: var(--jira-primary);
+    text-decoration: none;
+    transition: color 0.08s linear;
+}
+
+a:hover, .btn-link:hover {
+    color: var(--jira-primary-hover);
+    text-decoration: underline;
+}
+
+a:active, .btn-link:active {
+    color: var(--jira-primary-active);
+}
+
+/* Button Styles - Atlassian Design System */
+.btn {
+    font-family: inherit;
+    font-size: calc(14px * var(--font-size-multiplier));
+    line-height: calc(20px * var(--font-size-multiplier));
+    font-weight: 500;
+    padding: var(--jira-space-100) var(--jira-space-150);
+    border-radius: var(--jira-radius-small);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.08s linear, box-shadow 0.08s linear;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--jira-space-050);
+    white-space: nowrap;
+}
+
+.btn:focus {
+    outline: 2px solid var(--jira-border-focus);
+    outline-offset: 2px;
+}
+
+.btn-primary {
+    color: var(--jira-n0);
+    background-color: var(--jira-primary);
+    box-shadow: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--jira-primary-hover);
+    color: var(--jira-n0);
+}
+
+.btn-primary:active {
+    background-color: var(--jira-primary-active);
+}
+
+.btn-outline-primary {
+    color: var(--jira-text-primary);
+    background-color: transparent;
+    border: 2px solid var(--jira-border);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--jira-bg-secondary);
+}
+
+.btn-secondary {
+    background-color: var(--jira-bg-tertiary);
+    color: var(--jira-text-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--jira-n40);
+}
+
+/* Form Controls - Atlassian Design System */
+.form-control,
+.form-select {
+    border: 2px solid var(--jira-border);
+    border-radius: var(--jira-radius-small);
+    padding: var(--jira-space-100) var(--jira-space-075);
+    font-size: calc(14px * var(--font-size-multiplier));
+    line-height: calc(20px * var(--font-size-multiplier));
+    color: var(--jira-text-primary);
+    background-color: var(--jira-bg-primary);
+    transition: border-color 0.08s linear, box-shadow 0.08s linear;
+    font-family: inherit;
+}
+
+.form-control:hover,
+.form-select:hover {
+    background-color: var(--jira-n10);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--jira-border-focus);
+    box-shadow: 0 0 0 1px var(--jira-border-focus);
+    outline: none;
+    background-color: var(--jira-bg-primary);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--jira-text-secondary);
+    font-size: calc(12px * var(--font-size-multiplier));
+    line-height: calc(16px * var(--font-size-multiplier));
+    margin-bottom: var(--jira-space-050);
+    display: block;
+}
+
+/* Cards - Atlassian Design System */
+.card {
+    border: none;
+    border-radius: var(--jira-radius-small);
+    box-shadow: var(--jira-shadow-card);
+    background-color: var(--jira-bg-primary);
+    transition: box-shadow 0.08s linear;
+}
+
+.card:hover {
+    box-shadow: var(--jira-shadow-raised);
+}
+
+/* Alerts - Atlassian Design System */
+.alert {
+    border-radius: var(--jira-radius-small);
+    border: none;
+    padding: var(--jira-space-200);
+    font-size: calc(14px * var(--font-size-multiplier));
+    line-height: calc(20px * var(--font-size-multiplier));
+}
+
+.alert-danger {
+    background-color: var(--jira-red-bg);
+    color: var(--jira-red-dark);
+}
+
+.alert-info {
+    background-color: var(--jira-blue-bg);
+    color: var(--jira-primary-active);
+}
+
+.alert-success {
+    background-color: var(--jira-green-bg);
+    color: var(--jira-green-dark);
+}
+
+.alert-warning {
+    background-color: var(--jira-yellow-bg);
+    color: var(--jira-yellow-dark);
+}
+
+/* Loading Spinner */
+.spinner-border {
+    color: var(--jira-primary);
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Content */
+.content {
+    padding-top: var(--jira-space-200);
+}
+
+/* Validation Styles */
+.valid.modified:not([type=checkbox]) {
+    border-color: var(--jira-green);
+}
+
+.invalid {
+    border-color: var(--jira-red) !important;
+}
+
+.validation-message {
+    color: var(--jira-red-dark);
+    font-size: calc(12px * var(--font-size-multiplier));
+    line-height: calc(16px * var(--font-size-multiplier));
+    margin-top: var(--jira-space-050);
+}
+
+/* Modal Styles */
+.modal-content {
+    border: none;
+    border-radius: var(--jira-radius-small);
+    box-shadow: var(--jira-shadow-overlay);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--jira-border);
+    padding: var(--jira-space-200) var(--jira-space-300);
+}
+
+.modal-body {
+    padding: var(--jira-space-300);
+}
+
+.modal-footer {
+    border-top: 1px solid var(--jira-border);
+    padding: var(--jira-space-200) var(--jira-space-300);
+}
+
+/* Badge Utilities */
+.badge {
+    font-weight: 700;
+    font-size: calc(11px * var(--font-size-multiplier));
+    line-height: 1;
+    padding: var(--jira-space-025) var(--jira-space-075);
+    border-radius: var(--jira-radius-small);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* Text Utilities */
+.text-muted {
+    color: var(--jira-text-subtle) !important;
+}
+
+.text-primary {
+    color: var(--jira-text-primary) !important;
+}
+
+.text-secondary {
+    color: var(--jira-text-secondary) !important;
+}
+
+/* Error UI */
+#blazor-error-ui {
+    background: var(--jira-red-bg);
+    bottom: 0;
+    box-shadow: var(--jira-shadow-raised);
+    display: none;
+    left: 0;
+    padding: var(--jira-space-200) var(--jira-space-300);
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    border-top: 2px solid var(--jira-red);
+    color: var(--jira-red-dark);
+    font-size: calc(14px * var(--font-size-multiplier));
+    line-height: calc(20px * var(--font-size-multiplier));
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: var(--jira-space-200);
+    top: var(--jira-space-200);
+    color: var(--jira-red-dark);
+    background: none;
+    border: none;
+    font-size: calc(16px * var(--font-size-multiplier));
+    padding: var(--jira-space-050);
+}
+
+.blazor-error-boundary {
+    background: var(--jira-red);
+    padding: var(--jira-space-200);
+    color: var(--jira-n0);
+    border-radius: var(--jira-radius-small);
+}
+
+.blazor-error-boundary::after {
+    content: "An error has occurred.";
+}
+
+/* Scrollbar Styling - Atlassian Design */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--jira-border);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--jira-text-subtle);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--jira-border) transparent;
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===================================
+   RESPONSIVE DESIGN UTILITIES
+   Mobile-first approach with consistent breakpoints
+   =================================== */
+
+/* Touch-friendly minimum sizes */
+.touch-target {
+    min-width: 44px;
+    min-height: 44px;
+}
+
+/* Button responsive sizing - ensure touch-friendly on mobile */
+.btn {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Mobile-specific typography adjustments */
+@media (max-width: 767px) {
+    /* Reduce heading sizes on mobile for better fit */
+    h1 {
+        font-size: calc(24px * var(--font-size-multiplier));
+        line-height: calc(28px * var(--font-size-multiplier));
+    }
+
+    h2 {
+        font-size: calc(20px * var(--font-size-multiplier));
+        line-height: calc(24px * var(--font-size-multiplier));
+    }
+
+    h3 {
+        font-size: calc(18px * var(--font-size-multiplier));
+        line-height: calc(22px * var(--font-size-multiplier));
+    }
+
+    /* Reduce spacing on mobile */
+    .content {
+        padding-top: var(--jira-space-150);
+    }
+
+    /* Full-width buttons on mobile */
+    .btn-block-mobile {
+        width: 100%;
+        display: block;
+    }
+
+    /* Stack form controls on mobile */
+    .form-control,
+    .form-select {
+        font-size: calc(16px * var(--font-size-multiplier)); /* Prevent zoom on iOS */
+    }
+}
+
+/* Tablet breakpoint (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .content {
+        padding-top: var(--jira-space-250);
+    }
+}
+
+/* Desktop breakpoint (1024px+) */
+@media (min-width: 1024px) {
+    .content {
+        padding-top: var(--jira-space-300);
+    }
+}
+
+/* Large desktop breakpoint (1440px+) */
+@media (min-width: 1440px) {
+    /* Optimal viewing on large screens */
+    body {
+        font-size: calc(15px * var(--font-size-multiplier));
+    }
+}
+
+/* ===================================
+   LANGUAGE SELECTOR
+   =================================== */
+.language-selector {
+    padding: 8px 12px;
+}
+
+.language-selector .form-select {
+    font-size: calc(12px * var(--font-size-multiplier));
+    padding: 4px 8px;
+    border-color: var(--jira-border);
+    background-color: var(--jira-background);
+    color: var(--jira-text);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.language-selector .form-select:hover {
+    background-color: var(--jira-background-hover);
+}
+
+.language-selector .form-select:focus {
+    border-color: var(--jira-primary);
+    box-shadow: 0 0 0 1px var(--jira-primary);
+}

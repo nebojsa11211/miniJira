@@ -1,0 +1,494 @@
+/* Task Tabs */
+.task-tabs {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-color, #dee2e6);
+}
+
+.task-tab {
+    padding: 12px 24px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--text-secondary, #6c757d);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.task-tab:hover {
+    color: var(--text-primary, #212529);
+    background-color: var(--bg-hover, #f8f9fa);
+}
+
+.task-tab.active {
+    color: #007bff;
+    border-bottom-color: #007bff;
+    font-weight: 600;
+}
+
+.work-order-tab-content {
+    padding: 20px 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/* Work Order Container */
+.work-order-container {
+    padding: 20px;
+    background-color: var(--bg-primary, #ffffff);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/* Toolbar */
+.work-order-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: var(--bg-secondary, #f5f5f5);
+    border-radius: 4px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.work-order-toolbar button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.work-order-toolbar .btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.work-order-toolbar .btn-success:hover:not(:disabled) {
+    background-color: #218838;
+}
+
+.work-order-toolbar .btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.work-order-toolbar .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.work-order-toolbar .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.work-order-toolbar .btn-danger:hover {
+    background-color: #c82333;
+}
+
+.work-order-toolbar button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Alerts */
+.alert {
+    padding: 12px 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+/* Header Section */
+.work-order-header {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: var(--bg-secondary, #f8f9fa);
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: 4px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.header-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.header-row:last-child {
+    margin-bottom: 0;
+}
+
+.header-field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.header-field label {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text-secondary, #6c757d);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.header-field input,
+.header-field textarea {
+    padding: 6px 10px;
+    border: 1px solid var(--border-color, #ced4da);
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: var(--input-bg, #ffffff);
+    color: var(--text-primary, #212529);
+}
+
+.header-field input:focus,
+.header-field textarea:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Responsive column classes - Using flex-grow to account for gaps */
+.col-2 { flex: 2 1 0; }
+.col-3 { flex: 3 1 0; }
+.col-4 { flex: 4 1 0; }
+.col-5 { flex: 5 1 0; }
+.col-6 { flex: 6 1 0; }
+
+/* Table Container */
+.work-order-table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: 4px;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Table */
+.work-order-table {
+    width: 100%;
+    min-width: 1400px;
+    border-collapse: collapse;
+    font-size: 12px;
+    background-color: var(--bg-primary, #ffffff);
+    table-layout: fixed;
+}
+
+.work-order-table thead {
+    position: sticky;
+    top: 0;
+    background-color: var(--table-header-bg, #343a40);
+    color: white;
+    z-index: 10;
+}
+
+.work-order-table th {
+    padding: 8px 4px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 11px;
+    border: 1px solid var(--border-color, #dee2e6);
+    white-space: nowrap;
+}
+
+.work-order-table td {
+    padding: 2px;
+    border: 1px solid var(--border-color, #dee2e6);
+    vertical-align: middle;
+}
+
+.work-order-table tbody tr:hover {
+    background-color: var(--row-hover-bg, #f8f9fa);
+}
+
+.work-order-table tbody tr:nth-child(even) {
+    background-color: var(--row-even-bg, #f9f9f9);
+}
+
+/* Column widths */
+.col-row { width: 40px; }
+.col-position { width: 50px; }
+.col-dimension { width: 80px; }
+.col-quantity { width: 70px; }
+.col-description { width: 150px; }
+.col-calc { width: 80px; }
+
+/* Cell types */
+.row-number {
+    text-align: center;
+    font-weight: 600;
+    background-color: var(--row-number-bg, #e9ecef);
+    color: var(--text-secondary, #6c757d);
+}
+
+.calculated {
+    text-align: right;
+    padding-right: 8px !important;
+    background-color: var(--calc-bg, #e7f3ff);
+    color: var(--calc-text, #0066cc);
+    font-weight: 500;
+}
+
+/* Input cells */
+.work-order-table input {
+    width: 100%;
+    height: 100%;
+    padding: 4px 6px;
+    border: none;
+    background: transparent;
+    font-size: 12px;
+    font-family: inherit;
+    color: var(--text-primary, #212529);
+}
+
+.work-order-table input:focus {
+    outline: 2px solid #4CAF50;
+    background-color: var(--input-focus-bg, #fffff0);
+}
+
+.work-order-table input[type="number"] {
+    text-align: right;
+}
+
+/* Summary Section */
+.work-order-summary {
+    padding: 15px;
+    background-color: var(--bg-secondary, #f8f9fa);
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: 4px;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.work-order-summary h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: var(--text-primary, #212529);
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #dee2e6);
+    border-radius: 4px;
+}
+
+.summary-item label {
+    font-weight: 600;
+    color: var(--text-secondary, #6c757d);
+}
+
+.summary-item span {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary, #212529);
+}
+
+/* Loading and Empty States */
+.loading-spinner,
+.no-work-order {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.loading-spinner p,
+.no-work-order p {
+    font-size: 18px;
+    color: var(--text-secondary, #6c757d);
+    margin-bottom: 20px;
+}
+
+.no-work-order button {
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.no-work-order button:hover {
+    background-color: #0056b3;
+}
+
+/* Dark Mode Support - Aligned with Atlassian Design System */
+[data-theme="dark"] .work-order-container {
+    --bg-primary: #22272B;
+    --bg-secondary: #2C333A;
+    --text-primary: #FFFFFF;
+    --text-secondary: #9FADBC;
+    --border-color: #38414A;
+    --table-header-bg: #2C333A;
+    --row-hover-bg: #2C333A;
+    --row-even-bg: #1D2125;
+    --row-number-bg: #2C333A;
+    --calc-bg: #09326C;
+    --calc-text: #579DFF;
+    --input-bg: #22272B;
+    --input-focus-bg: #2C333A;
+}
+
+[data-theme="dark"] .work-order-table input {
+    color: #FFFFFF;
+}
+
+[data-theme="dark"] .work-order-toolbar .btn-success {
+    background-color: #4BCE97;
+}
+
+[data-theme="dark"] .work-order-toolbar .btn-success:hover:not(:disabled) {
+    background-color: #5FDD9D;
+}
+
+[data-theme="dark"] .work-order-toolbar .btn-secondary {
+    background-color: #596773;
+}
+
+[data-theme="dark"] .work-order-toolbar .btn-secondary:hover {
+    background-color: #738496;
+}
+
+[data-theme="dark"] .work-order-toolbar .btn-danger {
+    background-color: #F87462;
+}
+
+[data-theme="dark"] .work-order-toolbar .btn-danger:hover {
+    background-color: #FF9C8F;
+}
+
+[data-theme="dark"] .alert-danger {
+    background-color: #42221F;
+    border-color: #5D2B28;
+    color: #F87462;
+}
+
+[data-theme="dark"] .alert-success {
+    background-color: #164B35;
+    border-color: #216E4E;
+    color: #4BCE97;
+}
+
+/* Responsive Design */
+@media (min-width: 1440px) {
+    .work-order-tab-content {
+        /* Account for:
+           - Sidebar: 280px
+           - Article content padding: 96px (48px × 2)
+           - Task detail container padding: 64px (32px × 2)
+        */
+        max-width: calc(100vw - 280px - 96px - 64px);
+    }
+
+    .work-order-container {
+        /* Let the container fit within the tab content */
+        max-width: 100%;
+    }
+
+    .work-order-table-container {
+        max-width: 100%;
+    }
+
+    .work-order-table {
+        min-width: 950px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .work-order-table {
+        font-size: 11px;
+    }
+
+    .header-row {
+        flex-wrap: wrap;
+    }
+
+    .col-2, .col-3, .col-4, .col-5, .col-6 {
+        flex: 0 0 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .work-order-container {
+        padding: 10px;
+    }
+
+    .work-order-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .work-order-table {
+        font-size: 10px;
+    }
+
+    .col-dimension,
+    .col-description {
+        min-width: 100px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .work-order-toolbar,
+    .alert {
+        display: none;
+    }
+
+    .work-order-container {
+        box-shadow: none;
+        padding: 0;
+    }
+
+    .work-order-table {
+        page-break-inside: avoid;
+    }
+
+    .work-order-table input {
+        border: none !important;
+        background: transparent !important;
+    }
+}

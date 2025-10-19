@@ -1,0 +1,42 @@
+@using MiniJira.Services.DTOs
+@using MiniJira.Resources
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Localization> Localizer
+
+<div id="task-card-@Task.Id"
+     class="jira-task-card card-elevated fade-in bounce-click"
+     @onclick="HandleClick"
+     role="button"
+     tabindex="0"
+     @onkeydown="HandleKeyDown">
+    <div id="task-card-header-@Task.Id" class="task-card-header">
+        <h3 class="task-card-title">@Task.Title</h3>
+        <div id="task-card-customer-@Task.Id" class="task-card-customer @(string.IsNullOrEmpty(Task.Customer) ? "no-customer" : "")">
+            <svg class="customer-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm0 1c-3.315 0-6 2.015-6 4.5V15h12v-1.5c0-2.485-2.685-4.5-6-4.5z"/>
+            </svg>
+            <span class="customer-name">@(string.IsNullOrEmpty(Task.Customer) ? @Localizer["TaskDetail.NoCustomer"] : Task.Customer)</span>
+        </div>
+    </div>
+
+    <div id="task-card-category-@Task.Id" class="task-card-category @GetCategoryClass()">
+        @GetCategoryName()
+    </div>
+
+    <div id="task-card-footer-@Task.Id" class="task-card-footer">
+        <div id="task-card-meta-@Task.Id" class="task-card-meta">
+            <div class="task-card-dates">
+                <svg class="calendar-icon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                </svg>
+                <div class="dates-container">
+                    <span class="task-card-date" title="@Localizer["TaskCard.CreatedDate"]">@GetCreatedDate()</span>
+                    <span class="date-separator">→</span>
+                    <span class="task-card-date" title="@Localizer["TaskCard.MovedDate"]">@GetUpdatedDate()</span>
+                </div>
+            </div>
+        </div>
+        <div id="task-card-avatar-@Task.Id" class="task-card-avatar" title="@Localizer["TaskCard.AssignedUser"]">
+            @GetInitials()
+        </div>
+    </div>
+</div>

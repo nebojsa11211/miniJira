@@ -1,0 +1,245 @@
+@using MiniJira.Models
+@using MiniJira.Services.DTOs
+@using MiniJira.Resources
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Localization> Localizer
+
+<div class="column-filter-panel">
+    <div class="filter-panel-header">
+        <button class="filter-toggle-btn" @onclick="TogglePanel" title="@(isExpanded ? @Localizer["Filter.CollapseFilters"] : @Localizer["Filter.ExpandFilters"])">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            @if (FilterState.HasActiveFilters || FilterState.HasActiveSort)
+            {
+                <span class="active-indicator"></span>
+            }
+        </button>
+
+        @if (FilterState.HasActiveFilters || FilterState.HasActiveSort)
+        {
+            <button class="clear-all-btn" @onclick="ClearAll" title="@Localizer["Filter.ClearAll"]">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+                </svg>
+            </button>
+        }
+    </div>
+
+    @if (isExpanded)
+    {
+        <div class="filter-panel-content">
+            <!-- Sort Options -->
+            <div class="filter-section">
+                <label class="filter-label">@Localizer["Filter.SortBy"]</label>
+                <select class="filter-select" @bind="CurrentSortOption">
+                    <option value="@SortOption.None">@Localizer["Filter.SortNone"]</option>
+                    <option value="@SortOption.PriorityHighToLow">@Localizer["Filter.SortPriorityHighToLow"]</option>
+                    <option value="@SortOption.PriorityLowToHigh">@Localizer["Filter.SortPriorityLowToHigh"]</option>
+                    <option value="@SortOption.AssigneeAZ">@Localizer["Filter.SortAssigneeAZ"]</option>
+                    <option value="@SortOption.CreatedNewest">@Localizer["Filter.SortCreatedNewest"]</option>
+                    <option value="@SortOption.CreatedOldest">@Localizer["Filter.SortCreatedOldest"]</option>
+                    <option value="@SortOption.TitleAZ">@Localizer["Filter.SortTitleAZ"]</option>
+                </select>
+            </div>
+
+            <!-- Priority Filter -->
+            <div class="filter-section">
+                <label class="filter-label">@Localizer["Filter.Priority"]</label>
+                <div class="filter-checkboxes">
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox"
+                               checked="@IsPrioritySelected(TaskPriority.High)"
+                               @onchange="@(e => TogglePriority(TaskPriority.High, (bool)e.Value!))" />
+                        <span class="priority-label priority-high">@Localizer["TaskPriority.High"]</span>
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox"
+                               checked="@IsPrioritySelected(TaskPriority.Medium)"
+                               @onchange="@(e => TogglePriority(TaskPriority.Medium, (bool)e.Value!))" />
+                        <span class="priority-label priority-medium">@Localizer["TaskPriority.Medium"]</span>
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox"
+                               checked="@IsPrioritySelected(TaskPriority.Low)"
+                               @onchange="@(e => TogglePriority(TaskPriority.Low, (bool)e.Value!))" />
+                        <span class="priority-label priority-low">@Localizer["TaskPriority.Low"]</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Assignee Filter -->
+            @if (AvailableAssignees.Count > 0)
+            {
+                <div class="filter-section">
+                    <label class="filter-label">@Localizer["Filter.Assignee"]</label>
+                    <div class="filter-checkboxes">
+                        @foreach (var assignee in AvailableAssignees)
+                        {
+                            <label class="filter-checkbox-label">
+                                <input type="checkbox"
+                                       checked="@IsAssigneeSelected(assignee.Id)"
+                                       @onchange="@(e => ToggleAssignee(assignee.Id, (bool)e.Value!))" />
+                                <span class="assignee-label">@assignee.FullName</span>
+                            </label>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .column-filter-panel {
+        background: var(--jira-bg-secondary);
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+        border: 1px solid var(--jira-border);
+    }
+
+    .filter-panel-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    .filter-toggle-btn {
+        position: relative;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.25rem 0.5rem;
+        border-radius: 3px;
+        color: var(--jira-text-secondary);
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        transition: background-color 0.2s;
+    }
+
+    .filter-toggle-btn:hover {
+        background: var(--jira-bg-tertiary);
+    }
+
+    .active-indicator {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        width: 6px;
+        height: 6px;
+        background: var(--jira-primary);
+        border-radius: 50%;
+    }
+
+    .clear-all-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.25rem;
+        color: var(--jira-text-subtle);
+        display: flex;
+        align-items: center;
+        border-radius: 3px;
+        transition: all 0.2s;
+    }
+
+    .clear-all-btn:hover {
+        background: var(--jira-red-bg);
+        color: var(--jira-red-dark);
+    }
+
+    .filter-panel-content {
+        padding: 0.75rem;
+        border-top: 1px solid var(--jira-border);
+    }
+
+    .filter-section {
+        margin-bottom: 0.75rem;
+    }
+
+    .filter-section:last-child {
+        margin-bottom: 0;
+    }
+
+    .filter-label {
+        display: block;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--jira-text-secondary);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+    }
+
+    .filter-select {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid var(--jira-border);
+        border-radius: 3px;
+        background: var(--jira-bg-primary);
+        font-size: 0.875rem;
+        color: var(--jira-text-primary);
+        cursor: pointer;
+    }
+
+    .filter-select:focus {
+        outline: none;
+        border-color: var(--jira-border-focus);
+        box-shadow: 0 0 0 2px rgba(0, 82, 204, 0.1);
+    }
+
+    .filter-checkboxes {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .filter-checkbox-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        font-size: 0.875rem;
+        color: var(--jira-text-primary);
+        padding: 0.25rem;
+        border-radius: 3px;
+        transition: background-color 0.2s;
+    }
+
+    .filter-checkbox-label:hover {
+        background: var(--jira-bg-tertiary);
+    }
+
+    .filter-checkbox-label input[type="checkbox"] {
+        cursor: pointer;
+        width: 16px;
+        height: 16px;
+    }
+
+    .priority-label {
+        padding: 0.125rem 0.5rem;
+        border-radius: 3px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .priority-high {
+        background: var(--jira-red-bg);
+        color: var(--jira-red-dark);
+    }
+
+    .priority-medium {
+        background: var(--jira-yellow-bg);
+        color: var(--jira-yellow-dark);
+    }
+
+    .priority-low {
+        background: var(--jira-green-bg);
+        color: var(--jira-green-dark);
+    }
+
+    .assignee-label {
+        font-size: 0.875rem;
+    }
+</style>

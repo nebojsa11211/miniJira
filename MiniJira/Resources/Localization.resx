@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <!-- Navigation -->
+  <data name="Nav.Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Nav.Board" xml:space="preserve">
+    <value>Board</value>
+  </data>
+  <data name="Nav.Backlog" xml:space="preserve">
+    <value>Backlog</value>
+  </data>
+  <data name="Nav.Timeline" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="Nav.Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="Nav.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+
+  <!-- Settings Page -->
+  <data name="Settings.Description" xml:space="preserve">
+    <value>Configure your MiniJira preferences</value>
+  </data>
+  <data name="Settings.Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings.LanguageDescription" xml:space="preserve">
+    <value>Select your preferred language for the interface</value>
+  </data>
+  <data name="Settings.FontSize" xml:space="preserve">
+    <value>Font Size</value>
+  </data>
+  <data name="Settings.FontSizeDescription" xml:space="preserve">
+    <value>Adjust the text size throughout the application</value>
+  </data>
+  <data name="Settings.SaveSettings" xml:space="preserve">
+    <value>Save Settings</value>
+  </data>
+  <data name="Settings.Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="Settings.SavedSuccessfully" xml:space="preserve">
+    <value>Settings saved successfully!</value>
+  </data>
+  <data name="Settings.SaveError" xml:space="preserve">
+    <value>Error saving settings: {0}</value>
+  </data>
+
+  <!-- Common Buttons -->
+  <data name="Common.CreateTask" xml:space="preserve">
+    <value>Create Task</value>
+  </data>
+  <data name="Common.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common.Save" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="Common.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Common.Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Common.Back" xml:space="preserve">
+    <value>Back to Board</value>
+  </data>
+  <data name="Common.Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Common.Error" xml:space="preserve">
+    <value>Error:</value>
+  </data>
+  <data name="Common.About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Common.Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+
+  <!-- Board Page -->
+  <data name="Board.Title" xml:space="preserve">
+    <value>Board</value>
+  </data>
+  <data name="Board.Task" xml:space="preserve">
+    <value>task</value>
+  </data>
+  <data name="Board.Tasks" xml:space="preserve">
+    <value>tasks</value>
+  </data>
+  <data name="Board.LoadingBoard" xml:space="preserve">
+    <value>Loading board...</value>
+  </data>
+  <data name="Board.ColumnToDo" xml:space="preserve">
+    <value>TO DO</value>
+  </data>
+  <data name="Board.ColumnInProgress" xml:space="preserve">
+    <value>IN PROGRESS</value>
+  </data>
+  <data name="Board.ColumnDone" xml:space="preserve">
+    <value>DONE</value>
+  </data>
+  <data name="Board.NoTasks" xml:space="preserve">
+    <value>No tasks</value>
+  </data>
+  <data name="Board.FailedToLoad" xml:space="preserve">
+    <value>Failed to load tasks: {0}</value>
+  </data>
+
+  <!-- Task Status -->
+  <data name="TaskStatus.ToDo" xml:space="preserve">
+    <value>To Do</value>
+  </data>
+  <data name="TaskStatus.InProgress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="TaskStatus.Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+
+  <!-- Task Priority -->
+  <data name="TaskPriority.Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="TaskPriority.Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="TaskPriority.High" xml:space="preserve">
+    <value>High</value>
+  </data>
+
+  <!-- Create Task Page -->
+  <data name="CreateTask.Title" xml:space="preserve">
+    <value>Create Task</value>
+  </data>
+  <data name="CreateTask.TaskTitle" xml:space="preserve">
+    <value>Task Title *</value>
+  </data>
+  <data name="CreateTask.Description" xml:space="preserve">
+    <value>Description *</value>
+  </data>
+  <data name="CreateTask.Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="CreateTask.TitlePlaceholder" xml:space="preserve">
+    <value>Enter task title</value>
+  </data>
+  <data name="CreateTask.DescriptionPlaceholder" xml:space="preserve">
+    <value>Describe the task in detail...</value>
+  </data>
+  <data name="CreateTask.Creating" xml:space="preserve">
+    <value>Creating...</value>
+  </data>
+  <data name="CreateTask.TipsTitle" xml:space="preserve">
+    <value>Tips for creating great tasks</value>
+  </data>
+  <data name="CreateTask.Tip1" xml:space="preserve">
+    <value>Use clear, concise titles that describe the task at a glance</value>
+  </data>
+  <data name="CreateTask.Tip2" xml:space="preserve">
+    <value>Provide detailed descriptions to give context and requirements</value>
+  </data>
+  <data name="CreateTask.Tip3" xml:space="preserve">
+    <value>Set priority based on urgency and importance</value>
+  </data>
+  <data name="CreateTask.Tip4" xml:space="preserve">
+    <value>Break down large tasks into smaller, manageable ones</value>
+  </data>
+  <data name="CreateTask.Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="CreateTask.CustomerPlaceholder" xml:space="preserve">
+    <value>Enter customer name (optional)</value>
+  </data>
+
+  <!-- Task Detail Page -->
+  <data name="TaskDetail.LoadingTask" xml:space="preserve">
+    <value>Loading task...</value>
+  </data>
+  <data name="TaskDetail.Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="TaskDetail.Priority" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="TaskDetail.Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="TaskDetail.CustomerPlaceholder" xml:space="preserve">
+    <value>Customer name</value>
+  </data>
+  <data name="TaskDetail.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="TaskDetail.QuickStatusChange" xml:space="preserve">
+    <value>Quick Status Change</value>
+  </data>
+  <data name="TaskDetail.Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="TaskDetail.Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="TaskDetail.Updated" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="TaskDetail.EditTask" xml:space="preserve">
+    <value>Edit Task</value>
+  </data>
+  <data name="TaskDetail.Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+  <data name="TaskDetail.DeleteTask" xml:space="preserve">
+    <value>Delete Task</value>
+  </data>
+  <data name="TaskDetail.DeleteConfirmation" xml:space="preserve">
+    <value>Are you sure you want to delete</value>
+  </data>
+  <data name="TaskDetail.DeleteWarning" xml:space="preserve">
+    <value>This action cannot be undone.</value>
+  </data>
+  <data name="TaskDetail.TaskNotFound" xml:space="preserve">
+    <value>Task not found</value>
+  </data>
+  <data name="TaskDetail.FailedToLoad" xml:space="preserve">
+    <value>Failed to load task: {0}</value>
+  </data>
+  <data name="TaskDetail.FailedToUpdate" xml:space="preserve">
+    <value>Failed to update task: {0}</value>
+  </data>
+  <data name="TaskDetail.FailedToUpdateStatus" xml:space="preserve">
+    <value>Failed to update status: {0}</value>
+  </data>
+  <data name="TaskDetail.FailedToDelete" xml:space="preserve">
+    <value>Failed to delete task: {0}</value>
+  </data>
+  <data name="TaskDetail.FailedToSave" xml:space="preserve">
+    <value>Failed to save changes: {0}</value>
+  </data>
+
+  <!-- Validation Messages -->
+  <data name="Validation.Required" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
+  <data name="Validation.TitleRequired" xml:space="preserve">
+    <value>Title is required</value>
+  </data>
+  <data name="Validation.DescriptionRequired" xml:space="preserve">
+    <value>Description is required</value>
+  </data>
+  <data name="Validation.FixErrors" xml:space="preserve">
+    <value>Please fix the validation errors above.</value>
+  </data>
+  <data name="Validation.InvalidTaskId" xml:space="preserve">
+    <value>Invalid task ID</value>
+  </data>
+  <data name="Validation.InvalidTaskStatus" xml:space="preserve">
+    <value>Invalid task status</value>
+  </data>
+  <data name="Validation.UnexpectedError" xml:space="preserve">
+    <value>An unexpected error occurred: {0}</value>
+  </data>
+
+  <!-- Task Categories (for TaskCard) -->
+  <data name="Category.Billing" xml:space="preserve">
+    <value>BILLING</value>
+  </data>
+  <data name="Category.Accounts" xml:space="preserve">
+    <value>ACCOUNTS</value>
+  </data>
+  <data name="Category.Forms" xml:space="preserve">
+    <value>FORMS</value>
+  </data>
+  <data name="Category.General" xml:space="preserve">
+    <value>GENERAL</value>
+  </data>
+
+  <!-- Language Selector -->
+  <data name="Language.English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Language.Croatian" xml:space="preserve">
+    <value>Croatian</value>
+  </data>
+  <data name="Language.SelectLanguage" xml:space="preserve">
+    <value>Select Language</value>
+  </data>
+
+  <!-- Font Size Selector -->
+  <data name="FontSize.Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="FontSize.Bigger10" xml:space="preserve">
+    <value>10% Bigger</value>
+  </data>
+  <data name="FontSize.Bigger20" xml:space="preserve">
+    <value>20% Bigger</value>
+  </data>
+  <data name="FontSize.Bigger30" xml:space="preserve">
+    <value>30% Bigger</value>
+  </data>
+  <data name="FontSize.Bigger40" xml:space="preserve">
+    <value>40% Bigger</value>
+  </data>
+  <data name="FontSize.Bigger50" xml:space="preserve">
+    <value>50% Bigger</value>
+  </data>
+
+  <!-- Theme Toggle -->
+  <data name="Theme.SwitchToDark" xml:space="preserve">
+    <value>Switch to dark mode</value>
+  </data>
+  <data name="Theme.SwitchToLight" xml:space="preserve">
+    <value>Switch to light mode</value>
+  </data>
+
+  <!-- Column Management -->
+  <data name="Nav.ColumnManagement" xml:space="preserve">
+    <value>Column Management</value>
+  </data>
+  <data name="ColumnManagement.Title" xml:space="preserve">
+    <value>Column Management</value>
+  </data>
+  <data name="ColumnManagement.CreateColumn" xml:space="preserve">
+    <value>Create New Column</value>
+  </data>
+  <data name="ColumnManagement.EditColumn" xml:space="preserve">
+    <value>Edit Column</value>
+  </data>
+  <data name="ColumnManagement.DeleteColumn" xml:space="preserve">
+    <value>Delete Column</value>
+  </data>
+  <data name="ColumnManagement.SystemColumn" xml:space="preserve">
+    <value>System Column</value>
+  </data>
+  <data name="ColumnManagement.TaskCount" xml:space="preserve">
+    <value>{0} tasks</value>
+  </data>
+  <data name="ColumnManagement.NoColumns" xml:space="preserve">
+    <value>No columns found</value>
+  </data>
+  <data name="ColumnManagement.LoadingColumns" xml:space="preserve">
+    <value>Loading columns...</value>
+  </data>
+  <data name="ColumnManagement.DeleteWarning" xml:space="preserve">
+    <value>This action cannot be undone</value>
+  </data>
+  <data name="ColumnManagement.DeleteConfirmation" xml:space="preserve">
+    <value>Are you sure you want to delete the column</value>
+  </data>
+  <data name="ColumnManagement.CannotDelete" xml:space="preserve">
+    <value>Cannot delete columns with tasks</value>
+  </data>
+  <data name="ColumnManagement.CannotDeleteSystem" xml:space="preserve">
+    <value>Cannot delete system columns</value>
+  </data>
+  <data name="ColumnManagement.DragHandle" xml:space="preserve">
+    <value>Drag to reorder</value>
+  </data>
+  <data name="ColumnManagement.ColumnCreated" xml:space="preserve">
+    <value>Column created successfully</value>
+  </data>
+  <data name="ColumnManagement.ColumnUpdated" xml:space="preserve">
+    <value>Column updated successfully</value>
+  </data>
+  <data name="ColumnManagement.ColumnDeleted" xml:space="preserve">
+    <value>Column deleted successfully</value>
+  </data>
+  <data name="ColumnManagement.ColumnsReordered" xml:space="preserve">
+    <value>Columns reordered successfully</value>
+  </data>
+  <data name="ColumnManagement.FailedToLoad" xml:space="preserve">
+    <value>Failed to load columns: {0}</value>
+  </data>
+  <data name="ColumnManagement.FailedToSave" xml:space="preserve">
+    <value>Failed to save column: {0}</value>
+  </data>
+  <data name="ColumnManagement.FailedToDelete" xml:space="preserve">
+    <value>Failed to delete column: {0}</value>
+  </data>
+  <data name="ColumnManagement.FailedToReorder" xml:space="preserve">
+    <value>Failed to reorder columns: {0}</value>
+  </data>
+
+  <!-- Column Dialog -->
+  <data name="ColumnDialog.EnglishTab" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="ColumnDialog.CroatianTab" xml:space="preserve">
+    <value>Croatian (Hrvatski)</value>
+  </data>
+  <data name="ColumnDialog.Name" xml:space="preserve">
+    <value>Column Name</value>
+  </data>
+  <data name="ColumnDialog.Description" xml:space="preserve">
+    <value>Description (optional)</value>
+  </data>
+  <data name="ColumnDialog.Color" xml:space="preserve">
+    <value>Column Color</value>
+  </data>
+  <data name="ColumnDialog.ColorPreview" xml:space="preserve">
+    <value>Color Preview</value>
+  </data>
+  <data name="ColumnDialog.NamePlaceholder" xml:space="preserve">
+    <value>Enter column name</value>
+  </data>
+  <data name="ColumnDialog.DescriptionPlaceholder" xml:space="preserve">
+    <value>Enter column description (optional)</value>
+  </data>
+  <data name="ColumnDialog.NameRequired" xml:space="preserve">
+    <value>Column name is required</value>
+  </data>
+  <data name="ColumnDialog.EnglishNameRequired" xml:space="preserve">
+    <value>English name is required</value>
+  </data>
+  <data name="ColumnDialog.CroatianNameRequired" xml:space="preserve">
+    <value>Croatian name is required</value>
+  </data>
+  <data name="ColumnDialog.ColorInvalid" xml:space="preserve">
+    <value>Color must be a valid hex code (e.g., #DFE1E6)</value>
+  </data>
+  <data name="ColumnDialog.SaveError" xml:space="preserve">
+    <value>Failed to save column: {0}</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Common.Saving" xml:space="preserve">
+    <value>Saving...</value>
+  </data>
+
+  <!-- Tooltips -->
+  <data name="Tooltip.CreateTask" xml:space="preserve">
+    <value>Create a new task</value>
+  </data>
+  <data name="Tooltip.Logout" xml:space="preserve">
+    <value>Sign out of your account</value>
+  </data>
+  <data name="Tooltip.Back" xml:space="preserve">
+    <value>Go back to board</value>
+  </data>
+  <data name="Tooltip.Edit" xml:space="preserve">
+    <value>Edit this task</value>
+  </data>
+  <data name="Tooltip.Delete" xml:space="preserve">
+    <value>Delete this task</value>
+  </data>
+  <data name="Tooltip.Save" xml:space="preserve">
+    <value>Save your changes</value>
+  </data>
+  <data name="Tooltip.Cancel" xml:space="preserve">
+    <value>Cancel and go back</value>
+  </data>
+  <data name="Tooltip.TitleInput" xml:space="preserve">
+    <value>Enter a clear and concise title</value>
+  </data>
+  <data name="Tooltip.DescriptionInput" xml:space="preserve">
+    <value>Provide detailed information about the task</value>
+  </data>
+  <data name="Tooltip.PrioritySelect" xml:space="preserve">
+    <value>Set the priority level</value>
+  </data>
+  <data name="Tooltip.CustomerInput" xml:space="preserve">
+    <value>Enter the customer name for this task</value>
+  </data>
+  <data name="Tooltip.StatusSelect" xml:space="preserve">
+    <value>Change the task status</value>
+  </data>
+  <data name="Tooltip.AssigneeSelect" xml:space="preserve">
+    <value>Assign this task to a team member</value>
+  </data>
+  <data name="Tooltip.QuickStatusChange" xml:space="preserve">
+    <value>Click to move task to this column</value>
+  </data>
+  <data name="Tooltip.CreateColumn" xml:space="preserve">
+    <value>Add a new column</value>
+  </data>
+  <data name="Tooltip.EditColumn" xml:space="preserve">
+    <value>Edit column settings</value>
+  </data>
+  <data name="Tooltip.DeleteColumn" xml:space="preserve">
+    <value>Remove this column</value>
+  </data>
+  <data name="Tooltip.DragColumn" xml:space="preserve">
+    <value>Drag to reorder columns</value>
+  </data>
+  <data name="Tooltip.CloseDialog" xml:space="preserve">
+    <value>Close this dialog</value>
+  </data>
+  <data name="Tooltip.ColorPicker" xml:space="preserve">
+    <value>Choose a color for this column</value>
+  </data>
+  <data name="Tooltip.LanguageSelector" xml:space="preserve">
+    <value>Change the interface language</value>
+  </data>
+  <data name="Tooltip.FontSizeSelector" xml:space="preserve">
+    <value>Adjust text size</value>
+  </data>
+  <data name="Tooltip.ThemeToggle" xml:space="preserve">
+    <value>Switch between light and dark mode</value>
+  </data>
+  <data name="Tooltip.ColumnNameInput" xml:space="preserve">
+    <value>Enter the column name</value>
+  </data>
+  <data name="Tooltip.ColumnDescriptionInput" xml:space="preserve">
+    <value>Enter optional description for the column</value>
+  </data>
+  <data name="Tooltip.ColorPickerInput" xml:space="preserve">
+    <value>Select a color for this column</value>
+  </data>
+  <data name="Tooltip.AddComment" xml:space="preserve">
+    <value>Add your comment</value>
+  </data>
+  <data name="Tooltip.EditComment" xml:space="preserve">
+    <value>Edit this comment</value>
+  </data>
+  <data name="Tooltip.DeleteComment" xml:space="preserve">
+    <value>Delete this comment</value>
+  </data>
+  <data name="Tooltip.SaveComment" xml:space="preserve">
+    <value>Save comment changes</value>
+  </data>
+  <data name="Tooltip.FormatBold" xml:space="preserve">
+    <value>Bold text</value>
+  </data>
+  <data name="Tooltip.FormatItalic" xml:space="preserve">
+    <value>Italic text</value>
+  </data>
+  <data name="Tooltip.FormatStrikethrough" xml:space="preserve">
+    <value>Strikethrough text</value>
+  </data>
+  <data name="Tooltip.FormatCode" xml:space="preserve">
+    <value>Code formatting</value>
+  </data>
+  <data name="Tooltip.FormatBulletList" xml:space="preserve">
+    <value>Bullet list</value>
+  </data>
+  <data name="Tooltip.FormatNumberedList" xml:space="preserve">
+    <value>Numbered list</value>
+  </data>
+  <data name="Tooltip.AddEmoji" xml:space="preserve">
+    <value>Add emoji</value>
+  </data>
+  <data name="Tooltip.UploadFile" xml:space="preserve">
+    <value>Choose a file to upload</value>
+  </data>
+  <data name="Tooltip.DownloadFile" xml:space="preserve">
+    <value>Download this file</value>
+  </data>
+  <data name="Tooltip.DeleteFile" xml:space="preserve">
+    <value>Delete this file</value>
+  </data>
+
+  <!-- Comments -->
+  <data name="Comments.Title" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="Comments.AddPlaceholder" xml:space="preserve">
+    <value>Add a comment... (supports **bold**, _italic_, ~~strikethrough~~, `code`)</value>
+  </data>
+  <data name="Comments.AddButton" xml:space="preserve">
+    <value>Add Comment</value>
+  </data>
+  <data name="Comments.Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Comments.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Comments.Loading" xml:space="preserve">
+    <value>Loading comments...</value>
+  </data>
+  <data name="Comments.NoComments" xml:space="preserve">
+    <value>No comments yet. Be the first to comment!</value>
+  </data>
+  <data name="Comments.Edited" xml:space="preserve">
+    <value>(edited {0})</value>
+  </data>
+  <data name="Comments.Comment" xml:space="preserve">
+    <value>comment</value>
+  </data>
+  <data name="Comments.Comments" xml:space="preserve">
+    <value>comments</value>
+  </data>
+  <data name="Comments.Anonymous" xml:space="preserve">
+    <value>Anonymous</value>
+  </data>
+
+  <!-- Time Formats -->
+  <data name="Time.JustNow" xml:space="preserve">
+    <value>Just now</value>
+  </data>
+  <data name="Time.MinutesAgo" xml:space="preserve">
+    <value>{0}m ago</value>
+  </data>
+  <data name="Time.MinutesAgoLong" xml:space="preserve">
+    <value>{0} minutes ago</value>
+  </data>
+  <data name="Time.HoursAgo" xml:space="preserve">
+    <value>{0}h ago</value>
+  </data>
+  <data name="Time.HoursAgoLong" xml:space="preserve">
+    <value>{0} hours ago</value>
+  </data>
+  <data name="Time.DaysAgo" xml:space="preserve">
+    <value>{0}d ago</value>
+  </data>
+  <data name="Time.DaysAgoLong" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+
+  <!-- Column History -->
+  <data name="ColumnHistory.Title" xml:space="preserve">
+    <value>Column History</value>
+  </data>
+  <data name="ColumnHistory.LoadingHistory" xml:space="preserve">
+    <value>Loading history...</value>
+  </data>
+  <data name="ColumnHistory.MovedFrom" xml:space="preserve">
+    <value>Moved from</value>
+  </data>
+  <data name="ColumnHistory.To" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="ColumnHistory.CreatedIn" xml:space="preserve">
+    <value>Created in</value>
+  </data>
+  <data name="ColumnHistory.By" xml:space="preserve">
+    <value>by</value>
+  </data>
+  <data name="ColumnHistory.NoHistory" xml:space="preserve">
+    <value>No column changes yet</value>
+  </data>
+
+  <!-- File Attachments -->
+  <data name="FileAttachments.Title" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="FileAttachments.ChooseFile" xml:space="preserve">
+    <value>Choose file to upload</value>
+  </data>
+  <data name="FileAttachments.Uploading" xml:space="preserve">
+    <value>Uploading...</value>
+  </data>
+  <data name="FileAttachments.Phase" xml:space="preserve">
+    <value>Phase:</value>
+  </data>
+  <data name="FileAttachments.NoAttachments" xml:space="preserve">
+    <value>No attachments yet</value>
+  </data>
+  <data name="FileAttachments.LoadError" xml:space="preserve">
+    <value>Failed to load attachments: {0}</value>
+  </data>
+  <data name="FileAttachments.FileSizeExceeded" xml:space="preserve">
+    <value>File size exceeds 10MB limit</value>
+  </data>
+  <data name="FileAttachments.UploadError" xml:space="preserve">
+    <value>Upload error: {0}</value>
+  </data>
+  <data name="FileAttachments.DownloadError" xml:space="preserve">
+    <value>Download failed: {0}</value>
+  </data>
+  <data name="FileAttachments.DeleteFailed" xml:space="preserve">
+    <value>Failed to delete file</value>
+  </data>
+  <data name="FileAttachments.DeleteError" xml:space="preserve">
+    <value>Delete error: {0}</value>
+  </data>
+  <data name="FileAttachments.Images" xml:space="preserve">
+    <value>Images</value>
+  </data>
+  <data name="FileAttachments.OtherFiles" xml:space="preserve">
+    <value>Other Files</value>
+  </data>
+
+  <!-- User Selection -->
+  <data name="UserSelection.PageTitle" xml:space="preserve">
+    <value>Select User - Radni Nalozi</value>
+  </data>
+  <data name="UserSelection.Title" xml:space="preserve">
+    <value>Welcome to Radni Nalozi</value>
+  </data>
+  <data name="UserSelection.Subtitle" xml:space="preserve">
+    <value>Please select your user to continue</value>
+  </data>
+  <data name="UserSelection.LoadingUsers" xml:space="preserve">
+    <value>Loading users...</value>
+  </data>
+  <data name="UserSelection.ErrorTitle" xml:space="preserve">
+    <value>Unable to Load Users</value>
+  </data>
+  <data name="UserSelection.TryAgain" xml:space="preserve">
+    <value>Try Again</value>
+  </data>
+  <data name="UserSelection.SearchPlaceholder" xml:space="preserve">
+    <value>Search users by name or email...</value>
+  </data>
+  <data name="UserSelection.ClearSearch" xml:space="preserve">
+    <value>Clear search</value>
+  </data>
+  <data name="UserSelection.UserFound" xml:space="preserve">
+    <value>user found</value>
+  </data>
+  <data name="UserSelection.UsersFound" xml:space="preserve">
+    <value>users found</value>
+  </data>
+  <data name="UserSelection.SelectUser" xml:space="preserve">
+    <value>Select user</value>
+  </data>
+  <data name="UserSelection.NoUsersFound" xml:space="preserve">
+    <value>No users found</value>
+  </data>
+  <data name="UserSelection.TryAdjustingSearch" xml:space="preserve">
+    <value>Try adjusting your search terms</value>
+  </data>
+  <data name="UserSelection.NavigationHint" xml:space="preserve">
+    <value>Use ↑↓ arrow keys to navigate, Enter to select, or click on a user</value>
+  </data>
+
+  <!-- Common -->
+  <data name="Common.Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Common.Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+
+  <!-- Navigation Sections -->
+  <data name="Nav.PlanningSection" xml:space="preserve">
+    <value>PLANNING</value>
+  </data>
+  <data name="Nav.DevelopmentSection" xml:space="preserve">
+    <value>DEVELOPMENT</value>
+  </data>
+  <data name="Nav.Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="Nav.Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="Nav.Releases" xml:space="preserve">
+    <value>Releases</value>
+  </data>
+  <data name="Nav.ProjectSettings" xml:space="preserve">
+    <value>Project settings</value>
+  </data>
+  <data name="Nav.HiddenTasks" xml:space="preserve">
+    <value>Hidden Tasks</value>
+  </data>
+
+  <!-- Task Detail Tabs and Actions -->
+  <data name="TaskDetail.DetailsTab" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="TaskDetail.WorkOrderTab" xml:space="preserve">
+    <value>Work Order</value>
+  </data>
+  <data name="TaskDetail.Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="TaskDetail.HideTask" xml:space="preserve">
+    <value>Hide Task</value>
+  </data>
+  <data name="TaskDetail.NoCustomer" xml:space="preserve">
+    <value>No customer</value>
+  </data>
+  <data name="TaskDetail.Assignee" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
+  <data name="TaskDetail.Unassigned" xml:space="preserve">
+    <value>Unassigned</value>
+  </data>
+
+  <!-- Work Order -->
+  <data name="WorkOrder.Loading" xml:space="preserve">
+    <value>Loading work order...</value>
+  </data>
+  <data name="WorkOrder.NoWorkOrder" xml:space="preserve">
+    <value>No work order exists for this task.</value>
+  </data>
+  <data name="WorkOrder.CreateWorkOrder" xml:space="preserve">
+    <value>Create Work Order</value>
+  </data>
+  <data name="WorkOrder.SaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="WorkOrder.ExportCSV" xml:space="preserve">
+    <value>Export CSV</value>
+  </data>
+  <data name="WorkOrder.ExportExcel" xml:space="preserve">
+    <value>Export Excel</value>
+  </data>
+  <data name="WorkOrder.ImportExcel" xml:space="preserve">
+    <value>Import Excel</value>
+  </data>
+  <data name="WorkOrder.Importing" xml:space="preserve">
+    <value>Importing...</value>
+  </data>
+  <data name="WorkOrder.Customer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="WorkOrder.Object" xml:space="preserve">
+    <value>Object</value>
+  </data>
+  <data name="WorkOrder.Product" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="WorkOrder.WorkOrderNumber" xml:space="preserve">
+    <value>Work Order #</value>
+  </data>
+  <data name="WorkOrder.Order" xml:space="preserve">
+    <value>Order</value>
+  </data>
+  <data name="WorkOrder.OrderDate" xml:space="preserve">
+    <value>Order Date</value>
+  </data>
+  <data name="WorkOrder.Delivery" xml:space="preserve">
+    <value>Delivery</value>
+  </data>
+  <data name="WorkOrder.Page" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="WorkOrder.MaterialAndProcessing" xml:space="preserve">
+    <value>Material &amp; Processing</value>
+  </data>
+  <data name="WorkOrder.Surface" xml:space="preserve">
+    <value>Surface</value>
+  </data>
+  <data name="WorkOrder.Cut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="WorkOrder.Processing" xml:space="preserve">
+    <value>Processing</value>
+  </data>
+  <data name="WorkOrder.Packing" xml:space="preserve">
+    <value>Packing</value>
+  </data>
+  <data name="WorkOrder.Notes" xml:space="preserve">
+    <value>Notes</value>
+  </data>
+  <data name="WorkOrder.Length" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="WorkOrder.Width" xml:space="preserve">
+    <value>Width</value>
+  </data>
+  <data name="WorkOrder.Thickness" xml:space="preserve">
+    <value>Thickness</value>
+  </data>
+  <data name="WorkOrder.Pieces" xml:space="preserve">
+    <value>Pcs</value>
+  </data>
+  <data name="WorkOrder.FromPieces" xml:space="preserve">
+    <value>From Pcs</value>
+  </data>
+  <data name="WorkOrder.Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="WorkOrder.Totals" xml:space="preserve">
+    <value>Totals</value>
+  </data>
+  <data name="WorkOrder.TotalPieces" xml:space="preserve">
+    <value>Total Pieces:</value>
+  </data>
+  <data name="WorkOrder.TotalSquareMeters" xml:space="preserve">
+    <value>Total M²:</value>
+  </data>
+  <data name="WorkOrder.TotalLinearMeters" xml:space="preserve">
+    <value>Total M¹:</value>
+  </data>
+  <data name="WorkOrder.TotalCubicMeters" xml:space="preserve">
+    <value>Total M³:</value>
+  </data>
+  <data name="WorkOrder.TotalKilograms" xml:space="preserve">
+    <value>Total KG:</value>
+  </data>
+
+  <!-- Hidden Tasks -->
+  <data name="HiddenTasks.Title" xml:space="preserve">
+    <value>Hidden Tasks</value>
+  </data>
+  <data name="HiddenTasks.PageTitle" xml:space="preserve">
+    <value>Hidden Tasks - MiniJira</value>
+  </data>
+  <data name="HiddenTasks.BackToDashboard" xml:space="preserve">
+    <value>Back to Dashboard</value>
+  </data>
+  <data name="HiddenTasks.Loading" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="HiddenTasks.LoadingMessage" xml:space="preserve">
+    <value>Loading hidden tasks...</value>
+  </data>
+  <data name="HiddenTasks.NoHiddenTasks" xml:space="preserve">
+    <value>No hidden tasks found.</value>
+  </data>
+  <data name="HiddenTasks.HiddenOn" xml:space="preserve">
+    <value>Hidden on:</value>
+  </data>
+  <data name="HiddenTasks.Unhide" xml:space="preserve">
+    <value>Unhide</value>
+  </data>
+  <data name="HiddenTasks.ViewDetails" xml:space="preserve">
+    <value>View Details</value>
+  </data>
+
+  <!-- Owner History -->
+  <data name="OwnerHistory.Title" xml:space="preserve">
+    <value>Owner History</value>
+  </data>
+  <data name="OwnerHistory.NoChanges" xml:space="preserve">
+    <value>No owner changes recorded.</value>
+  </data>
+  <data name="OwnerHistory.ChangedFrom" xml:space="preserve">
+    <value>changed owner from</value>
+  </data>
+  <data name="OwnerHistory.To" xml:space="preserve">
+    <value>to</value>
+  </data>
+
+  <!-- Filter Panel -->
+  <data name="Filter.CollapseFilters" xml:space="preserve">
+    <value>Collapse filters</value>
+  </data>
+  <data name="Filter.ExpandFilters" xml:space="preserve">
+    <value>Expand filters</value>
+  </data>
+  <data name="Filter.ClearAll" xml:space="preserve">
+    <value>Clear all filters and sort</value>
+  </data>
+  <data name="Filter.SortBy" xml:space="preserve">
+    <value>Sort by:</value>
+  </data>
+  <data name="Filter.SortNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Filter.SortPriorityHighToLow" xml:space="preserve">
+    <value>Priority: High to Low</value>
+  </data>
+  <data name="Filter.SortPriorityLowToHigh" xml:space="preserve">
+    <value>Priority: Low to High</value>
+  </data>
+  <data name="Filter.SortAssigneeAZ" xml:space="preserve">
+    <value>Assignee: A-Z</value>
+  </data>
+  <data name="Filter.SortCreatedNewest" xml:space="preserve">
+    <value>Created: Newest First</value>
+  </data>
+  <data name="Filter.SortCreatedOldest" xml:space="preserve">
+    <value>Created: Oldest First</value>
+  </data>
+  <data name="Filter.SortTitleAZ" xml:space="preserve">
+    <value>Title: A-Z</value>
+  </data>
+  <data name="Filter.Priority" xml:space="preserve">
+    <value>Priority:</value>
+  </data>
+  <data name="Filter.Assignee" xml:space="preserve">
+    <value>Assignee:</value>
+  </data>
+
+  <!-- Reports Page -->
+  <data name="Reports.Subtitle" xml:space="preserve">
+    <value>Task Statistics and Insights</value>
+  </data>
+  <data name="Reports.LoadingReports" xml:space="preserve">
+    <value>Loading reports...</value>
+  </data>
+  <data name="Reports.TotalTasks" xml:space="preserve">
+    <value>Total Tasks</value>
+  </data>
+  <data name="Reports.CompletedTasks" xml:space="preserve">
+    <value>Completed Tasks</value>
+  </data>
+  <data name="Reports.InProgress" xml:space="preserve">
+    <value>In Progress</value>
+  </data>
+  <data name="Reports.ToDo" xml:space="preserve">
+    <value>To Do</value>
+  </data>
+  <data name="Reports.StatusDistribution" xml:space="preserve">
+    <value>Status Distribution</value>
+  </data>
+  <data name="Reports.PriorityDistribution" xml:space="preserve">
+    <value>Priority Distribution</value>
+  </data>
+  <data name="Reports.TasksByColumn" xml:space="preserve">
+    <value>Tasks by Column</value>
+  </data>
+  <data name="Reports.RecentActivity" xml:space="preserve">
+    <value>Recent Activity</value>
+  </data>
+  <data name="Reports.Updated" xml:space="preserve">
+    <value>Updated</value>
+  </data>
+  <data name="Reports.Column" xml:space="preserve">
+    <value>Column</value>
+  </data>
+
+  <!-- Time Relative Formats -->
+  <data name="Time.JustNowLong" xml:space="preserve">
+    <value>just now</value>
+  </data>
+  <data name="Time.MinutesAgoFormat" xml:space="preserve">
+    <value>{0} minutes ago</value>
+  </data>
+  <data name="Time.HoursAgoFormat" xml:space="preserve">
+    <value>{0} hours ago</value>
+  </data>
+  <data name="Time.DaysAgoFormat" xml:space="preserve">
+    <value>{0} days ago</value>
+  </data>
+  <data name="Time.WeeksAgo" xml:space="preserve">
+    <value>{0} weeks ago</value>
+  </data>
+  <data name="Time.MonthsAgo" xml:space="preserve">
+    <value>{0} months ago</value>
+  </data>
+  <data name="Time.YearsAgo" xml:space="preserve">
+    <value>{0} years ago</value>
+  </data>
+
+  <!-- Emoji Tooltips -->
+  <data name="Emoji.ThumbsUp" xml:space="preserve">
+    <value>Thumbs up</value>
+  </data>
+  <data name="Emoji.Check" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="Emoji.Cross" xml:space="preserve">
+    <value>Cross</value>
+  </data>
+  <data name="Emoji.Smile" xml:space="preserve">
+    <value>Smile</value>
+  </data>
+
+  <!-- Task Card -->
+  <data name="TaskCard.AssignedUser" xml:space="preserve">
+    <value>Assigned user</value>
+  </data>
+  <data name="TaskCard.CreatedDate" xml:space="preserve">
+    <value>Created date</value>
+  </data>
+  <data name="TaskCard.MovedDate" xml:space="preserve">
+    <value>Last moved</value>
+  </data>
+
+  <!-- Color Palette Settings -->
+  <data name="Settings.ColorPalette" xml:space="preserve">
+    <value>Color Palette</value>
+  </data>
+  <data name="Settings.ColorPaletteDescription" xml:space="preserve">
+    <value>Choose a color scheme for the application</value>
+  </data>
+  <data name="ColorPalette" xml:space="preserve">
+    <value>Color Palette</value>
+  </data>
+
+  <!-- Color Palette Options -->
+  <data name="Palette.ClassicRed" xml:space="preserve">
+    <value>Classic Red</value>
+  </data>
+  <data name="Palette.ClassicRed.Desc" xml:space="preserve">
+    <value>Professional red theme matching MiniJira branding</value>
+  </data>
+  <data name="Palette.OceanBlue" xml:space="preserve">
+    <value>Ocean Blue</value>
+  </data>
+  <data name="Palette.OceanBlue.Desc" xml:space="preserve">
+    <value>Calm blue tones for focused work</value>
+  </data>
+  <data name="Palette.ForestGreen" xml:space="preserve">
+    <value>Forest Green</value>
+  </data>
+  <data name="Palette.ForestGreen.Desc" xml:space="preserve">
+    <value>Natural green palette for sustainable teams</value>
+  </data>
+</root>

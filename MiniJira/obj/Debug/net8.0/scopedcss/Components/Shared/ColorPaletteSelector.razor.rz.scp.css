@@ -1,0 +1,24 @@
+.palette-preview-container[b-rly9yul7zt] {
+    display: flex;
+    gap: 8px;
+}
+
+.palette-preview[b-rly9yul7zt] {
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    border: 2px solid var(--jira-border);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.palette-preview:hover[b-rly9yul7zt] {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.form-text[b-rly9yul7zt] {
+    font-size: calc(13px * var(--font-size-multiplier));
+    color: var(--jira-text-secondary);
+    font-style: italic;
+}

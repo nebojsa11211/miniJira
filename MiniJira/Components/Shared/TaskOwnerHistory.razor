@@ -1,0 +1,149 @@
+@using MiniJira.Services.DTOs
+@using MiniJira.Resources
+@inject Microsoft.Extensions.Localization.IStringLocalizer<Localization> Localizer
+
+<div id="owner-history-container" class="owner-history-container mt-4">
+    <h2 class="section-title">@Localizer["OwnerHistory.Title"]</h2>
+
+    @if (isLoading)
+    {
+        <div id="owner-history-loading-container" class="text-center py-3">
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">@Localizer["Common.Loading"]</span>
+            </div>
+        </div>
+    }
+    else if (history == null || history.Count == 0)
+    {
+        <p class="text-muted">@Localizer["OwnerHistory.NoChanges"]</p>
+    }
+    else
+    {
+        <div id="owner-history-timeline" class="history-timeline">
+            @foreach (var entry in history.OrderByDescending(h => h.ChangedAt))
+            {
+                <div class="history-entry" id="owner-history-entry-@entry.Id">
+                    <div id="owner-history-icon-@entry.Id" class="history-icon">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                        </svg>
+                    </div>
+                    <div id="owner-history-content-@entry.Id" class="history-content">
+                        <div id="owner-history-change-@entry.Id" class="history-change">
+                            <span class="history-user">@entry.ChangedByName</span>
+                            <span class="history-action">@Localizer["OwnerHistory.ChangedFrom"]</span>
+                            @if (string.IsNullOrWhiteSpace(entry.PreviousOwnerName))
+                            {
+                                <span class="history-value text-muted">@Localizer["TaskDetail.Unassigned"]</span>
+                            }
+                            else
+                            {
+                                <span class="history-value">@entry.PreviousOwnerName</span>
+                            }
+                            <span class="history-action">@Localizer["OwnerHistory.To"]</span>
+                            @if (string.IsNullOrWhiteSpace(entry.NewOwnerName))
+                            {
+                                <span class="history-value text-muted">@Localizer["TaskDetail.Unassigned"]</span>
+                            }
+                            else
+                            {
+                                <span class="history-value">@entry.NewOwnerName</span>
+                            }
+                        </div>
+                        <div id="owner-history-timestamp-@entry.Id" class="history-timestamp">
+                            @entry.ChangedAt.ToString("MMM dd, yyyy 'at' HH:mm") UTC
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    .owner-history-container {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: var(--jira-bg-primary);
+        border-radius: 8px;
+        box-shadow: var(--jira-shadow-card);
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--jira-text-primary);
+    }
+
+    .history-timeline {
+        position: relative;
+        padding-left: 2rem;
+    }
+
+    .history-timeline::before {
+        content: '';
+        position: absolute;
+        left: 7px;
+        top: 8px;
+        bottom: 8px;
+        width: 2px;
+        background: var(--jira-border);
+    }
+
+    .history-entry {
+        position: relative;
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    .history-entry:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .history-icon {
+        position: absolute;
+        left: -2rem;
+        width: 16px;
+        height: 16px;
+        background: var(--jira-bg-primary);
+        color: var(--jira-text-secondary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+    }
+
+    .history-content {
+        flex: 1;
+    }
+
+    .history-change {
+        font-size: 0.875rem;
+        color: var(--jira-text-primary);
+        margin-bottom: 0.25rem;
+    }
+
+    .history-user {
+        font-weight: 600;
+        color: var(--jira-primary);
+    }
+
+    .history-action {
+        color: var(--jira-text-secondary);
+    }
+
+    .history-value {
+        font-weight: 500;
+        color: var(--jira-text-primary);
+    }
+
+    .history-timestamp {
+        font-size: 0.75rem;
+        color: var(--jira-text-secondary);
+    }
+</style>

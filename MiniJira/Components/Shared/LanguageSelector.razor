@@ -1,0 +1,10 @@
+@using System.Globalization
+
+<div id="language-selector-container" class="language-selector">
+    <select class="form-select form-select-sm" @onchange="OnLanguageChanged" value="@currentCulture" title="@Localizer["Tooltip.LanguageSelector"]">
+        @foreach (var culture in LocalizationService.SupportedCultures)
+        {
+            <option value="@culture.Name">@GetLanguageName(culture)</option>
+        }
+    </select>
+</div>

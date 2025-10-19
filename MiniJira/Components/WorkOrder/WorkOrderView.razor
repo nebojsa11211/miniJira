@@ -1,0 +1,207 @@
+@using MiniJira.Services.DTOs
+
+<div id="work-order-container" class="work-order-container">
+    @if (IsLoading)
+    {
+        <div id="work-order-loading" class="loading-spinner">
+            <p id="work-order-loading-text">@Localizer["WorkOrder.Loading"]</p>
+        </div>
+    }
+    else if (WorkOrder == null && !IsCreating)
+    {
+        <div id="work-order-empty" class="no-work-order">
+            <p id="work-order-empty-text">@Localizer["WorkOrder.NoWorkOrder"]</p>
+            <button id="work-order-create-btn" class="btn btn-primary" @onclick="CreateWorkOrder">@Localizer["WorkOrder.CreateWorkOrder"]</button>
+        </div>
+    }
+    else if (WorkOrder != null)
+    {
+        <div id="work-order-toolbar" class="work-order-toolbar">
+            <button id="work-order-save-btn" class="btn btn-success" @onclick="SaveChanges" disabled="@IsSaving">
+                @if (IsSaving)
+                {
+                    <span id="work-order-saving-text">@Localizer["Common.Saving"]</span>
+                }
+                else
+                {
+                    <span id="work-order-save-text">@Localizer["WorkOrder.SaveChanges"]</span>
+                }
+            </button>
+            <label id="work-order-import-excel-btn" class="btn btn-primary" style="margin-bottom: 0; cursor: pointer;" disabled="@IsImporting">
+                @if (IsImporting)
+                {
+                    <span id="work-order-importing-text">@Localizer["WorkOrder.Importing"]</span>
+                }
+                else
+                {
+                    <span id="work-order-import-text">@Localizer["WorkOrder.ImportExcel"]</span>
+                }
+                <InputFile OnChange="HandleFileSelected" accept=".xlsx" style="display: none;" />
+            </label>
+            <button id="work-order-export-csv-btn" class="btn btn-secondary" @onclick="ExportToCsv">@Localizer["WorkOrder.ExportCSV"]</button>
+            <button id="work-order-export-excel-btn" class="btn btn-secondary" @onclick="ExportToExcel">@Localizer["WorkOrder.ExportExcel"]</button>
+            <button id="work-order-delete-btn" class="btn btn-danger" @onclick="DeleteWorkOrder">@Localizer["Common.Delete"]</button>
+        </div>
+
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div id="work-order-error" class="alert alert-danger">@ErrorMessage</div>
+        }
+
+        @if (!string.IsNullOrEmpty(SuccessMessage))
+        {
+            <div id="work-order-success" class="alert alert-success">@SuccessMessage</div>
+        }
+
+        <!-- Header Section -->
+        <div id="work-order-header" class="work-order-header">
+            <div id="work-order-header-row-1" class="header-row">
+                <div id="work-order-header-customer-field" class="header-field col-5">
+                    <label for="work-order-customer">@Localizer["WorkOrder.Customer"]</label>
+                    <input id="work-order-customer" type="text" class="form-control" @bind="WorkOrder.Customer" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-object-field" class="header-field col-3">
+                    <label for="work-order-object">@Localizer["WorkOrder.Object"]</label>
+                    <input id="work-order-object" type="text" class="form-control" @bind="WorkOrder.Object" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-product-field" class="header-field col-4">
+                    <label for="work-order-product">@Localizer["WorkOrder.Product"]</label>
+                    <input id="work-order-product" type="text" class="form-control" @bind="WorkOrder.Product" @bind:event="oninput" />
+                </div>
+            </div>
+
+            <div id="work-order-header-row-2" class="header-row">
+                <div id="work-order-header-number-field" class="header-field col-3">
+                    <label for="work-order-number">@Localizer["WorkOrder.WorkOrderNumber"]</label>
+                    <input id="work-order-number" type="text" class="form-control" @bind="WorkOrder.WorkOrderNumber" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-order-ref-field" class="header-field col-3">
+                    <label for="work-order-order-ref">@Localizer["WorkOrder.Order"]</label>
+                    <input id="work-order-order-ref" type="text" class="form-control" @bind="WorkOrder.OrderReference" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-order-date-field" class="header-field col-2">
+                    <label for="work-order-order-date">@Localizer["WorkOrder.OrderDate"]</label>
+                    <input id="work-order-order-date" type="date" class="form-control" @bind="WorkOrder.OrderDate" @bind:format="yyyy-MM-dd" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-delivery-date-field" class="header-field col-2">
+                    <label for="work-order-delivery-date">@Localizer["WorkOrder.Delivery"]</label>
+                    <input id="work-order-delivery-date" type="date" class="form-control" @bind="WorkOrder.DeliveryDate" @bind:format="yyyy-MM-dd" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-page-field" class="header-field col-2">
+                    <label for="work-order-page">@Localizer["WorkOrder.Page"]</label>
+                    <input id="work-order-page" type="text" class="form-control" @bind="WorkOrder.PageNumber" @bind:event="oninput" />
+                </div>
+            </div>
+
+            <div id="work-order-header-row-3" class="header-row">
+                <div id="work-order-header-material-field" class="header-field col-6">
+                    <label for="work-order-material">@Localizer["WorkOrder.MaterialAndProcessing"]</label>
+                    <input id="work-order-material" type="text" class="form-control" @bind="WorkOrder.Material" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-surface-field" class="header-field col-3">
+                    <label for="work-order-surface">@Localizer["WorkOrder.Surface"]</label>
+                    <input id="work-order-surface" type="text" class="form-control" @bind="WorkOrder.Surface" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-cut-field" class="header-field col-3">
+                    <label for="work-order-cut">@Localizer["WorkOrder.Cut"]</label>
+                    <input id="work-order-cut" type="text" class="form-control" @bind="WorkOrder.Cut" @bind:event="oninput" />
+                </div>
+            </div>
+
+            <div id="work-order-header-row-4" class="header-row">
+                <div id="work-order-header-processing-field" class="header-field col-3">
+                    <label for="work-order-processing">@Localizer["WorkOrder.Processing"]</label>
+                    <input id="work-order-processing" type="text" class="form-control" @bind="WorkOrder.Processing" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-packing-field" class="header-field col-3">
+                    <label for="work-order-packing">@Localizer["WorkOrder.Packing"]</label>
+                    <input id="work-order-packing" type="text" class="form-control" @bind="WorkOrder.Packing" @bind:event="oninput" />
+                </div>
+                <div id="work-order-header-notes-field" class="header-field col-6">
+                    <label for="work-order-notes">@Localizer["WorkOrder.Notes"]</label>
+                    <textarea id="work-order-notes" class="form-control" rows="2" @bind="WorkOrder.Notes" @bind:event="oninput"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div id="work-order-table-container" class="work-order-table-container">
+            <table id="work-order-table" class="work-order-table">
+                <thead id="work-order-table-head">
+                    <tr id="work-order-table-header-row">
+                        <th id="work-order-th-row-number" class="col-row">#</th>
+                        <th id="work-order-th-position-pz" class="col-position">PZ</th>
+                        <th id="work-order-th-position-p1" class="col-position">P</th>
+                        <th id="work-order-th-position-r" class="col-position">R</th>
+                        <th id="work-order-th-position-o" class="col-position">O</th>
+                        <th id="work-order-th-position-p2" class="col-position">P</th>
+                        <th id="work-order-th-length" class="col-dimension">@Localizer["WorkOrder.Length"]</th>
+                        <th id="work-order-th-width" class="col-dimension">@Localizer["WorkOrder.Width"]</th>
+                        <th id="work-order-th-thickness" class="col-dimension">@Localizer["WorkOrder.Thickness"]</th>
+                        <th id="work-order-th-pieces" class="col-quantity">@Localizer["WorkOrder.Pieces"]</th>
+                        <th id="work-order-th-from-pieces" class="col-quantity">@Localizer["WorkOrder.FromPieces"]</th>
+                        <th id="work-order-th-description" class="col-description">@Localizer["WorkOrder.Description"]</th>
+                        <th id="work-order-th-processing-notes" class="col-description">@Localizer["WorkOrder.Processing"]</th>
+                        <th id="work-order-th-m2" class="col-calc">M²</th>
+                        <th id="work-order-th-m2-tot" class="col-calc">M² TOT</th>
+                        <th id="work-order-th-m1" class="col-calc">M¹</th>
+                        <th id="work-order-th-m3-tot" class="col-calc">M³ TOT</th>
+                        <th id="work-order-th-kg" class="col-calc">KG</th>
+                    </tr>
+                </thead>
+                <tbody id="work-order-table-body">
+                    @foreach (var row in WorkOrder.Rows.OrderBy(r => r.RowNumber))
+                    {
+                        <tr id="work-order-row-@row.RowNumber">
+                            <td id="work-order-row-@row.RowNumber-number" class="row-number">@row.RowNumber</td>
+                            <td id="work-order-row-@row.RowNumber-pz-cell"><input id="work-order-row-@row.RowNumber-pz" type="text" @bind="row.PositionPZ" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-p1-cell"><input id="work-order-row-@row.RowNumber-p1" type="text" @bind="row.PositionP1" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-r-cell"><input id="work-order-row-@row.RowNumber-r" type="text" @bind="row.PositionR" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-o-cell"><input id="work-order-row-@row.RowNumber-o" type="text" @bind="row.PositionO" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-p2-cell"><input id="work-order-row-@row.RowNumber-p2" type="text" @bind="row.PositionP2" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-length-cell"><input id="work-order-row-@row.RowNumber-length" type="number" step="0.01" @bind="row.Length" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-width-cell"><input id="work-order-row-@row.RowNumber-width" type="number" step="0.01" @bind="row.Width" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-thickness-cell"><input id="work-order-row-@row.RowNumber-thickness" type="number" step="0.01" @bind="row.Thickness" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-pieces-cell"><input id="work-order-row-@row.RowNumber-pieces" type="number" @bind="row.Pieces" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-from-pieces-cell"><input id="work-order-row-@row.RowNumber-from-pieces" type="number" @bind="row.FromPieces" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-description-cell"><input id="work-order-row-@row.RowNumber-description" type="text" @bind="row.Description" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-processing-notes-cell"><input id="work-order-row-@row.RowNumber-processing-notes" type="text" @bind="row.ProcessingNotes" @bind:event="oninput" @onchange="() => OnRowChanged(row)" /></td>
+                            <td id="work-order-row-@row.RowNumber-m2" class="calculated">@FormatDecimal(row.SquareMeters)</td>
+                            <td id="work-order-row-@row.RowNumber-m2-tot" class="calculated">@FormatDecimal(row.SquareMetersTot)</td>
+                            <td id="work-order-row-@row.RowNumber-m1" class="calculated">@FormatDecimal(row.LinearMeters)</td>
+                            <td id="work-order-row-@row.RowNumber-m3-tot" class="calculated">@FormatDecimal(row.CubicMetersTot)</td>
+                            <td id="work-order-row-@row.RowNumber-kg" class="calculated">@FormatDecimal(row.WeightKg)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Summary Section -->
+        <div id="work-order-summary" class="work-order-summary">
+            <h4 id="work-order-summary-title">@Localizer["WorkOrder.Totals"]</h4>
+            <div id="work-order-summary-grid" class="summary-grid">
+                <div id="work-order-summary-pieces" class="summary-item">
+                    <label>@Localizer["WorkOrder.TotalPieces"]</label>
+                    <span id="work-order-summary-pieces-value">@TotalPieces</span>
+                </div>
+                <div id="work-order-summary-m2" class="summary-item">
+                    <label>@Localizer["WorkOrder.TotalSquareMeters"]</label>
+                    <span id="work-order-summary-m2-value">@FormatDecimal(TotalSquareMeters)</span>
+                </div>
+                <div id="work-order-summary-m1" class="summary-item">
+                    <label>@Localizer["WorkOrder.TotalLinearMeters"]</label>
+                    <span id="work-order-summary-m1-value">@FormatDecimal(TotalLinearMeters)</span>
+                </div>
+                <div id="work-order-summary-m3" class="summary-item">
+                    <label>@Localizer["WorkOrder.TotalCubicMeters"]</label>
+                    <span id="work-order-summary-m3-value">@FormatDecimal(TotalCubicMeters)</span>
+                </div>
+                <div id="work-order-summary-kg" class="summary-item">
+                    <label>@Localizer["WorkOrder.TotalKilograms"]</label>
+                    <span id="work-order-summary-kg-value">@FormatDecimal(TotalWeight)</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>

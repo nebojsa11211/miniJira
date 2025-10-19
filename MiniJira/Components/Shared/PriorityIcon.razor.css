@@ -1,0 +1,58 @@
+/* ATLASSIAN JIRA PRIORITY ICON */
+/* Priority Icon Base Styles */
+.priority-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--jira-radius-small);
+    transition: opacity 0.08s linear;
+}
+
+.priority-icon svg {
+    display: block;
+}
+
+/* Highest Priority - Red Arrow Up */
+.priority-highest {
+    color: var(--jira-priority-highest);
+}
+
+/* High Priority - Dark Red Arrow */
+.priority-high {
+    color: var(--jira-priority-high);
+}
+
+/* Medium Priority - Orange Arrow */
+.priority-medium {
+    color: var(--jira-priority-medium);
+}
+
+/* Low Priority - Green Arrow Down */
+.priority-low {
+    color: var(--jira-priority-low);
+}
+
+/* Lowest Priority - Gray Arrow */
+.priority-lowest {
+    color: var(--jira-priority-lowest);
+}
+
+/* Hover Effects */
+.priority-icon:hover {
+    opacity: 0.8;
+}
+
+/* Accessibility - Focus State */
+.priority-icon:focus {
+    outline: 2px solid var(--jira-border-focus);
+    outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .priority-icon {
+        transition: none;
+    }
+}

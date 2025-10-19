@@ -1,0 +1,58 @@
+/* ATLASSIAN JIRA PRIORITY ICON */
+/* Priority Icon Base Styles */
+.priority-icon[b-yd2zl65j54] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--jira-radius-small);
+    transition: opacity 0.08s linear;
+}
+
+.priority-icon svg[b-yd2zl65j54] {
+    display: block;
+}
+
+/* Highest Priority - Red Arrow Up */
+.priority-highest[b-yd2zl65j54] {
+    color: var(--jira-priority-highest);
+}
+
+/* High Priority - Dark Red Arrow */
+.priority-high[b-yd2zl65j54] {
+    color: var(--jira-priority-high);
+}
+
+/* Medium Priority - Orange Arrow */
+.priority-medium[b-yd2zl65j54] {
+    color: var(--jira-priority-medium);
+}
+
+/* Low Priority - Green Arrow Down */
+.priority-low[b-yd2zl65j54] {
+    color: var(--jira-priority-low);
+}
+
+/* Lowest Priority - Gray Arrow */
+.priority-lowest[b-yd2zl65j54] {
+    color: var(--jira-priority-lowest);
+}
+
+/* Hover Effects */
+.priority-icon:hover[b-yd2zl65j54] {
+    opacity: 0.8;
+}
+
+/* Accessibility - Focus State */
+.priority-icon:focus[b-yd2zl65j54] {
+    outline: 2px solid var(--jira-border-focus);
+    outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .priority-icon[b-yd2zl65j54] {
+        transition: none;
+    }
+}

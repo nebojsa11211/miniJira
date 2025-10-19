@@ -1,0 +1,20 @@
+<div class="mb-3">
+    <label for="colorPaletteSelect" class="form-label">
+        @Localizer["ColorPalette"]
+    </label>
+    <select id="colorPaletteSelect"
+            class="form-select"
+            @onchange="OnPaletteChanged"
+            value="@currentPalette">
+        @foreach (var option in ColorPaletteService.AvailableOptions)
+        {
+            <option value="@option.Id">@Localizer[option.NameKey]</option>
+        }
+    </select>
+    <div class="form-text mt-2">
+        @Localizer[currentDescription]
+    </div>
+    <div class="palette-preview-container mt-2">
+        <div class="palette-preview palette-preview-@currentPalette" title="@Localizer[currentDescription]"></div>
+    </div>
+</div>

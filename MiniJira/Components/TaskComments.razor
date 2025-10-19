@@ -1,0 +1,791 @@
+@using MiniJira.Data
+@using MiniJira.Models
+@using MiniJira.Resources
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.Extensions.Localization
+@inject ApplicationDbContext DbContext
+@inject IServiceProvider ServiceProvider
+@inject IStringLocalizer<Localization> Localizer
+
+<div id="task-comments-section" class="task-comments-section">
+    <h3 class="section-title">@Localizer["Comments.Title"]</h3>
+
+    @* Add Comment Form *@
+    <div id="add-comment-form" class="add-comment-form">
+        <div id="formatting-toolbar" class="formatting-toolbar">
+            <button type="button" class="format-btn" @onclick="@(() => InsertFormatting("**", "**", "bold text"))" title="@Localizer["Tooltip.FormatBold"]">
+                <strong>B</strong>
+            </button>
+            <button type="button" class="format-btn" @onclick="@(() => InsertFormatting("_", "_", "italic text"))" title="@Localizer["Tooltip.FormatItalic"]">
+                <em>I</em>
+            </button>
+            <button type="button" class="format-btn" @onclick="@(() => InsertFormatting("~~", "~~", "strikethrough"))" title="@Localizer["Tooltip.FormatStrikethrough"]">
+                <s>S</s>
+            </button>
+            <button type="button" class="format-btn" @onclick="@(() => InsertFormatting("`", "`", "code"))" title="@Localizer["Tooltip.FormatCode"]">
+                <span style="font-family: monospace;">&lt;/&gt;</span>
+            </button>
+            <div class="toolbar-separator"></div>
+            <button type="button" class="format-btn" @onclick="@(() => InsertFormatting("\n- ", "", "list item"))" title="@Localizer["Tooltip.FormatBulletList"]">
+                ≡
+            </button>
+            <button type="button" class="format-btn" @onclick="@(() => InsertFormatting("\n1. ", "", "numbered item"))" title="@Localizer["Tooltip.FormatNumberedList"]">
+                #
+            </button>
+            <div class="toolbar-separator"></div>
+            <div id="emoji-dropdown" class="emoji-dropdown">
+                <button type="button" class="format-btn" @onclick="ToggleEmojiPicker" title="@Localizer["Tooltip.AddEmoji"]">
+                    😀
+                </button>
+                @if (showEmojiPicker)
+                {
+                    <div id="emoji-picker" class="emoji-picker">
+                        @foreach (var emoji in commonEmojis)
+                        {
+                            <button type="button" class="emoji-btn" @onclick="@(() => InsertEmoji(emoji))">@emoji</button>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+        <textarea @ref="commentTextarea"
+                  class="comment-input"
+                  placeholder="@Localizer["Comments.AddPlaceholder"]"
+                  rows="4"
+                  @bind="newCommentText"
+                  @bind:event="oninput"
+                  title="@Localizer["Tooltip.AddComment"]"></textarea>
+        <div id="comment-actions" class="comment-actions">
+            <button class="btn btn-primary btn-sm"
+                    @onclick="AddComment"
+                    disabled="@(string.IsNullOrWhiteSpace(newCommentText) || isSaving)"
+                    title="@Localizer["Tooltip.AddComment"]">
+                @if (isSaving)
+                {
+                    <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                    <span>@Localizer["Settings.Saving"]</span>
+                }
+                else
+                {
+                    <span>@Localizer["Comments.AddButton"]</span>
+                }
+            </button>
+        </div>
+    </div>
+
+    @* Comments List Grouped by Phase *@
+    @if (isLoading)
+    {
+        <div id="comments-loading-container" class="loading-container">
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">@Localizer["Common.Loading"]</span>
+            </div>
+            <span class="ms-2">@Localizer["Comments.Loading"]</span>
+        </div>
+    }
+    else if (commentsByPhase.Any())
+    {
+        <div id="comments-container" class="comments-container">
+            @foreach (var phase in commentsByPhase.OrderByDescending(p => p.Key.Order))
+            {
+                <div id="phase-group-@phase.Key.ColumnId" class="phase-group">
+                    <div id="phase-header-@phase.Key.ColumnId" class="phase-header" style="border-left-color: @phase.Key.Column.Color">
+                        <span class="phase-name" style="color: @phase.Key.Column.Color">@phase.Key.ColumnName</span>
+                        <span class="phase-count">@phase.Value.Count @(phase.Value.Count == 1 ? Localizer["Comments.Comment"] : Localizer["Comments.Comments"])</span>
+                    </div>
+                    <div id="phase-comments-@phase.Key.ColumnId" class="phase-comments">
+                        @foreach (var comment in phase.Value.OrderBy(c => c.CreatedAt))
+                        {
+                            var canEditDelete = comment.ColumnId == ColumnId; // Can only edit/delete if task is in the same phase
+                            var isEditing = editingCommentId == comment.Id;
+
+                            <div id="comment-item-@comment.Id" class="comment-item">
+                                <div id="comment-header-@comment.Id" class="comment-header">
+                                    <div id="comment-author-@comment.Id" class="comment-author">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>@(comment.CreatedBy ?? Localizer["Comments.Anonymous"])</span>
+                                    </div>
+                                    <div id="comment-header-right-@comment.Id" class="comment-header-right">
+                                        <div class="comment-time">@FormatTime(comment.CreatedAt)</div>
+                                        @if (canEditDelete && !isEditing)
+                                        {
+                                            <div id="comment-actions-buttons-@comment.Id" class="comment-actions-buttons">
+                                                <button class="btn-icon" @onclick="() => StartEditComment(comment)" title="@Localizer["Tooltip.EditComment"]">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </button>
+                                                <button class="btn-icon btn-danger" @onclick="() => DeleteComment(comment.Id)" title="@Localizer["Tooltip.DeleteComment"]">
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M10 11v6M14 11v6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                @if (isEditing)
+                                {
+                                    <div id="edit-comment-form-@comment.Id" class="edit-comment-form">
+                                        <div id="edit-formatting-toolbar-@comment.Id" class="formatting-toolbar">
+                                            <button type="button" class="format-btn" @onclick="@(() => InsertFormattingEdit("**", "**", "bold text"))" title="@Localizer["Tooltip.FormatBold"]">
+                                                <strong>B</strong>
+                                            </button>
+                                            <button type="button" class="format-btn" @onclick="@(() => InsertFormattingEdit("_", "_", "italic text"))" title="@Localizer["Tooltip.FormatItalic"]">
+                                                <em>I</em>
+                                            </button>
+                                            <button type="button" class="format-btn" @onclick="@(() => InsertFormattingEdit("~~", "~~", "strikethrough"))" title="@Localizer["Tooltip.FormatStrikethrough"]">
+                                                <s>S</s>
+                                            </button>
+                                            <button type="button" class="format-btn" @onclick="@(() => InsertFormattingEdit("`", "`", "code"))" title="@Localizer["Tooltip.FormatCode"]">
+                                                <span style="font-family: monospace;">&lt;/&gt;</span>
+                                            </button>
+                                            <div class="toolbar-separator"></div>
+                                            <button type="button" class="format-btn" @onclick="@(() => InsertEmojiEdit("👍"))" title="@Localizer["Emoji.ThumbsUp"]">👍</button>
+                                            <button type="button" class="format-btn" @onclick="@(() => InsertEmojiEdit("✅"))" title="@Localizer["Emoji.Check"]">✅</button>
+                                            <button type="button" class="format-btn" @onclick="@(() => InsertEmojiEdit("❌"))" title="@Localizer["Emoji.Cross"]">❌</button>
+                                            <button type="button" class="format-btn" @onclick="@(() => InsertEmojiEdit("😀"))" title="@Localizer["Emoji.Smile"]">😀</button>
+                                        </div>
+                                        <textarea @ref="editTextarea"
+                                                  class="comment-input"
+                                                  rows="3"
+                                                  @bind="editCommentText"
+                                                  @bind:event="oninput"></textarea>
+                                        <div id="edit-comment-actions-@comment.Id" class="edit-comment-actions">
+                                            <button class="btn btn-primary btn-sm"
+                                                    @onclick="SaveEditComment"
+                                                    disabled="@(string.IsNullOrWhiteSpace(editCommentText) || isSaving)"
+                                                    title="@Localizer["Tooltip.SaveComment"]">
+                                                @if (isSaving)
+                                                {
+                                                    <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                                                    <span>@Localizer["Settings.Saving"]</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@Localizer["Comments.Save"]</span>
+                                                }
+                                            </button>
+                                            <button class="btn btn-secondary btn-sm"
+                                                    @onclick="CancelEditComment"
+                                                    disabled="@isSaving"
+                                                    title="@Localizer["Tooltip.Cancel"]">
+                                                @Localizer["Comments.Cancel"]
+                                            </button>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div id="comment-content-@comment.Id" class="comment-content">@((MarkupString)RenderMarkdown(comment.Content))</div>
+                                    @if (comment.UpdatedAt.HasValue)
+                                    {
+                                        <div id="comment-edited-@comment.Id" class="comment-edited">@string.Format(Localizer["Comments.Edited"], FormatTime(comment.UpdatedAt.Value))</div>
+                                    }
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div id="no-comments" class="no-comments">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" opacity="0.3">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p>@Localizer["Comments.NoComments"]</p>
+        </div>
+    }
+</div>
+
+<style>
+    .task-comments-section {
+        margin-top: 2rem;
+        padding: 1.5rem;
+        background: var(--jira-bg-primary);
+        border-radius: var(--jira-radius-large);
+        box-shadow: var(--jira-shadow-card);
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--jira-text-primary);
+    }
+
+    .add-comment-form {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: var(--jira-bg-secondary);
+        border-radius: var(--jira-radius-small);
+        border: 1px solid var(--jira-border);
+    }
+
+    .formatting-toolbar {
+        display: flex;
+        gap: 0.25rem;
+        align-items: center;
+        padding: 0.5rem;
+        background: var(--jira-bg-primary);
+        border: 1px solid var(--jira-border);
+        border-bottom: none;
+        border-radius: var(--jira-radius-small) var(--jira-radius-small) 0 0;
+    }
+
+    .format-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        padding: 0.4rem 0.6rem;
+        cursor: pointer;
+        color: var(--jira-text-primary);
+        border-radius: var(--jira-radius-small);
+        transition: all 0.2s;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 32px;
+        height: 32px;
+    }
+
+    .format-btn:hover {
+        background: var(--jira-bg-secondary);
+        border-color: var(--jira-border);
+    }
+
+    .toolbar-separator {
+        width: 1px;
+        height: 24px;
+        background: var(--jira-border);
+        margin: 0 0.5rem;
+    }
+
+    .emoji-dropdown {
+        position: relative;
+    }
+
+    .emoji-picker {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 0.25rem;
+        background: var(--jira-bg-primary);
+        border: 1px solid var(--jira-border);
+        border-radius: var(--jira-radius-small);
+        box-shadow: var(--jira-shadow-card);
+        padding: 0.5rem;
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 0.25rem;
+        z-index: 1000;
+        max-width: 320px;
+    }
+
+    .emoji-btn {
+        background: transparent;
+        border: 1px solid transparent;
+        padding: 0.4rem;
+        cursor: pointer;
+        border-radius: var(--jira-radius-small);
+        font-size: 1.2rem;
+        transition: all 0.2s;
+        min-width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .emoji-btn:hover {
+        background: var(--jira-bg-secondary);
+        border-color: var(--jira-border);
+        transform: scale(1.1);
+    }
+
+    .comment-input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--jira-border);
+        border-radius: 0 0 var(--jira-radius-small) var(--jira-radius-small);
+        background: var(--jira-bg-primary);
+        color: var(--jira-text-primary);
+        font-family: inherit;
+        font-size: 0.95rem;
+        resize: vertical;
+        transition: border-color 0.2s;
+    }
+
+    .comment-input:focus {
+        outline: none;
+        border-color: var(--jira-primary);
+        box-shadow: 0 0 0 1px var(--jira-primary);
+    }
+
+    .comment-actions {
+        margin-top: 0.75rem;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .loading-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        color: var(--jira-text-secondary);
+    }
+
+    .comments-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .phase-group {
+        border-radius: var(--jira-radius-small);
+        overflow: hidden;
+    }
+
+    .phase-header {
+        padding: 0.75rem 1rem;
+        background: var(--jira-bg-secondary);
+        border-left: 4px solid;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .phase-name {
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .phase-count {
+        font-size: 0.875rem;
+        color: var(--jira-text-secondary);
+    }
+
+    .phase-comments {
+        padding: 1rem;
+        background: var(--jira-bg-primary);
+        border: 1px solid var(--jira-border);
+        border-top: none;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .comment-item {
+        padding: 1rem;
+        background: var(--jira-bg-secondary);
+        border-radius: var(--jira-radius-small);
+        border: 1px solid var(--jira-border);
+    }
+
+    .comment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+
+    .comment-author {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: var(--jira-text-primary);
+        font-size: 0.95rem;
+    }
+
+    .comment-author svg {
+        color: var(--jira-text-secondary);
+    }
+
+    .comment-header-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .comment-time {
+        font-size: 0.875rem;
+        color: var(--jira-text-secondary);
+    }
+
+    .comment-actions-buttons {
+        display: flex;
+        gap: 0.25rem;
+        align-items: center;
+    }
+
+    .btn-icon {
+        background: transparent;
+        border: none;
+        padding: 0.25rem;
+        cursor: pointer;
+        color: var(--jira-text-secondary);
+        border-radius: var(--jira-radius-small);
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-icon:hover {
+        background: var(--jira-bg-primary);
+        color: var(--jira-text-primary);
+    }
+
+    .btn-icon.btn-danger:hover {
+        background: var(--jira-danger-bg, #ffebe6);
+        color: var(--jira-danger, #de350b);
+    }
+
+    .edit-comment-form {
+        margin-top: 0.5rem;
+    }
+
+    .edit-comment-actions {
+        margin-top: 0.5rem;
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .comment-content {
+        color: var(--jira-text-primary);
+        line-height: 1.6;
+        word-wrap: break-word;
+    }
+
+    .comment-content strong {
+        font-weight: 600;
+        color: var(--jira-text-primary);
+    }
+
+    .comment-content em {
+        font-style: italic;
+    }
+
+    .comment-content code {
+        background: var(--jira-bg-secondary);
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.9em;
+        border: 1px solid var(--jira-border);
+    }
+
+    .comment-content ul, .comment-content ol {
+        margin: 0.5rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .comment-content li {
+        margin: 0.25rem 0;
+    }
+
+    .comment-content p {
+        margin: 0.5rem 0;
+    }
+
+    .comment-content p:first-child {
+        margin-top: 0;
+    }
+
+    .comment-content p:last-child {
+        margin-bottom: 0;
+    }
+
+    .comment-edited {
+        margin-top: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--jira-text-subtle);
+        font-style: italic;
+    }
+
+    .no-comments {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--jira-text-secondary);
+    }
+
+    .no-comments svg {
+        margin-bottom: 1rem;
+    }
+
+    .no-comments p {
+        margin: 0;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public Guid TaskId { get; set; }
+
+    [Parameter]
+    public Guid ColumnId { get; set; }
+
+    private List<TaskComment> comments = new();
+    private Dictionary<(int Order, Guid ColumnId, string ColumnName, Column Column), List<TaskComment>> commentsByPhase = new();
+    private string newCommentText = string.Empty;
+    private bool isLoading = true;
+    private bool isSaving = false;
+    private Guid? editingCommentId = null;
+    private string editCommentText = string.Empty;
+    private bool showEmojiPicker = false;
+    private ElementReference commentTextarea;
+    private ElementReference editTextarea;
+
+    private readonly string[] commonEmojis = new[]
+    {
+        "😀", "😃", "😄", "😁", "😅", "😂", "🤣", "😊",
+        "😇", "🙂", "🙃", "😉", "😌", "😍", "🥰", "😘",
+        "👍", "👎", "👏", "🙌", "👌", "✌️", "🤞", "🤝",
+        "💪", "🙏", "✨", "⭐", "🎉", "🎊", "🎈", "🎁",
+        "❤️", "💙", "💚", "💛", "🧡", "💜", "🖤", "🤍",
+        "✅", "❌", "⚠️", "💡", "🔥", "⚡", "💯", "🚀"
+    };
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        await LoadComments();
+    }
+
+    private async System.Threading.Tasks.Task LoadComments()
+    {
+        try
+        {
+            isLoading = true;
+
+            using var scope = ServiceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            comments = await dbContext.TaskComments
+                .Include(c => c.Column)
+                    .ThenInclude(col => col.Translations)
+                .Where(c => c.TaskId == TaskId)
+                .OrderBy(c => c.CreatedAt)
+                .ToListAsync();
+
+            // Group comments by phase
+            commentsByPhase = comments
+                .GroupBy(c => (
+                    Order: c.Column.Order,
+                    ColumnId: c.ColumnId,
+                    ColumnName: c.Column.Translations?.FirstOrDefault()?.Name ?? "Unknown",
+                    Column: c.Column
+                ))
+                .ToDictionary(g => g.Key, g => g.ToList());
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading comments: {ex.Message}");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private async System.Threading.Tasks.Task AddComment()
+    {
+        if (string.IsNullOrWhiteSpace(newCommentText) || isSaving)
+            return;
+
+        try
+        {
+            isSaving = true;
+
+            using var scope = ServiceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            var comment = new TaskComment
+            {
+                Id = Guid.NewGuid(),
+                TaskId = TaskId,
+                ColumnId = ColumnId,
+                Content = newCommentText.Trim(),
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = "User" // TODO: Replace with actual user when auth is implemented
+            };
+
+            dbContext.TaskComments.Add(comment);
+            await dbContext.SaveChangesAsync();
+
+            newCommentText = string.Empty;
+            await LoadComments();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error adding comment: {ex.Message}");
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+
+    private void StartEditComment(TaskComment comment)
+    {
+        editingCommentId = comment.Id;
+        editCommentText = comment.Content;
+    }
+
+    private void CancelEditComment()
+    {
+        editingCommentId = null;
+        editCommentText = string.Empty;
+    }
+
+    private async System.Threading.Tasks.Task SaveEditComment()
+    {
+        if (string.IsNullOrWhiteSpace(editCommentText) || !editingCommentId.HasValue || isSaving)
+            return;
+
+        try
+        {
+            isSaving = true;
+
+            using var scope = ServiceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            var comment = await dbContext.TaskComments.FindAsync(editingCommentId.Value);
+            if (comment != null)
+            {
+                comment.Content = editCommentText.Trim();
+                comment.UpdatedAt = DateTime.UtcNow;
+                await dbContext.SaveChangesAsync();
+
+                editingCommentId = null;
+                editCommentText = string.Empty;
+                await LoadComments();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating comment: {ex.Message}");
+        }
+        finally
+        {
+            isSaving = false;
+        }
+    }
+
+    private async System.Threading.Tasks.Task DeleteComment(Guid commentId)
+    {
+        try
+        {
+            using var scope = ServiceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+            var comment = await dbContext.TaskComments.FindAsync(commentId);
+            if (comment != null)
+            {
+                dbContext.TaskComments.Remove(comment);
+                await dbContext.SaveChangesAsync();
+                await LoadComments();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting comment: {ex.Message}");
+        }
+    }
+
+    private void InsertFormatting(string prefix, string suffix, string placeholder)
+    {
+        newCommentText += prefix + placeholder + suffix;
+    }
+
+    private void InsertFormattingEdit(string prefix, string suffix, string placeholder)
+    {
+        editCommentText += prefix + placeholder + suffix;
+    }
+
+    private void ToggleEmojiPicker()
+    {
+        showEmojiPicker = !showEmojiPicker;
+    }
+
+    private void InsertEmoji(string emoji)
+    {
+        newCommentText += emoji;
+        showEmojiPicker = false;
+    }
+
+    private void InsertEmojiEdit(string emoji)
+    {
+        editCommentText += emoji;
+    }
+
+    private string RenderMarkdown(string content)
+    {
+        if (string.IsNullOrEmpty(content))
+            return string.Empty;
+
+        var html = System.Web.HttpUtility.HtmlEncode(content);
+
+        // Bold: **text** or __text__
+        html = System.Text.RegularExpressions.Regex.Replace(html, @"\*\*(.+?)\*\*", "<strong>$1</strong>");
+        html = System.Text.RegularExpressions.Regex.Replace(html, @"__(.+?)__", "<strong>$1</strong>");
+
+        // Italic: *text* or _text_
+        html = System.Text.RegularExpressions.Regex.Replace(html, @"\*(.+?)\*", "<em>$1</em>");
+        html = System.Text.RegularExpressions.Regex.Replace(html, @"_(.+?)_", "<em>$1</em>");
+
+        // Strikethrough: ~~text~~
+        html = System.Text.RegularExpressions.Regex.Replace(html, @"~~(.+?)~~", "<del>$1</del>");
+
+        // Inline code: `code`
+        html = System.Text.RegularExpressions.Regex.Replace(html, @"`(.+?)`", "<code>$1</code>");
+
+        // Bullet lists: - item
+        html = System.Text.RegularExpressions.Regex.Replace(html, @"(?:^|\n)- (.+)", "<li>$1</li>");
+        html = System.Text.RegularExpressions.Regex.Replace(html, @"(<li>.*</li>)", "<ul>$1</ul>");
+
+        // Numbered lists: 1. item
+        html = System.Text.RegularExpressions.Regex.Replace(html, @"(?:^|\n)\d+\. (.+)", "<li>$1</li>");
+        if (html.Contains("<li>") && !html.Contains("<ul>"))
+        {
+            html = System.Text.RegularExpressions.Regex.Replace(html, @"(<li>.*</li>)", "<ol>$1</ol>");
+        }
+
+        // Line breaks
+        html = html.Replace("\n", "<br>");
+
+        // Wrap in paragraphs if no block elements
+        if (!html.Contains("<ul>") && !html.Contains("<ol>"))
+        {
+            html = "<p>" + html + "</p>";
+        }
+
+        return html;
+    }
+
+    private string FormatTime(DateTime dateTime)
+    {
+        var now = DateTime.UtcNow;
+        var diff = now - dateTime;
+
+        if (diff.TotalMinutes < 1)
+            return Localizer["Time.JustNow"];
+        if (diff.TotalMinutes < 60)
+            return string.Format(Localizer["Time.MinutesAgo"], (int)diff.TotalMinutes);
+        if (diff.TotalHours < 24)
+            return string.Format(Localizer["Time.HoursAgo"], (int)diff.TotalHours);
+        if (diff.TotalDays < 7)
+            return string.Format(Localizer["Time.DaysAgo"], (int)diff.TotalDays);
+
+        return dateTime.ToString("MMM dd, yyyy");
+    }
+}
