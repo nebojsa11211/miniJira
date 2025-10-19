@@ -113,7 +113,8 @@
                             @foreach (var task in filteredTasks)
                             {
                                 <MiniJira.Components.Shared.TaskCard Task="@task"
-                                                                      OnClick="@NavigateToTask" />
+                                                                      OnClick="@NavigateToTask"
+                                                                      IsRecentlyUpdated="@(mostRecentlyUpdatedTaskId.HasValue && task.Id == mostRecentlyUpdatedTaskId.Value)" />
                             }
                         }
                     </div>

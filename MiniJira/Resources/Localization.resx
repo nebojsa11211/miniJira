@@ -734,6 +734,12 @@
   <data name="FileAttachments.OtherFiles" xml:space="preserve">
     <value>Other Files</value>
   </data>
+  <data name="FileAttachments.Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="FileAttachments.Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 
   <!-- User Selection -->
   <data name="UserSelection.PageTitle" xml:space="preserve">
@@ -1105,6 +1111,9 @@
   </data>
   <data name="TaskCard.MovedDate" xml:space="preserve">
     <value>Last moved</value>
+  </data>
+  <data name="TaskCard.RecentlyUpdated" xml:space="preserve">
+    <value>Recently Updated</value>
   </data>
 
   <!-- Color Palette Settings -->

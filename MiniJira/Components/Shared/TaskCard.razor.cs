@@ -13,6 +13,9 @@ public partial class TaskCard
     [Parameter]
     public EventCallback<Guid> OnClick { get; set; }
 
+    [Parameter]
+    public bool IsRecentlyUpdated { get; set; }
+
     private async System.Threading.Tasks.Task HandleClick()
     {
         await OnClick.InvokeAsync(Task.Id);

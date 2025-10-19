@@ -16,6 +16,48 @@
     min-height: 160px;
 }
 
+/* Recently Updated Badge */
+.recently-updated-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+    border-radius: var(--jira-radius-circle);
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 2px 6px rgba(255, 107, 53, 0.4);
+    z-index: 10;
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.lightning-icon {
+    color: white;
+    filter: drop-shadow(0px 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.jira-task-card.recently-updated {
+    box-shadow: 0px 2px 6px rgba(255, 107, 53, 0.3), 0px 0px 2px rgba(255, 107, 53, 0.35);
+    border-left: 3px solid #ff6b35;
+}
+
+.jira-task-card.recently-updated:hover {
+    box-shadow: 0px 4px 8px rgba(255, 107, 53, 0.4), 0px 0px 2px rgba(255, 107, 53, 0.45);
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0px 2px 6px rgba(255, 107, 53, 0.4);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0px 2px 10px rgba(255, 107, 53, 0.6), 0px 0px 16px rgba(247, 147, 30, 0.4);
+        transform: scale(1.08);
+    }
+}
+
 .jira-task-card:hover {
     background-color: var(--jira-bg-page);
     box-shadow: 0px 2px 4px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
@@ -168,6 +210,19 @@
     font-weight: 500;
 }
 
+.task-card-date.updated-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.clock-icon {
+    flex-shrink: 0;
+    color: var(--jira-text-secondary);
+    opacity: 0.7;
+    vertical-align: middle;
+}
+
 .date-separator {
     font-size: calc(10px * var(--font-size-multiplier));
     color: var(--jira-text-subtle);
@@ -222,6 +277,11 @@
     .calendar-icon {
         width: 12px;
         height: 12px;
+    }
+
+    .clock-icon {
+        width: 10px;
+        height: 10px;
     }
 
     .date-separator {
@@ -286,5 +346,9 @@
 @media (prefers-reduced-motion: reduce) {
     .jira-task-card {
         transition: none;
+    }
+
+    .recently-updated-badge {
+        animation: none;
     }
 }

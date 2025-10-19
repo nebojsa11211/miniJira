@@ -8,6 +8,7 @@
 @inject ApplicationDbContext DbContext
 @inject IServiceProvider ServiceProvider
 @inject IStringLocalizer<Localization> Localizer
+@inject MiniJira.Services.ICurrentUserService CurrentUserService
 
 <div id="task-comments-section" class="task-comments-section">
     <h3 class="section-title">@Localizer["Comments.Title"]</h3>
@@ -616,7 +617,7 @@
                 ColumnId = ColumnId,
                 Content = newCommentText.Trim(),
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = "User" // TODO: Replace with actual user when auth is implemented
+                CreatedBy = CurrentUserService.CurrentUser?.FullName ?? "Unknown User"
             };
 
             dbContext.TaskComments.Add(comment);

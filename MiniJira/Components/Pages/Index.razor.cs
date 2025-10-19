@@ -23,6 +23,7 @@ public partial class Index : IAsyncDisposable, IDisposable
     private string? errorMessage = null;
     private bool isUpdating = false;
     private DotNetObjectReference<Index>? dotNetHelper;
+    private Guid? mostRecentlyUpdatedTaskId = null;
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
@@ -46,6 +47,9 @@ public partial class Index : IAsyncDisposable, IDisposable
 
             // Organize tasks by column ID
             OrganizeTasksByColumn();
+
+            // Determine the most recently updated task
+            UpdateMostRecentlyUpdatedTask();
 
             isLoading = false;
         }
@@ -105,6 +109,21 @@ public partial class Index : IAsyncDisposable, IDisposable
             Models.TaskStatus.Done => Guid.Parse("33333333-3333-3333-3333-333333333333"),
             _ => Guid.Parse("11111111-1111-1111-1111-111111111111")
         };
+    }
+
+    /// <summary>
+    /// Updates the mostRecentlyUpdatedTaskId to point to the task with the latest UpdatedAt timestamp
+    /// </summary>
+    private void UpdateMostRecentlyUpdatedTask()
+    {
+        if (tasks.Count == 0)
+        {
+            mostRecentlyUpdatedTaskId = null;
+            return;
+        }
+
+        var mostRecent = tasks.OrderByDescending(t => t.UpdatedAt).FirstOrDefault();
+        mostRecentlyUpdatedTaskId = mostRecent?.Id;
     }
 
     private void OnCultureChanged(object? sender, EventArgs e)
@@ -221,6 +240,10 @@ public partial class Index : IAsyncDisposable, IDisposable
                 task.Status = newStatus;
                 task.ColumnId = columnId;
                 task.UpdatedAt = DateTime.UtcNow;
+
+                // Update which task is most recently updated
+                UpdateMostRecentlyUpdatedTask();
+
                 errorMessage = null;
                 StateHasChanged();
                 return true;

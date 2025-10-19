@@ -3,11 +3,19 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<Localization> Localizer
 
 <div id="task-card-@Task.Id"
-     class="jira-task-card card-elevated fade-in bounce-click"
+     class="jira-task-card card-elevated fade-in bounce-click @(IsRecentlyUpdated ? "recently-updated" : "")"
      @onclick="HandleClick"
      role="button"
      tabindex="0"
      @onkeydown="HandleKeyDown">
+    @if (IsRecentlyUpdated)
+    {
+        <div class="recently-updated-badge" title="@Localizer["TaskCard.RecentlyUpdated"]">
+            <svg class="lightning-icon" width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
+            </svg>
+        </div>
+    }
     <div id="task-card-header-@Task.Id" class="task-card-header">
         <h3 class="task-card-title">@Task.Title</h3>
         <div id="task-card-customer-@Task.Id" class="task-card-customer @(string.IsNullOrEmpty(Task.Customer) ? "no-customer" : "")">
@@ -31,7 +39,13 @@
                 <div class="dates-container">
                     <span class="task-card-date" title="@Localizer["TaskCard.CreatedDate"]">@GetCreatedDate()</span>
                     <span class="date-separator">→</span>
-                    <span class="task-card-date" title="@Localizer["TaskCard.MovedDate"]">@GetUpdatedDate()</span>
+                    <span class="task-card-date updated-date" title="@Localizer["TaskCard.MovedDate"]">
+                        <svg class="clock-icon" width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+                        </svg>
+                        @GetUpdatedDate()
+                    </span>
                 </div>
             </div>
         </div>

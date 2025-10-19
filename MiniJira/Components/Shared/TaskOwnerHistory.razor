@@ -30,7 +30,7 @@
                     </div>
                     <div id="owner-history-content-@entry.Id" class="history-content">
                         <div id="owner-history-change-@entry.Id" class="history-change">
-                            <span class="history-user">@entry.ChangedByName</span>
+                            <span class="history-user">@(entry.ChangedByName ?? Localizer["Common.Unknown"])</span>
                             <span class="history-action">@Localizer["OwnerHistory.ChangedFrom"]</span>
                             @if (string.IsNullOrWhiteSpace(entry.PreviousOwnerName))
                             {

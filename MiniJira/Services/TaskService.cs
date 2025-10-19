@@ -459,8 +459,7 @@ public class TaskService : ITaskService
             ToColumnId = h.ToColumnId,
             ToColumnName = h.ToColumn.Translations
                 .FirstOrDefault(t => t.Culture == culture)?.Name
-                ?? h.ToColumn.Translations.FirstOrDefault()?.Name
-                ?? "Unknown",
+                ?? h.ToColumn.Translations.FirstOrDefault()?.Name,
             ChangedAt = h.ChangedAt,
             ChangedBy = h.ChangedBy
         }).ToList();
@@ -545,7 +544,7 @@ public class TaskService : ITaskService
             ChangedBy = h.ChangedBy,
             ChangedByName = userDict.ContainsKey(h.ChangedBy)
                 ? userDict[h.ChangedBy].FullName
-                : "Unknown",
+                : null,
             ChangedAt = h.ChangedAt
         }).ToList();
     }

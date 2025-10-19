@@ -734,6 +734,12 @@
   <data name="FileAttachments.OtherFiles" xml:space="preserve">
     <value>Ostale datoteke</value>
   </data>
+  <data name="FileAttachments.Download" xml:space="preserve">
+    <value>Preuzmi</value>
+  </data>
+  <data name="FileAttachments.Delete" xml:space="preserve">
+    <value>Obriši</value>
+  </data>
 
   <!-- Odabir korisnika -->
   <data name="UserSelection.PageTitle" xml:space="preserve">
@@ -1105,6 +1111,9 @@
   </data>
   <data name="TaskCard.MovedDate" xml:space="preserve">
     <value>Zadnje premješteno</value>
+  </data>
+  <data name="TaskCard.RecentlyUpdated" xml:space="preserve">
+    <value>Nedavno ažurirano</value>
   </data>
 
   <!-- Postavke paleta boja -->

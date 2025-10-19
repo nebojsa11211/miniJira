@@ -123,7 +123,7 @@
 {
     <div id="image-lightbox" class="lightbox" @onclick="CloseLightbox">
         <div class="lightbox-content" @onclick:stopPropagation="true">
-            <button class="lightbox-close" @onclick="CloseLightbox" title="Close">
+            <button class="lightbox-close" @onclick="CloseLightbox" title="@Localizer["Common.Close"]">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -142,13 +142,13 @@
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    Download
+                    @Localizer["FileAttachments.Download"]
                 </button>
                 <button class="btn btn-sm btn-outline-danger" @onclick="() => DeleteImageFromLightbox(currentImage.Id)">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    Delete
+                    @Localizer["FileAttachments.Delete"]
                 </button>
             </div>
         </div>
