@@ -214,8 +214,8 @@
 
 .project-name {
     font-weight: 700;
-    font-size: calc(15px * var(--font-size-multiplier));
-    line-height: calc(20px * var(--font-size-multiplier));
+    font-size: calc(20px * var(--font-size-multiplier));
+    line-height: calc(26px * var(--font-size-multiplier));
     color: var(--jira-text-primary);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -224,8 +224,8 @@
 }
 
 .project-type {
-    font-size: calc(11px * var(--font-size-multiplier));
-    line-height: calc(14px * var(--font-size-multiplier));
+    font-size: calc(13px * var(--font-size-multiplier));
+    line-height: calc(17px * var(--font-size-multiplier));
     color: var(--jira-text-subtle);
     overflow: hidden;
     text-overflow: ellipsis;
@@ -552,8 +552,8 @@ nav::-webkit-scrollbar-thumb:hover {
 }
 
 .jira-sidebar.sidebar-collapsed .project-icon {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
 }
 
 .jira-sidebar.sidebar-collapsed .sidebar-header {
