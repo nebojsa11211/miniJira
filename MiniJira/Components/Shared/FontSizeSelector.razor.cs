@@ -24,7 +24,8 @@ public partial class FontSizeSelector : IDisposable
     private void OnFontSizeChanged(ChangeEventArgs e)
     {
         var multiplierStr = e.Value?.ToString();
-        if (!string.IsNullOrEmpty(multiplierStr) && decimal.TryParse(multiplierStr, out var multiplier))
+        if (!string.IsNullOrEmpty(multiplierStr) &&
+            decimal.TryParse(multiplierStr, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var multiplier))
         {
             FontSizeService.SetFontSize(multiplier);
         }
