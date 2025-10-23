@@ -78,6 +78,9 @@
   <data name="Nav.Settings" xml:space="preserve">
     <value>Postavke</value>
   </data>
+  <data name="Nav.UserGuide" xml:space="preserve">
+    <value>Korisnički vodič</value>
+  </data>
 
   <!-- Stranica postavki -->
   <data name="Settings.Description" xml:space="preserve">
@@ -1115,6 +1118,9 @@
   <data name="TaskCard.RecentlyUpdated" xml:space="preserve">
     <value>Nedavno ažurirano</value>
   </data>
+  <data name="TaskCard.NoDescription" xml:space="preserve">
+    <value>Nema opisa</value>
+  </data>
 
   <!-- Postavke paleta boja -->
   <data name="Settings.ColorPalette" xml:space="preserve">
@@ -1145,5 +1151,838 @@
   </data>
   <data name="Palette.ForestGreen.Desc" xml:space="preserve">
     <value>Prirodna zelena paleta za održive timove</value>
+  </data>
+
+  <!-- Korisnički vodič -->
+  <data name="UserGuide.PageTitle" xml:space="preserve">
+    <value>Korisnički vodič - MiniJira</value>
+  </data>
+  <data name="UserGuide.Hero.Title" xml:space="preserve">
+    <value>MiniJira Korisnički vodič</value>
+  </data>
+  <data name="UserGuide.Hero.Subtitle" xml:space="preserve">
+    <value>Potpuni vodič koji će vam pomoći započeti i ovladati upravljanjem zadacima u MiniJira</value>
+  </data>
+
+  <!-- Sadržaj -->
+  <data name="UserGuide.TOC.Title" xml:space="preserve">
+    <value>📚 Sadržaj</value>
+  </data>
+  <data name="UserGuide.TOC.Section1" xml:space="preserve">
+    <value>1. Početak rada</value>
+  </data>
+  <data name="UserGuide.TOC.Section2" xml:space="preserve">
+    <value>2. Upravljanje zadacima</value>
+  </data>
+  <data name="UserGuide.TOC.Section3" xml:space="preserve">
+    <value>3. Rad sa stupcima</value>
+  </data>
+  <data name="UserGuide.TOC.Section4" xml:space="preserve">
+    <value>4. Izvještaji i analitika</value>
+  </data>
+  <data name="UserGuide.TOC.Section5" xml:space="preserve">
+    <value>5. Prilagodba i postavke</value>
+  </data>
+  <data name="UserGuide.TOC.Section6" xml:space="preserve">
+    <value>6. Savjeti i najbolje prakse</value>
+  </data>
+
+  <!-- Odjeljak 1: Početak rada -->
+  <data name="UserGuide.Section1.Title" xml:space="preserve">
+    <value>Početak rada</value>
+  </data>
+  <data name="UserGuide.Section1.1.Title" xml:space="preserve">
+    <value>1.1 Prvo pokretanje i odabir korisnika</value>
+  </data>
+  <data name="UserGuide.Section1.1.Intro" xml:space="preserve">
+    <value>Kada prvi put otvorite MiniJira, vidjet ćete ekran za odabir korisnika. To vam omogućuje da odaberete s kojim korisnikom želite raditi.</value>
+  </data>
+  <data name="UserGuide.Section1.1.Step1.Label" xml:space="preserve">
+    <value>Korak 1</value>
+  </data>
+  <data name="UserGuide.Section1.1.Step1.Title" xml:space="preserve">
+    <value>Odaberite svog korisnika</value>
+  </data>
+  <data name="UserGuide.Section1.1.Step1.Text" xml:space="preserve">
+    <value>Odaberite korisnika iz dostupnih opcija. Svaki korisnik može imati različite zadatke dodijeljene sebi.</value>
+  </data>
+  <data name="UserGuide.Section1.1.Step1.Caption" xml:space="preserve">
+    <value>Ekran za odabir korisnika - Odaberite svog korisnika za nastavak</value>
+  </data>
+  <data name="UserGuide.Section1.1.Note" xml:space="preserve">
+    <value>Napomena:</value>
+  </data>
+  <data name="UserGuide.Section1.1.NoteText" xml:space="preserve">
+    <value>Ovo je lažni sustav autentifikacije za demonstracijske svrhe. U proizvodnom okruženju koristili biste pravu autentifikaciju.</value>
+  </data>
+
+  <data name="UserGuide.Section1.2.Title" xml:space="preserve">
+    <value>1.2 Razumijevanje glavne nadzorne ploče</value>
+  </data>
+  <data name="UserGuide.Section1.2.Intro" xml:space="preserve">
+    <value>Nakon odabira korisnika, vidjet ćete glavnu ploču zadataka. Ovdje ćete provesti većinu vremena upravljajući zadacima.</value>
+  </data>
+  <data name="UserGuide.Section1.2.Caption" xml:space="preserve">
+    <value>Glavna nadzorna ploča - Vaš centar za upravljanje zadacima</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature1.Title" xml:space="preserve">
+    <value>Ploča zadataka</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature1.Text" xml:space="preserve">
+    <value>Pregledajte sve svoje zadatke organizirane po stupcima (Za napraviti, U tijeku, Završeno)</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature2.Title" xml:space="preserve">
+    <value>Kreiranje zadataka</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature2.Text" xml:space="preserve">
+    <value>Brzo dodajte nove zadatke pomoću gumba "Kreiraj zadatak"</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature3.Title" xml:space="preserve">
+    <value>Filtriranje i pretraživanje</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature3.Text" xml:space="preserve">
+    <value>Brzo pronađite zadatke koristeći filtere i pretraživanje</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature4.Title" xml:space="preserve">
+    <value>Povuci i ispusti</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature4.Text" xml:space="preserve">
+    <value>Premjestite zadatke između stupaca povlačenjem</value>
+  </data>
+
+  <data name="UserGuide.Section1.3.Title" xml:space="preserve">
+    <value>1.3 Bočna traka za navigaciju</value>
+  </data>
+  <data name="UserGuide.Section1.3.Intro" xml:space="preserve">
+    <value>Bočna traka s lijeve strane omogućuje pristup svim glavnim značajkama MiniJira.</value>
+  </data>
+  <data name="UserGuide.Section1.3.Caption" xml:space="preserve">
+    <value>Bočna traka za navigaciju - Pristup svim značajkama</value>
+  </data>
+  <data name="UserGuide.Section1.3.PlanningTitle" xml:space="preserve">
+    <value>Odjeljak planiranja:</value>
+  </data>
+  <data name="UserGuide.Section1.3.Planning.Home" xml:space="preserve">
+    <value>Početna</value>
+  </data>
+  <data name="UserGuide.Section1.3.Planning.HomeDesc" xml:space="preserve">
+    <value>Glavna ploča zadataka</value>
+  </data>
+  <data name="UserGuide.Section1.3.Planning.Reports" xml:space="preserve">
+    <value>Izvještaji</value>
+  </data>
+  <data name="UserGuide.Section1.3.Planning.ReportsDesc" xml:space="preserve">
+    <value>Pregledajte statistike i analitiku zadataka</value>
+  </data>
+  <data name="UserGuide.Section1.3.DevelopmentTitle" xml:space="preserve">
+    <value>Odjeljak razvoja:</value>
+  </data>
+  <data name="UserGuide.Section1.3.Development.HiddenTasks" xml:space="preserve">
+    <value>Skriveni zadaci</value>
+  </data>
+  <data name="UserGuide.Section1.3.Development.HiddenTasksDesc" xml:space="preserve">
+    <value>Pregledajte zadatke koje ste sakrili s glavne ploče</value>
+  </data>
+  <data name="UserGuide.Section1.3.Development.ColumnManagement" xml:space="preserve">
+    <value>Upravljanje stupcima</value>
+  </data>
+  <data name="UserGuide.Section1.3.Development.ColumnManagementDesc" xml:space="preserve">
+    <value>Konfigurirajte svoje stupce toka rada (admin)</value>
+  </data>
+  <data name="UserGuide.Section1.3.SettingsTitle" xml:space="preserve">
+    <value>Postavke:</value>
+  </data>
+  <data name="UserGuide.Section1.3.Settings.Settings" xml:space="preserve">
+    <value>Postavke</value>
+  </data>
+  <data name="UserGuide.Section1.3.Settings.SettingsDesc" xml:space="preserve">
+    <value>Prilagodite jezik, veličinu fonta i paletu boja</value>
+  </data>
+
+  <!-- Odjeljak 2: Upravljanje zadacima -->
+  <data name="UserGuide.Section2.Title" xml:space="preserve">
+    <value>Upravljanje zadacima</value>
+  </data>
+  <data name="UserGuide.Section2.1.Title" xml:space="preserve">
+    <value>2.1 Kreiranje novog zadatka</value>
+  </data>
+  <data name="UserGuide.Section2.1.Intro" xml:space="preserve">
+    <value>Kreiranje zadataka u MiniJira je brzo i jednostavno. Slijedite ove korake:</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step1.Label" xml:space="preserve">
+    <value>Korak 1</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step1.Title" xml:space="preserve">
+    <value>Kliknite gumb "Kreiraj zadatak"</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step1.Text" xml:space="preserve">
+    <value>S glavne nadzorne ploče kliknite gumb "Kreiraj zadatak" u gornjem desnom kutu.</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step1.Caption" xml:space="preserve">
+    <value>Kliknite gumb Kreiraj zadatak za početak</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Label" xml:space="preserve">
+    <value>Korak 2</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Title" xml:space="preserve">
+    <value>Popunite detalje zadatka</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Text" xml:space="preserve">
+    <value>Unesite informacije o zadatku u obrazac za kreiranje zadatka:</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field1" xml:space="preserve">
+    <value>Naslov</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field1Desc" xml:space="preserve">
+    <value>Kratak opis zadatka (obavezno)</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field2" xml:space="preserve">
+    <value>Opis</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field2Desc" xml:space="preserve">
+    <value>Detaljne informacije o zadatku</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field3" xml:space="preserve">
+    <value>Dodijeljeno</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field3Desc" xml:space="preserve">
+    <value>Tko bi trebao raditi na ovom zadatku</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field4" xml:space="preserve">
+    <value>Stupac</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field4Desc" xml:space="preserve">
+    <value>Početni status (Za napraviti, U tijeku, Završeno)</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field5" xml:space="preserve">
+    <value>Prioritet</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field5Desc" xml:space="preserve">
+    <value>Koliko je važan ovaj zadatak</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Caption" xml:space="preserve">
+    <value>Popunite detalje zadatka</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.Label" xml:space="preserve">
+    <value>Korak 3</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.Title" xml:space="preserve">
+    <value>Spremite zadatak</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.Text" xml:space="preserve">
+    <value>Kliknite gumb "Kreiraj" ili "Spremi" kako biste dodali zadatak na svoju ploču.</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.Success" xml:space="preserve">
+    <value>Uspjeh!</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.SuccessText" xml:space="preserve">
+    <value>Vaš zadatak će se pojaviti na ploči u odabranom stupcu.</value>
+  </data>
+
+  <data name="UserGuide.Section2.2.Title" xml:space="preserve">
+    <value>2.2 Pregled detalja zadatka</value>
+  </data>
+  <data name="UserGuide.Section2.2.Intro" xml:space="preserve">
+    <value>Kliknite na bilo koju karticu zadatka kako biste vidjeli sve detalje, komentare, privitke i povijest.</value>
+  </data>
+  <data name="UserGuide.Section2.2.Caption" xml:space="preserve">
+    <value>Prikaz detalja zadatka - Pogledajte sve informacije o zadatku</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature1.Title" xml:space="preserve">
+    <value>Informacije o zadatku</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature1.Text" xml:space="preserve">
+    <value>Pregledajte naslov, opis, dodijeljenu osobu, status i prioritet</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature2.Title" xml:space="preserve">
+    <value>Komentari</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature2.Text" xml:space="preserve">
+    <value>Dodajte i pregledavajte komentare za suradnju</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature3.Title" xml:space="preserve">
+    <value>Privici</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature3.Text" xml:space="preserve">
+    <value>Prenesite i preuzmite datoteke povezane sa zadatkom</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature4.Title" xml:space="preserve">
+    <value>Povijest</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature4.Text" xml:space="preserve">
+    <value>Pratite promjene i ažuriranja zadatka</value>
+  </data>
+
+  <data name="UserGuide.Section2.3.Title" xml:space="preserve">
+    <value>2.3 Uređivanje zadataka</value>
+  </data>
+  <data name="UserGuide.Section2.3.Intro" xml:space="preserve">
+    <value>Možete izmijeniti bilo koji zadatak otvaranjem detalja i klikom na gumb "Uredi".</value>
+  </data>
+  <data name="UserGuide.Section2.3.StepList1" xml:space="preserve">
+    <value>Kliknite na karticu zadatka kako biste otvorili prikaz detalja</value>
+  </data>
+  <data name="UserGuide.Section2.3.StepList2" xml:space="preserve">
+    <value>Kliknite gumb "Uredi" (ikona olovke)</value>
+  </data>
+  <data name="UserGuide.Section2.3.StepList3" xml:space="preserve">
+    <value>Izmijenite polja koja želite promijeniti</value>
+  </data>
+  <data name="UserGuide.Section2.3.StepList4" xml:space="preserve">
+    <value>Kliknite "Spremi" kako biste primijenili promjene</value>
+  </data>
+
+  <data name="UserGuide.Section2.4.Title" xml:space="preserve">
+    <value>2.4 Premještanje zadataka između stupaca</value>
+  </data>
+  <data name="UserGuide.Section2.4.Intro" xml:space="preserve">
+    <value>MiniJira podržava povuci-i-ispusti za premještanje zadataka kroz vaš tok rada.</value>
+  </data>
+  <data name="UserGuide.Section2.4.Caption" xml:space="preserve">
+    <value>Povucite zadatke između stupaca kako biste ažurirali njihov status</value>
+  </data>
+  <data name="UserGuide.Section2.4.StepList1" xml:space="preserve">
+    <value>Kliknite i držite karticu zadatka</value>
+  </data>
+  <data name="UserGuide.Section2.4.StepList2" xml:space="preserve">
+    <value>Povucite karticu do željenog stupca</value>
+  </data>
+  <data name="UserGuide.Section2.4.StepList3" xml:space="preserve">
+    <value>Otpustite tipku miša kako biste ispustili zadatak</value>
+  </data>
+  <data name="UserGuide.Section2.4.StepList4" xml:space="preserve">
+    <value>Status zadatka se automatski ažurira</value>
+  </data>
+
+  <data name="UserGuide.Section2.5.Title" xml:space="preserve">
+    <value>2.5 Skrivanje i prikazivanje zadataka</value>
+  </data>
+  <data name="UserGuide.Section2.5.Intro" xml:space="preserve">
+    <value>Možete sakriti zadatke s glavne ploče kako biste smanjili nered bez njihovog brisanja.</value>
+  </data>
+  <data name="UserGuide.Section2.5.Caption" xml:space="preserve">
+    <value>Sakrijte zadatke kako biste očistili svoju ploču</value>
+  </data>
+  <data name="UserGuide.Section2.5.HideTitle" xml:space="preserve">
+    <value>Za skrivanje zadatka:</value>
+  </data>
+  <data name="UserGuide.Section2.5.Hide.Step1" xml:space="preserve">
+    <value>Otvorite detalje zadatka</value>
+  </data>
+  <data name="UserGuide.Section2.5.Hide.Step2" xml:space="preserve">
+    <value>Kliknite gumb "Sakrij"</value>
+  </data>
+  <data name="UserGuide.Section2.5.Hide.Step3" xml:space="preserve">
+    <value>Zadatak nestaje s glavne ploče</value>
+  </data>
+  <data name="UserGuide.Section2.5.ShowTitle" xml:space="preserve">
+    <value>Za pregled skrivenih zadataka:</value>
+  </data>
+  <data name="UserGuide.Section2.5.Show.Step1" xml:space="preserve">
+    <value>Kliknite "Skriveni zadaci" u bočnoj traci</value>
+  </data>
+  <data name="UserGuide.Section2.5.Show.Step2" xml:space="preserve">
+    <value>Pregledajte sve svoje skrivene zadatke</value>
+  </data>
+  <data name="UserGuide.Section2.5.Show.Step3" xml:space="preserve">
+    <value>Kliknite "Prikaži" kako biste vratili zadatak na ploču</value>
+  </data>
+
+  <data name="UserGuide.Section2.6.Title" xml:space="preserve">
+    <value>2.6 Brisanje zadataka</value>
+  </data>
+  <data name="UserGuide.Section2.6.Warning" xml:space="preserve">
+    <value>Upozorenje:</value>
+  </data>
+  <data name="UserGuide.Section2.6.WarningText" xml:space="preserve">
+    <value>Brisanje zadatka je trajno i ne može se poništiti. Razmislite o skrivanju zadatka umjesto toga.</value>
+  </data>
+  <data name="UserGuide.Section2.6.Step1" xml:space="preserve">
+    <value>Otvorite detalje zadatka</value>
+  </data>
+  <data name="UserGuide.Section2.6.Step2" xml:space="preserve">
+    <value>Kliknite gumb "Obriši" (ikona kante za smeće)</value>
+  </data>
+  <data name="UserGuide.Section2.6.Step3" xml:space="preserve">
+    <value>Potvrdite brisanje kada se to od vas zatraži</value>
+  </data>
+
+  <!-- Odjeljak 3: Rad sa stupcima -->
+  <data name="UserGuide.Section3.Title" xml:space="preserve">
+    <value>Rad sa stupcima</value>
+  </data>
+  <data name="UserGuide.Section3.1.Title" xml:space="preserve">
+    <value>3.1 Razumijevanje stupaca</value>
+  </data>
+  <data name="UserGuide.Section3.1.Intro" xml:space="preserve">
+    <value>Stupci predstavljaju različite faze u vašem toku rada. Prema zadanim postavkama, MiniJira uključuje tri sistemska stupca:</value>
+  </data>
+  <data name="UserGuide.Section3.1.ToDo.Title" xml:space="preserve">
+    <value>📝 Za napraviti</value>
+  </data>
+  <data name="UserGuide.Section3.1.ToDo.Badge" xml:space="preserve">
+    <value>Sistemski stupac</value>
+  </data>
+  <data name="UserGuide.Section3.1.ToDo.Text" xml:space="preserve">
+    <value>Zadaci koje treba započeti. Ovdje obično počinju novi zadaci.</value>
+  </data>
+  <data name="UserGuide.Section3.1.InProgress.Title" xml:space="preserve">
+    <value>🚧 U tijeku</value>
+  </data>
+  <data name="UserGuide.Section3.1.InProgress.Badge" xml:space="preserve">
+    <value>Sistemski stupac</value>
+  </data>
+  <data name="UserGuide.Section3.1.InProgress.Text" xml:space="preserve">
+    <value>Zadaci na kojima se trenutno radi. Premjestite zadatke ovdje kada počnete raditi na njima.</value>
+  </data>
+  <data name="UserGuide.Section3.1.Done.Title" xml:space="preserve">
+    <value>✅ Završeno</value>
+  </data>
+  <data name="UserGuide.Section3.1.Done.Badge" xml:space="preserve">
+    <value>Sistemski stupac</value>
+  </data>
+  <data name="UserGuide.Section3.1.Done.Text" xml:space="preserve">
+    <value>Završeni zadaci. Premjestite zadatke ovdje kada su gotovi.</value>
+  </data>
+  <data name="UserGuide.Section3.1.Note" xml:space="preserve">
+    <value>Napomena:</value>
+  </data>
+  <data name="UserGuide.Section3.1.NoteText" xml:space="preserve">
+    <value>Sistemski stupci (Za napraviti, U tijeku, Završeno) ne mogu se izbrisati, ali možete stvoriti prilagođene stupce za svoj specifičan tok rada.</value>
+  </data>
+
+  <data name="UserGuide.Section3.2.Title" xml:space="preserve">
+    <value>3.2 Filtriranje zadataka po stupcu</value>
+  </data>
+  <data name="UserGuide.Section3.2.Intro" xml:space="preserve">
+    <value>Koristite filter stupaca za pregled zadataka samo iz određenih stupaca.</value>
+  </data>
+  <data name="UserGuide.Section3.2.Caption" xml:space="preserve">
+    <value>Filtrirajte zadatke po stupcu kako biste se fokusirali na određeni posao</value>
+  </data>
+  <data name="UserGuide.Section3.2.Step1" xml:space="preserve">
+    <value>Potražite padajući izbornik filtera stupaca</value>
+  </data>
+  <data name="UserGuide.Section3.2.Step2" xml:space="preserve">
+    <value>Odaberite jedan ili više stupaca za prikaz</value>
+  </data>
+  <data name="UserGuide.Section3.2.Step3" xml:space="preserve">
+    <value>Ploča se ažurira kako bi prikazala samo zadatke u odabranim stupcima</value>
+  </data>
+  <data name="UserGuide.Section3.2.Step4" xml:space="preserve">
+    <value>Odaberite "Svi stupci" kako biste ponovno vidjeli sve</value>
+  </data>
+
+  <data name="UserGuide.Section3.3.Title" xml:space="preserve">
+    <value>3.3 Upravljanje stupcima (Admin)</value>
+  </data>
+  <data name="UserGuide.Section3.3.Intro" xml:space="preserve">
+    <value>Administratori mogu kreirati, uređivati i brisati prilagođene stupce kako bi odgovarali svom toku rada.</value>
+  </data>
+  <data name="UserGuide.Section3.3.Caption" xml:space="preserve">
+    <value>Upravljanje stupcima - Prilagodite svoj tok rada</value>
+  </data>
+  <data name="UserGuide.Section3.3.CreateTitle" xml:space="preserve">
+    <value>Kreiranje novog stupca:</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step1" xml:space="preserve">
+    <value>Idite na "Upravljanje stupcima" u bočnoj traci</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step2" xml:space="preserve">
+    <value>Kliknite "Stvori novi stupac"</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step3" xml:space="preserve">
+    <value>Unesite naziv stupca i odaberite boju</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step4" xml:space="preserve">
+    <value>Postavite redoslijed prikaza (poziciju na ploči)</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step5" xml:space="preserve">
+    <value>Kliknite "Spremi" kako biste stvorili stupac</value>
+  </data>
+  <data name="UserGuide.Section3.3.EditTitle" xml:space="preserve">
+    <value>Uređivanje stupca:</value>
+  </data>
+  <data name="UserGuide.Section3.3.Edit.Step1" xml:space="preserve">
+    <value>Kliknite gumb "Uredi" pored stupca</value>
+  </data>
+  <data name="UserGuide.Section3.3.Edit.Step2" xml:space="preserve">
+    <value>Izmijenite naziv, boju ili redoslijed</value>
+  </data>
+  <data name="UserGuide.Section3.3.Edit.Step3" xml:space="preserve">
+    <value>Kliknite "Spremi" kako biste primijenili promjene</value>
+  </data>
+  <data name="UserGuide.Section3.3.DeleteTitle" xml:space="preserve">
+    <value>Brisanje stupca:</value>
+  </data>
+  <data name="UserGuide.Section3.3.DeleteWarning" xml:space="preserve">
+    <value>Upozorenje:</value>
+  </data>
+  <data name="UserGuide.Section3.3.DeleteWarningText" xml:space="preserve">
+    <value>Ne možete izbrisati stupac koji sadrži zadatke. Prvo premjestite ili izbrišite sve zadatke.</value>
+  </data>
+
+  <!-- Odjeljak 4: Izvještaji i analitika -->
+  <data name="UserGuide.Section4.Title" xml:space="preserve">
+    <value>Izvještaji i analitika</value>
+  </data>
+  <data name="UserGuide.Section4.1.Title" xml:space="preserve">
+    <value>4.1 Pristup izvještajima</value>
+  </data>
+  <data name="UserGuide.Section4.1.Intro" xml:space="preserve">
+    <value>Pregledajte sveobuhvatne statistike o svojim zadacima i toku rada.</value>
+  </data>
+  <data name="UserGuide.Section4.1.Step1" xml:space="preserve">
+    <value>Kliknite "Izvještaji" u bočnoj traci</value>
+  </data>
+  <data name="UserGuide.Section4.1.Step2" xml:space="preserve">
+    <value>Stranica izvještaja prikazuje različite metrike i grafikone</value>
+  </data>
+  <data name="UserGuide.Section4.1.Caption" xml:space="preserve">
+    <value>Stranica izvještaja - Analizirajte podatke o zadacima</value>
+  </data>
+
+  <data name="UserGuide.Section4.2.Title" xml:space="preserve">
+    <value>4.2 Razumijevanje statistike zadataka</value>
+  </data>
+  <data name="UserGuide.Section4.2.Intro" xml:space="preserve">
+    <value>Stranica izvještaja prikazuje nekoliko ključnih metrika:</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature1.Title" xml:space="preserve">
+    <value>Distribucija zadataka</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature1.Text" xml:space="preserve">
+    <value>Pogledajte kako su zadaci distribuirani po stupcima</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature2.Title" xml:space="preserve">
+    <value>Zadaci po osobi</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature2.Text" xml:space="preserve">
+    <value>Pregledajte distribuciju opterećenja među članovima tima</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature3.Title" xml:space="preserve">
+    <value>Raščlamba prioriteta</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature3.Text" xml:space="preserve">
+    <value>Analizirajte zadatke po razini prioriteta</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature4.Title" xml:space="preserve">
+    <value>Stopa dovršenosti</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature4.Text" xml:space="preserve">
+    <value>Pratite koliko je zadataka završeno naspram onih u tijeku</value>
+  </data>
+  <data name="UserGuide.Section4.2.Caption" xml:space="preserve">
+    <value>Statistika i grafikoni zadataka</value>
+  </data>
+
+  <!-- Odjeljak 5: Prilagodba i postavke -->
+  <data name="UserGuide.Section5.Title" xml:space="preserve">
+    <value>Prilagodba i postavke</value>
+  </data>
+  <data name="UserGuide.Section5.1.Title" xml:space="preserve">
+    <value>5.1 Pristup postavkama</value>
+  </data>
+  <data name="UserGuide.Section5.1.Intro" xml:space="preserve">
+    <value>Kliknite "Postavke" u bočnoj traci kako biste prilagodili svoje MiniJira iskustvo.</value>
+  </data>
+  <data name="UserGuide.Section5.1.Caption" xml:space="preserve">
+    <value>Stranica postavki - Personalizirajte svoje iskustvo</value>
+  </data>
+
+  <data name="UserGuide.Section5.2.Title" xml:space="preserve">
+    <value>5.2 Promjena jezika</value>
+  </data>
+  <data name="UserGuide.Section5.2.Intro" xml:space="preserve">
+    <value>MiniJira podržava više jezika uključujući engleski i hrvatski.</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step1.Label" xml:space="preserve">
+    <value>Korak 1</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step1.Title" xml:space="preserve">
+    <value>Odaberite svoj jezik</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step1.Text" xml:space="preserve">
+    <value>U odjeljku Jezik odaberite željeni jezik iz padajućeg izbornika.</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step1.Caption" xml:space="preserve">
+    <value>Odaberite željeni jezik</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.Label" xml:space="preserve">
+    <value>Korak 2</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.Title" xml:space="preserve">
+    <value>Spremite postavke</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.Text" xml:space="preserve">
+    <value>Kliknite gumb "Spremi postavke" na dnu stranice kako biste primijenili promjene.</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.Success" xml:space="preserve">
+    <value>Uspjeh!</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.SuccessText" xml:space="preserve">
+    <value>Sučelje će se odmah ažurirati kako bi prikazalo tekst na odabranom jeziku.</value>
+  </data>
+
+  <data name="UserGuide.Section5.3.Title" xml:space="preserve">
+    <value>5.3 Prilagodba veličine fonta</value>
+  </data>
+  <data name="UserGuide.Section5.3.Intro" xml:space="preserve">
+    <value>Prilagodite veličinu teksta kako biste olakšali čitanje MiniJira.</value>
+  </data>
+  <data name="UserGuide.Section5.3.Caption" xml:space="preserve">
+    <value>Prilagodite veličinu fonta za bolju čitljivost</value>
+  </data>
+  <data name="UserGuide.Section5.3.Step1" xml:space="preserve">
+    <value>Pronađite odjeljak "Veličina fonta" u Postavkama</value>
+  </data>
+  <data name="UserGuide.Section5.3.Step2" xml:space="preserve">
+    <value>Odaberite željenu veličinu (Normalno, 10% veće, 20% veće, itd.)</value>
+  </data>
+  <data name="UserGuide.Section5.3.Step3" xml:space="preserve">
+    <value>Kliknite "Spremi postavke" za primjenu</value>
+  </data>
+  <data name="UserGuide.Section5.3.Step4" xml:space="preserve">
+    <value>Sav tekst u aplikaciji će se skalirati prema tome</value>
+  </data>
+  <data name="UserGuide.Section5.3.Tip" xml:space="preserve">
+    <value>Savjet:</value>
+  </data>
+  <data name="UserGuide.Section5.3.TipText" xml:space="preserve">
+    <value>Postavke veličine fonta ostaju trajne između sesija, tako da ih trebate postaviti samo jednom.</value>
+  </data>
+
+  <data name="UserGuide.Section5.4.Title" xml:space="preserve">
+    <value>5.4 Odabir palete boja</value>
+  </data>
+  <data name="UserGuide.Section5.4.Intro" xml:space="preserve">
+    <value>Odaberite shemu boja koja odgovara vašoj preferenciji ili pomaže s pristupačnošću.</value>
+  </data>
+  <data name="UserGuide.Section5.4.Caption" xml:space="preserve">
+    <value>Odaberite iz raznih paleta boja</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette1.Title" xml:space="preserve">
+    <value>Jira Klasik</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette1.Text" xml:space="preserve">
+    <value>Tradicionalni plavi tonovi</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette2.Title" xml:space="preserve">
+    <value>Ocean</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette2.Text" xml:space="preserve">
+    <value>Hladni plavi i tirkizni</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette3.Title" xml:space="preserve">
+    <value>Šuma</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette3.Text" xml:space="preserve">
+    <value>Prirodno zeleni</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette4.Title" xml:space="preserve">
+    <value>Zalazak sunca</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette4.Text" xml:space="preserve">
+    <value>Topli narančasti tonovi</value>
+  </data>
+  <data name="UserGuide.Section5.4.Note" xml:space="preserve">
+    <value>Nakon odabira palete kliknite "Spremi postavke" kako biste je primijenili na cijelu aplikaciju.</value>
+  </data>
+
+  <!-- Odjeljak 6: Savjeti i najbolje prakse -->
+  <data name="UserGuide.Section6.Title" xml:space="preserve">
+    <value>Savjeti i najbolje prakse</value>
+  </data>
+  <data name="UserGuide.Section6.1.Title" xml:space="preserve">
+    <value>6.1 Preporuke za tok rada</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip1.Title" xml:space="preserve">
+    <value>Držite naslove zadataka sažetima</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.Text" xml:space="preserve">
+    <value>Koristite kratke, opisne naslove za zadatke. Stavite detaljne informacije u polje opisa.</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.Good" xml:space="preserve">
+    <value>Dobro:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.GoodExample" xml:space="preserve">
+    <value>"Popravi poravnanje gumba za prijavu"</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.Bad" xml:space="preserve">
+    <value>Nije idealno:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.BadExample" xml:space="preserve">
+    <value>"Gumb za prijavu na početnoj stranici nije pravilno poravnat i treba ga popraviti jer loše izgleda"</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip2.Title" xml:space="preserve">
+    <value>Učinkovito koristite stupce</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip2.Text" xml:space="preserve">
+    <value>Premještajte zadatke kroz stupce kako napreduju. To svima daje uvid u ono na čemu se radi.</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip2.Item1" xml:space="preserve">
+    <value>Novi zadaci → Za napraviti</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip2.Item2" xml:space="preserve">
+    <value>Započet posao → U tijeku</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip2.Item3" xml:space="preserve">
+    <value>Završen posao → Završeno</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip3.Title" xml:space="preserve">
+    <value>Mudro postavljajte prioritete</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.Text" xml:space="preserve">
+    <value>Koristite razine prioriteta kako biste pomogli članovima tima da znaju na čemu prvo raditi:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.Highest" xml:space="preserve">
+    <value>Najviši:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.HighestDesc" xml:space="preserve">
+    <value>Kritični problemi ili hitni rokovi</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.High" xml:space="preserve">
+    <value>Visok:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.HighDesc" xml:space="preserve">
+    <value>Važan posao koji treba uskoro obaviti</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.Medium" xml:space="preserve">
+    <value>Srednji:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.MediumDesc" xml:space="preserve">
+    <value>Standardni prioritetni zadaci</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.Low" xml:space="preserve">
+    <value>Nizak:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.LowDesc" xml:space="preserve">
+    <value>Poželjni dodatci</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip4.Title" xml:space="preserve">
+    <value>Komunicirajte putem komentara</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Text" xml:space="preserve">
+    <value>Koristite komentare zadatka za:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Item1" xml:space="preserve">
+    <value>Postavljanje pitanja o zahtjevima</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Item2" xml:space="preserve">
+    <value>Dijeljenje ažuriranja napretka</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Item3" xml:space="preserve">
+    <value>Dokumentiranje odluka</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Item4" xml:space="preserve">
+    <value>Koordinaciju s članovima tima</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip5.Title" xml:space="preserve">
+    <value>Priložite relevantne datoteke</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Text" xml:space="preserve">
+    <value>Držite sve povezano sa zadatkom na jednom mjestu prilaganjem:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Item1" xml:space="preserve">
+    <value>Dizajnerskih nacrta</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Item2" xml:space="preserve">
+    <value>Specifikacija</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Item3" xml:space="preserve">
+    <value>Snimki zaslona</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Item4" xml:space="preserve">
+    <value>Referentnih dokumenata</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip6.Title" xml:space="preserve">
+    <value>Održavajte svoju ploču čistom</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Text" xml:space="preserve">
+    <value>Redovito pregledavajte i čistite svoju ploču:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Item1" xml:space="preserve">
+    <value>Arhivirajte ili sakrijte završene zadatke iz starih sprintova</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Item2" xml:space="preserve">
+    <value>Izbrišite duplikate ili zastarjele zadatke</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Item3" xml:space="preserve">
+    <value>Ažurirajte zastarjele informacije o zadacima</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Item4" xml:space="preserve">
+    <value>Provjerite zadatke zaglavljene u U tijeku</value>
+  </data>
+
+  <data name="UserGuide.Section6.2.Title" xml:space="preserve">
+    <value>6.2 Uobičajeni slučajevi uporabe</value>
+  </data>
+
+  <data name="UserGuide.Section6.2.UseCase1.Title" xml:space="preserve">
+    <value>🚀 Razvoj softvera</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase1.Text" xml:space="preserve">
+    <value>Pratite greške, značajke i tehničke zadatke kroz svoj razvojni tok rada.</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase1.Item1" xml:space="preserve">
+    <value>Stvorite stupce za Testiranje, Pregled koda, Implementaciju</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase1.Item2" xml:space="preserve">
+    <value>Koristite prioritete za praćenje ozbiljnosti grešaka</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase1.Item3" xml:space="preserve">
+    <value>Priložite isječke koda ili zapise o greškama zadacima</value>
+  </data>
+
+  <data name="UserGuide.Section6.2.UseCase2.Title" xml:space="preserve">
+    <value>🎨 Kreativni projekti</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase2.Text" xml:space="preserve">
+    <value>Upravljajte dizajnerskim zadacima, kreiranjem sadržaja i pregledima.</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase2.Item1" xml:space="preserve">
+    <value>Stvorite stupce za Nacrt, Pregled, Odobreno</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase2.Item2" xml:space="preserve">
+    <value>Priložite dizajnerske datoteke i nacrte</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase2.Item3" xml:space="preserve">
+    <value>Koristite komentare za povratne informacije i iteracije</value>
+  </data>
+
+  <data name="UserGuide.Section6.2.UseCase3.Title" xml:space="preserve">
+    <value>📊 Opće upravljanje projektima</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase3.Text" xml:space="preserve">
+    <value>Organizirajte bilo koji tip posla ili projekta.</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase3.Item1" xml:space="preserve">
+    <value>Razložite projekte na manje zadatke</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase3.Item2" xml:space="preserve">
+    <value>Dodijelite zadatke članovima tima</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase3.Item3" xml:space="preserve">
+    <value>Pratite napredak pomoću stranice izvještaja</value>
+  </data>
+
+  <!-- Odjeljak pomoći -->
+  <data name="UserGuide.Help.Title" xml:space="preserve">
+    <value>Trebate dodatnu pomoć?</value>
+  </data>
+  <data name="UserGuide.Help.Text" xml:space="preserve">
+    <value>Ako imate pitanja ili vam je potrebna pomoć koja nije pokrivena u ovom vodiču:</value>
+  </data>
+  <data name="UserGuide.Help.ReportIssue" xml:space="preserve">
+    <value>Prijavite problem</value>
+  </data>
+  <data name="UserGuide.Help.GoToSettings" xml:space="preserve">
+    <value>Idite na postavke</value>
   </data>
 </root>

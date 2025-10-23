@@ -78,6 +78,9 @@
   <data name="Nav.Settings" xml:space="preserve">
     <value>Settings</value>
   </data>
+  <data name="Nav.UserGuide" xml:space="preserve">
+    <value>User Guide</value>
+  </data>
 
   <!-- Settings Page -->
   <data name="Settings.Description" xml:space="preserve">
@@ -1115,6 +1118,9 @@
   <data name="TaskCard.RecentlyUpdated" xml:space="preserve">
     <value>Recently Updated</value>
   </data>
+  <data name="TaskCard.NoDescription" xml:space="preserve">
+    <value>No description</value>
+  </data>
 
   <!-- Color Palette Settings -->
   <data name="Settings.ColorPalette" xml:space="preserve">
@@ -1145,5 +1151,838 @@
   </data>
   <data name="Palette.ForestGreen.Desc" xml:space="preserve">
     <value>Natural green palette for sustainable teams</value>
+  </data>
+
+  <!-- User Guide -->
+  <data name="UserGuide.PageTitle" xml:space="preserve">
+    <value>User Guide - MiniJira</value>
+  </data>
+  <data name="UserGuide.Hero.Title" xml:space="preserve">
+    <value>MiniJira User Guide</value>
+  </data>
+  <data name="UserGuide.Hero.Subtitle" xml:space="preserve">
+    <value>Complete guide to help you get started and master MiniJira task management</value>
+  </data>
+
+  <!-- Table of Contents -->
+  <data name="UserGuide.TOC.Title" xml:space="preserve">
+    <value>📚 Table of Contents</value>
+  </data>
+  <data name="UserGuide.TOC.Section1" xml:space="preserve">
+    <value>1. Getting Started</value>
+  </data>
+  <data name="UserGuide.TOC.Section2" xml:space="preserve">
+    <value>2. Managing Tasks</value>
+  </data>
+  <data name="UserGuide.TOC.Section3" xml:space="preserve">
+    <value>3. Working with Columns</value>
+  </data>
+  <data name="UserGuide.TOC.Section4" xml:space="preserve">
+    <value>4. Reports &amp; Analytics</value>
+  </data>
+  <data name="UserGuide.TOC.Section5" xml:space="preserve">
+    <value>5. Customization &amp; Settings</value>
+  </data>
+  <data name="UserGuide.TOC.Section6" xml:space="preserve">
+    <value>6. Tips &amp; Best Practices</value>
+  </data>
+
+  <!-- Section 1: Getting Started -->
+  <data name="UserGuide.Section1.Title" xml:space="preserve">
+    <value>Getting Started</value>
+  </data>
+  <data name="UserGuide.Section1.1.Title" xml:space="preserve">
+    <value>1.1 First Launch &amp; User Selection</value>
+  </data>
+  <data name="UserGuide.Section1.1.Intro" xml:space="preserve">
+    <value>When you first open MiniJira, you'll see the user selection screen. This allows you to choose which user you want to work as.</value>
+  </data>
+  <data name="UserGuide.Section1.1.Step1.Label" xml:space="preserve">
+    <value>Step 1</value>
+  </data>
+  <data name="UserGuide.Section1.1.Step1.Title" xml:space="preserve">
+    <value>Select Your User</value>
+  </data>
+  <data name="UserGuide.Section1.1.Step1.Text" xml:space="preserve">
+    <value>Choose your user from the available options. Each user can have different tasks assigned to them.</value>
+  </data>
+  <data name="UserGuide.Section1.1.Step1.Caption" xml:space="preserve">
+    <value>User Selection Screen - Choose your user to continue</value>
+  </data>
+  <data name="UserGuide.Section1.1.Note" xml:space="preserve">
+    <value>Note:</value>
+  </data>
+  <data name="UserGuide.Section1.1.NoteText" xml:space="preserve">
+    <value>This is a mock authentication system for demonstration purposes. In a production environment, you would use proper authentication.</value>
+  </data>
+
+  <data name="UserGuide.Section1.2.Title" xml:space="preserve">
+    <value>1.2 Understanding the Main Dashboard</value>
+  </data>
+  <data name="UserGuide.Section1.2.Intro" xml:space="preserve">
+    <value>After selecting your user, you'll see the main task board. This is where you'll spend most of your time managing tasks.</value>
+  </data>
+  <data name="UserGuide.Section1.2.Caption" xml:space="preserve">
+    <value>Main Dashboard - Your task management center</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature1.Title" xml:space="preserve">
+    <value>Task Board</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature1.Text" xml:space="preserve">
+    <value>View all your tasks organized by columns (ToDo, InProgress, Done)</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature2.Title" xml:space="preserve">
+    <value>Create Tasks</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature2.Text" xml:space="preserve">
+    <value>Quickly add new tasks with the "Create Task" button</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature3.Title" xml:space="preserve">
+    <value>Filter &amp; Search</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature3.Text" xml:space="preserve">
+    <value>Find tasks quickly using filters and search</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature4.Title" xml:space="preserve">
+    <value>Drag &amp; Drop</value>
+  </data>
+  <data name="UserGuide.Section1.2.Feature4.Text" xml:space="preserve">
+    <value>Move tasks between columns by dragging them</value>
+  </data>
+
+  <data name="UserGuide.Section1.3.Title" xml:space="preserve">
+    <value>1.3 Navigation Sidebar</value>
+  </data>
+  <data name="UserGuide.Section1.3.Intro" xml:space="preserve">
+    <value>The sidebar on the left provides access to all major features of MiniJira.</value>
+  </data>
+  <data name="UserGuide.Section1.3.Caption" xml:space="preserve">
+    <value>Navigation Sidebar - Access all features</value>
+  </data>
+  <data name="UserGuide.Section1.3.PlanningTitle" xml:space="preserve">
+    <value>Planning Section:</value>
+  </data>
+  <data name="UserGuide.Section1.3.Planning.Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="UserGuide.Section1.3.Planning.HomeDesc" xml:space="preserve">
+    <value>Main task board</value>
+  </data>
+  <data name="UserGuide.Section1.3.Planning.Reports" xml:space="preserve">
+    <value>Reports</value>
+  </data>
+  <data name="UserGuide.Section1.3.Planning.ReportsDesc" xml:space="preserve">
+    <value>View task statistics and analytics</value>
+  </data>
+  <data name="UserGuide.Section1.3.DevelopmentTitle" xml:space="preserve">
+    <value>Development Section:</value>
+  </data>
+  <data name="UserGuide.Section1.3.Development.HiddenTasks" xml:space="preserve">
+    <value>Hidden Tasks</value>
+  </data>
+  <data name="UserGuide.Section1.3.Development.HiddenTasksDesc" xml:space="preserve">
+    <value>View tasks you've hidden from the main board</value>
+  </data>
+  <data name="UserGuide.Section1.3.Development.ColumnManagement" xml:space="preserve">
+    <value>Column Management</value>
+  </data>
+  <data name="UserGuide.Section1.3.Development.ColumnManagementDesc" xml:space="preserve">
+    <value>Configure your workflow columns (admin)</value>
+  </data>
+  <data name="UserGuide.Section1.3.SettingsTitle" xml:space="preserve">
+    <value>Settings:</value>
+  </data>
+  <data name="UserGuide.Section1.3.Settings.Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="UserGuide.Section1.3.Settings.SettingsDesc" xml:space="preserve">
+    <value>Customize language, font size, and color palette</value>
+  </data>
+
+  <!-- Section 2: Managing Tasks -->
+  <data name="UserGuide.Section2.Title" xml:space="preserve">
+    <value>Managing Tasks</value>
+  </data>
+  <data name="UserGuide.Section2.1.Title" xml:space="preserve">
+    <value>2.1 Creating a New Task</value>
+  </data>
+  <data name="UserGuide.Section2.1.Intro" xml:space="preserve">
+    <value>Creating tasks in MiniJira is quick and easy. Follow these steps:</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step1.Label" xml:space="preserve">
+    <value>Step 1</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step1.Title" xml:space="preserve">
+    <value>Click "Create Task" Button</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step1.Text" xml:space="preserve">
+    <value>From the main dashboard, click the "Create Task" button in the top right corner.</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step1.Caption" xml:space="preserve">
+    <value>Click the Create Task button to begin</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Label" xml:space="preserve">
+    <value>Step 2</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Title" xml:space="preserve">
+    <value>Fill in Task Details</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Text" xml:space="preserve">
+    <value>Enter the task information in the create task form:</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field1" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field1Desc" xml:space="preserve">
+    <value>Brief description of the task (required)</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field2" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field2Desc" xml:space="preserve">
+    <value>Detailed information about the task</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field3" xml:space="preserve">
+    <value>Assignee</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field3Desc" xml:space="preserve">
+    <value>Who should work on this task</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field4" xml:space="preserve">
+    <value>Column</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field4Desc" xml:space="preserve">
+    <value>Starting status (ToDo, InProgress, Done)</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field5" xml:space="preserve">
+    <value>Priority</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Field5Desc" xml:space="preserve">
+    <value>How important is this task</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step2.Caption" xml:space="preserve">
+    <value>Fill in the task details</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.Label" xml:space="preserve">
+    <value>Step 3</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.Title" xml:space="preserve">
+    <value>Save the Task</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.Text" xml:space="preserve">
+    <value>Click the "Create" or "Save" button to add the task to your board.</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.Success" xml:space="preserve">
+    <value>Success!</value>
+  </data>
+  <data name="UserGuide.Section2.1.Step3.SuccessText" xml:space="preserve">
+    <value>Your task will appear on the board in the selected column.</value>
+  </data>
+
+  <data name="UserGuide.Section2.2.Title" xml:space="preserve">
+    <value>2.2 Viewing Task Details</value>
+  </data>
+  <data name="UserGuide.Section2.2.Intro" xml:space="preserve">
+    <value>Click on any task card to view its full details, comments, attachments, and history.</value>
+  </data>
+  <data name="UserGuide.Section2.2.Caption" xml:space="preserve">
+    <value>Task Detail View - See all task information</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature1.Title" xml:space="preserve">
+    <value>Task Information</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature1.Text" xml:space="preserve">
+    <value>View title, description, assignee, status, and priority</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature2.Title" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature2.Text" xml:space="preserve">
+    <value>Add and view comments for collaboration</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature3.Title" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature3.Text" xml:space="preserve">
+    <value>Upload and download files related to the task</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature4.Title" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="UserGuide.Section2.2.Feature4.Text" xml:space="preserve">
+    <value>Track changes and updates to the task</value>
+  </data>
+
+  <data name="UserGuide.Section2.3.Title" xml:space="preserve">
+    <value>2.3 Editing Tasks</value>
+  </data>
+  <data name="UserGuide.Section2.3.Intro" xml:space="preserve">
+    <value>You can modify any task by opening its details and clicking the "Edit" button.</value>
+  </data>
+  <data name="UserGuide.Section2.3.StepList1" xml:space="preserve">
+    <value>Click on a task card to open the details view</value>
+  </data>
+  <data name="UserGuide.Section2.3.StepList2" xml:space="preserve">
+    <value>Click the "Edit" button (pencil icon)</value>
+  </data>
+  <data name="UserGuide.Section2.3.StepList3" xml:space="preserve">
+    <value>Modify the fields you want to change</value>
+  </data>
+  <data name="UserGuide.Section2.3.StepList4" xml:space="preserve">
+    <value>Click "Save" to apply your changes</value>
+  </data>
+
+  <data name="UserGuide.Section2.4.Title" xml:space="preserve">
+    <value>2.4 Moving Tasks Between Columns</value>
+  </data>
+  <data name="UserGuide.Section2.4.Intro" xml:space="preserve">
+    <value>MiniJira supports drag-and-drop to move tasks through your workflow.</value>
+  </data>
+  <data name="UserGuide.Section2.4.Caption" xml:space="preserve">
+    <value>Drag tasks between columns to update their status</value>
+  </data>
+  <data name="UserGuide.Section2.4.StepList1" xml:space="preserve">
+    <value>Click and hold on a task card</value>
+  </data>
+  <data name="UserGuide.Section2.4.StepList2" xml:space="preserve">
+    <value>Drag the card to the desired column</value>
+  </data>
+  <data name="UserGuide.Section2.4.StepList3" xml:space="preserve">
+    <value>Release the mouse button to drop the task</value>
+  </data>
+  <data name="UserGuide.Section2.4.StepList4" xml:space="preserve">
+    <value>The task's status is automatically updated</value>
+  </data>
+
+  <data name="UserGuide.Section2.5.Title" xml:space="preserve">
+    <value>2.5 Hiding and Showing Tasks</value>
+  </data>
+  <data name="UserGuide.Section2.5.Intro" xml:space="preserve">
+    <value>You can hide tasks from the main board to reduce clutter without deleting them.</value>
+  </data>
+  <data name="UserGuide.Section2.5.Caption" xml:space="preserve">
+    <value>Hide tasks to clean up your board</value>
+  </data>
+  <data name="UserGuide.Section2.5.HideTitle" xml:space="preserve">
+    <value>To Hide a Task:</value>
+  </data>
+  <data name="UserGuide.Section2.5.Hide.Step1" xml:space="preserve">
+    <value>Open the task details</value>
+  </data>
+  <data name="UserGuide.Section2.5.Hide.Step2" xml:space="preserve">
+    <value>Click the "Hide" button</value>
+  </data>
+  <data name="UserGuide.Section2.5.Hide.Step3" xml:space="preserve">
+    <value>The task disappears from the main board</value>
+  </data>
+  <data name="UserGuide.Section2.5.ShowTitle" xml:space="preserve">
+    <value>To View Hidden Tasks:</value>
+  </data>
+  <data name="UserGuide.Section2.5.Show.Step1" xml:space="preserve">
+    <value>Click "Hidden Tasks" in the sidebar</value>
+  </data>
+  <data name="UserGuide.Section2.5.Show.Step2" xml:space="preserve">
+    <value>View all your hidden tasks</value>
+  </data>
+  <data name="UserGuide.Section2.5.Show.Step3" xml:space="preserve">
+    <value>Click "Show" to restore a task to the board</value>
+  </data>
+
+  <data name="UserGuide.Section2.6.Title" xml:space="preserve">
+    <value>2.6 Deleting Tasks</value>
+  </data>
+  <data name="UserGuide.Section2.6.Warning" xml:space="preserve">
+    <value>Warning:</value>
+  </data>
+  <data name="UserGuide.Section2.6.WarningText" xml:space="preserve">
+    <value>Deleting a task is permanent and cannot be undone. Consider hiding the task instead.</value>
+  </data>
+  <data name="UserGuide.Section2.6.Step1" xml:space="preserve">
+    <value>Open the task details</value>
+  </data>
+  <data name="UserGuide.Section2.6.Step2" xml:space="preserve">
+    <value>Click the "Delete" button (trash icon)</value>
+  </data>
+  <data name="UserGuide.Section2.6.Step3" xml:space="preserve">
+    <value>Confirm the deletion when prompted</value>
+  </data>
+
+  <!-- Section 3: Working with Columns -->
+  <data name="UserGuide.Section3.Title" xml:space="preserve">
+    <value>Working with Columns</value>
+  </data>
+  <data name="UserGuide.Section3.1.Title" xml:space="preserve">
+    <value>3.1 Understanding Columns</value>
+  </data>
+  <data name="UserGuide.Section3.1.Intro" xml:space="preserve">
+    <value>Columns represent different stages in your workflow. By default, MiniJira includes three system columns:</value>
+  </data>
+  <data name="UserGuide.Section3.1.ToDo.Title" xml:space="preserve">
+    <value>📝 ToDo</value>
+  </data>
+  <data name="UserGuide.Section3.1.ToDo.Badge" xml:space="preserve">
+    <value>System Column</value>
+  </data>
+  <data name="UserGuide.Section3.1.ToDo.Text" xml:space="preserve">
+    <value>Tasks that need to be started. This is where new tasks typically begin.</value>
+  </data>
+  <data name="UserGuide.Section3.1.InProgress.Title" xml:space="preserve">
+    <value>🚧 InProgress</value>
+  </data>
+  <data name="UserGuide.Section3.1.InProgress.Badge" xml:space="preserve">
+    <value>System Column</value>
+  </data>
+  <data name="UserGuide.Section3.1.InProgress.Text" xml:space="preserve">
+    <value>Tasks currently being worked on. Move tasks here when you start working on them.</value>
+  </data>
+  <data name="UserGuide.Section3.1.Done.Title" xml:space="preserve">
+    <value>✅ Done</value>
+  </data>
+  <data name="UserGuide.Section3.1.Done.Badge" xml:space="preserve">
+    <value>System Column</value>
+  </data>
+  <data name="UserGuide.Section3.1.Done.Text" xml:space="preserve">
+    <value>Completed tasks. Move tasks here when they're finished.</value>
+  </data>
+  <data name="UserGuide.Section3.1.Note" xml:space="preserve">
+    <value>Note:</value>
+  </data>
+  <data name="UserGuide.Section3.1.NoteText" xml:space="preserve">
+    <value>System columns (ToDo, InProgress, Done) cannot be deleted, but you can create custom columns for your specific workflow.</value>
+  </data>
+
+  <data name="UserGuide.Section3.2.Title" xml:space="preserve">
+    <value>3.2 Filtering Tasks by Column</value>
+  </data>
+  <data name="UserGuide.Section3.2.Intro" xml:space="preserve">
+    <value>Use the column filter to view tasks from specific columns only.</value>
+  </data>
+  <data name="UserGuide.Section3.2.Caption" xml:space="preserve">
+    <value>Filter tasks by column to focus on specific work</value>
+  </data>
+  <data name="UserGuide.Section3.2.Step1" xml:space="preserve">
+    <value>Look for the column filter dropdown</value>
+  </data>
+  <data name="UserGuide.Section3.2.Step2" xml:space="preserve">
+    <value>Select one or more columns to display</value>
+  </data>
+  <data name="UserGuide.Section3.2.Step3" xml:space="preserve">
+    <value>The board updates to show only tasks in selected columns</value>
+  </data>
+  <data name="UserGuide.Section3.2.Step4" xml:space="preserve">
+    <value>Select "All Columns" to see everything again</value>
+  </data>
+
+  <data name="UserGuide.Section3.3.Title" xml:space="preserve">
+    <value>3.3 Managing Columns (Admin)</value>
+  </data>
+  <data name="UserGuide.Section3.3.Intro" xml:space="preserve">
+    <value>Administrators can create, edit, and delete custom columns to match their workflow.</value>
+  </data>
+  <data name="UserGuide.Section3.3.Caption" xml:space="preserve">
+    <value>Column Management - Customize your workflow</value>
+  </data>
+  <data name="UserGuide.Section3.3.CreateTitle" xml:space="preserve">
+    <value>Creating a New Column:</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step1" xml:space="preserve">
+    <value>Navigate to "Column Management" in the sidebar</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step2" xml:space="preserve">
+    <value>Click "Create New Column"</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step3" xml:space="preserve">
+    <value>Enter the column name and select a color</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step4" xml:space="preserve">
+    <value>Set the display order (position on the board)</value>
+  </data>
+  <data name="UserGuide.Section3.3.Create.Step5" xml:space="preserve">
+    <value>Click "Save" to create the column</value>
+  </data>
+  <data name="UserGuide.Section3.3.EditTitle" xml:space="preserve">
+    <value>Editing a Column:</value>
+  </data>
+  <data name="UserGuide.Section3.3.Edit.Step1" xml:space="preserve">
+    <value>Click the "Edit" button next to the column</value>
+  </data>
+  <data name="UserGuide.Section3.3.Edit.Step2" xml:space="preserve">
+    <value>Modify the name, color, or order</value>
+  </data>
+  <data name="UserGuide.Section3.3.Edit.Step3" xml:space="preserve">
+    <value>Click "Save" to apply changes</value>
+  </data>
+  <data name="UserGuide.Section3.3.DeleteTitle" xml:space="preserve">
+    <value>Deleting a Column:</value>
+  </data>
+  <data name="UserGuide.Section3.3.DeleteWarning" xml:space="preserve">
+    <value>Warning:</value>
+  </data>
+  <data name="UserGuide.Section3.3.DeleteWarningText" xml:space="preserve">
+    <value>You cannot delete a column that contains tasks. Move or delete all tasks first.</value>
+  </data>
+
+  <!-- Section 4: Reports & Analytics -->
+  <data name="UserGuide.Section4.Title" xml:space="preserve">
+    <value>Reports &amp; Analytics</value>
+  </data>
+  <data name="UserGuide.Section4.1.Title" xml:space="preserve">
+    <value>4.1 Accessing Reports</value>
+  </data>
+  <data name="UserGuide.Section4.1.Intro" xml:space="preserve">
+    <value>View comprehensive statistics about your tasks and workflow.</value>
+  </data>
+  <data name="UserGuide.Section4.1.Step1" xml:space="preserve">
+    <value>Click "Reports" in the sidebar</value>
+  </data>
+  <data name="UserGuide.Section4.1.Step2" xml:space="preserve">
+    <value>The reports page displays various metrics and charts</value>
+  </data>
+  <data name="UserGuide.Section4.1.Caption" xml:space="preserve">
+    <value>Reports Page - Analyze your task data</value>
+  </data>
+
+  <data name="UserGuide.Section4.2.Title" xml:space="preserve">
+    <value>4.2 Understanding Task Statistics</value>
+  </data>
+  <data name="UserGuide.Section4.2.Intro" xml:space="preserve">
+    <value>The reports page shows several key metrics:</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature1.Title" xml:space="preserve">
+    <value>Task Distribution</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature1.Text" xml:space="preserve">
+    <value>See how tasks are distributed across columns</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature2.Title" xml:space="preserve">
+    <value>Tasks by Assignee</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature2.Text" xml:space="preserve">
+    <value>View workload distribution among team members</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature3.Title" xml:space="preserve">
+    <value>Priority Breakdown</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature3.Text" xml:space="preserve">
+    <value>Analyze tasks by priority level</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature4.Title" xml:space="preserve">
+    <value>Completion Rate</value>
+  </data>
+  <data name="UserGuide.Section4.2.Feature4.Text" xml:space="preserve">
+    <value>Track how many tasks are completed vs. pending</value>
+  </data>
+  <data name="UserGuide.Section4.2.Caption" xml:space="preserve">
+    <value>Task statistics and charts</value>
+  </data>
+
+  <!-- Section 5: Customization & Settings -->
+  <data name="UserGuide.Section5.Title" xml:space="preserve">
+    <value>Customization &amp; Settings</value>
+  </data>
+  <data name="UserGuide.Section5.1.Title" xml:space="preserve">
+    <value>5.1 Accessing Settings</value>
+  </data>
+  <data name="UserGuide.Section5.1.Intro" xml:space="preserve">
+    <value>Click "Settings" in the sidebar to customize your MiniJira experience.</value>
+  </data>
+  <data name="UserGuide.Section5.1.Caption" xml:space="preserve">
+    <value>Settings Page - Personalize your experience</value>
+  </data>
+
+  <data name="UserGuide.Section5.2.Title" xml:space="preserve">
+    <value>5.2 Changing Language</value>
+  </data>
+  <data name="UserGuide.Section5.2.Intro" xml:space="preserve">
+    <value>MiniJira supports multiple languages including English and Croatian.</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step1.Label" xml:space="preserve">
+    <value>Step 1</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step1.Title" xml:space="preserve">
+    <value>Select Your Language</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step1.Text" xml:space="preserve">
+    <value>In the Language section, choose your preferred language from the dropdown.</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step1.Caption" xml:space="preserve">
+    <value>Select your preferred language</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.Label" xml:space="preserve">
+    <value>Step 2</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.Title" xml:space="preserve">
+    <value>Save Settings</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.Text" xml:space="preserve">
+    <value>Click the "Save Settings" button at the bottom of the page to apply your changes.</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.Success" xml:space="preserve">
+    <value>Success!</value>
+  </data>
+  <data name="UserGuide.Section5.2.Step2.SuccessText" xml:space="preserve">
+    <value>The interface will immediately update to show text in your selected language.</value>
+  </data>
+
+  <data name="UserGuide.Section5.3.Title" xml:space="preserve">
+    <value>5.3 Adjusting Font Size</value>
+  </data>
+  <data name="UserGuide.Section5.3.Intro" xml:space="preserve">
+    <value>Customize the text size to make MiniJira easier to read.</value>
+  </data>
+  <data name="UserGuide.Section5.3.Caption" xml:space="preserve">
+    <value>Adjust font size for better readability</value>
+  </data>
+  <data name="UserGuide.Section5.3.Step1" xml:space="preserve">
+    <value>Find the "Font Size" section in Settings</value>
+  </data>
+  <data name="UserGuide.Section5.3.Step2" xml:space="preserve">
+    <value>Select your preferred size (Normal, 10% bigger, 20% bigger, etc.)</value>
+  </data>
+  <data name="UserGuide.Section5.3.Step3" xml:space="preserve">
+    <value>Click "Save Settings" to apply</value>
+  </data>
+  <data name="UserGuide.Section5.3.Step4" xml:space="preserve">
+    <value>All text in the application will scale accordingly</value>
+  </data>
+  <data name="UserGuide.Section5.3.Tip" xml:space="preserve">
+    <value>Tip:</value>
+  </data>
+  <data name="UserGuide.Section5.3.TipText" xml:space="preserve">
+    <value>Font size settings persist across sessions, so you only need to set it once.</value>
+  </data>
+
+  <data name="UserGuide.Section5.4.Title" xml:space="preserve">
+    <value>5.4 Selecting Color Palette</value>
+  </data>
+  <data name="UserGuide.Section5.4.Intro" xml:space="preserve">
+    <value>Choose a color scheme that matches your preference or helps with accessibility.</value>
+  </data>
+  <data name="UserGuide.Section5.4.Caption" xml:space="preserve">
+    <value>Choose from various color palettes</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette1.Title" xml:space="preserve">
+    <value>Jira Classic</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette1.Text" xml:space="preserve">
+    <value>Traditional blue tones</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette2.Title" xml:space="preserve">
+    <value>Ocean</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette2.Text" xml:space="preserve">
+    <value>Cool blue and teal</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette3.Title" xml:space="preserve">
+    <value>Forest</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette3.Text" xml:space="preserve">
+    <value>Natural greens</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette4.Title" xml:space="preserve">
+    <value>Sunset</value>
+  </data>
+  <data name="UserGuide.Section5.4.Palette4.Text" xml:space="preserve">
+    <value>Warm orange tones</value>
+  </data>
+  <data name="UserGuide.Section5.4.Note" xml:space="preserve">
+    <value>After selecting a palette, click "Save Settings" to apply it across the entire application.</value>
+  </data>
+
+  <!-- Section 6: Tips & Best Practices -->
+  <data name="UserGuide.Section6.Title" xml:space="preserve">
+    <value>Tips &amp; Best Practices</value>
+  </data>
+  <data name="UserGuide.Section6.1.Title" xml:space="preserve">
+    <value>6.1 Workflow Recommendations</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip1.Title" xml:space="preserve">
+    <value>Keep Task Titles Concise</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.Text" xml:space="preserve">
+    <value>Use short, descriptive titles for tasks. Put detailed information in the description field.</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.Good" xml:space="preserve">
+    <value>Good:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.GoodExample" xml:space="preserve">
+    <value>"Fix login button alignment"</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.Bad" xml:space="preserve">
+    <value>Not ideal:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip1.BadExample" xml:space="preserve">
+    <value>"The login button on the homepage is not aligned properly and needs to be fixed because it looks bad"</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip2.Title" xml:space="preserve">
+    <value>Use Columns Effectively</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip2.Text" xml:space="preserve">
+    <value>Move tasks through columns as they progress. This gives everyone visibility into what's being worked on.</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip2.Item1" xml:space="preserve">
+    <value>New tasks → ToDo</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip2.Item2" xml:space="preserve">
+    <value>Started work → InProgress</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip2.Item3" xml:space="preserve">
+    <value>Completed work → Done</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip3.Title" xml:space="preserve">
+    <value>Set Priorities Wisely</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.Text" xml:space="preserve">
+    <value>Use priority levels to help team members know what to work on first:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.Highest" xml:space="preserve">
+    <value>Highest:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.HighestDesc" xml:space="preserve">
+    <value>Critical issues or urgent deadlines</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.High" xml:space="preserve">
+    <value>High:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.HighDesc" xml:space="preserve">
+    <value>Important work that should be done soon</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.Medium" xml:space="preserve">
+    <value>Medium:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.MediumDesc" xml:space="preserve">
+    <value>Standard priority tasks</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.Low" xml:space="preserve">
+    <value>Low:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip3.LowDesc" xml:space="preserve">
+    <value>Nice-to-have items</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip4.Title" xml:space="preserve">
+    <value>Communicate with Comments</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Text" xml:space="preserve">
+    <value>Use task comments to:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Item1" xml:space="preserve">
+    <value>Ask questions about requirements</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Item2" xml:space="preserve">
+    <value>Share progress updates</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Item3" xml:space="preserve">
+    <value>Document decisions</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip4.Item4" xml:space="preserve">
+    <value>Coordinate with team members</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip5.Title" xml:space="preserve">
+    <value>Attach Relevant Files</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Text" xml:space="preserve">
+    <value>Keep everything related to a task in one place by attaching:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Item1" xml:space="preserve">
+    <value>Design mockups</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Item2" xml:space="preserve">
+    <value>Specifications</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Item3" xml:space="preserve">
+    <value>Screenshots</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip5.Item4" xml:space="preserve">
+    <value>Reference documents</value>
+  </data>
+
+  <data name="UserGuide.Section6.1.Tip6.Title" xml:space="preserve">
+    <value>Keep Your Board Clean</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Text" xml:space="preserve">
+    <value>Regularly review and clean up your board:</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Item1" xml:space="preserve">
+    <value>Archive or hide completed tasks from old sprints</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Item2" xml:space="preserve">
+    <value>Delete duplicate or obsolete tasks</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Item3" xml:space="preserve">
+    <value>Update stale task information</value>
+  </data>
+  <data name="UserGuide.Section6.1.Tip6.Item4" xml:space="preserve">
+    <value>Check for tasks stuck in InProgress</value>
+  </data>
+
+  <data name="UserGuide.Section6.2.Title" xml:space="preserve">
+    <value>6.2 Common Use Cases</value>
+  </data>
+
+  <data name="UserGuide.Section6.2.UseCase1.Title" xml:space="preserve">
+    <value>🚀 Software Development</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase1.Text" xml:space="preserve">
+    <value>Track bugs, features, and technical tasks through your development workflow.</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase1.Item1" xml:space="preserve">
+    <value>Create columns for Testing, Code Review, Deployment</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase1.Item2" xml:space="preserve">
+    <value>Use priorities to track bug severity</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase1.Item3" xml:space="preserve">
+    <value>Attach code snippets or error logs to tasks</value>
+  </data>
+
+  <data name="UserGuide.Section6.2.UseCase2.Title" xml:space="preserve">
+    <value>🎨 Creative Projects</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase2.Text" xml:space="preserve">
+    <value>Manage design tasks, content creation, and reviews.</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase2.Item1" xml:space="preserve">
+    <value>Create columns for Draft, Review, Approved</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase2.Item2" xml:space="preserve">
+    <value>Attach design files and mockups</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase2.Item3" xml:space="preserve">
+    <value>Use comments for feedback and iterations</value>
+  </data>
+
+  <data name="UserGuide.Section6.2.UseCase3.Title" xml:space="preserve">
+    <value>📊 General Project Management</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase3.Text" xml:space="preserve">
+    <value>Organize any type of work or project.</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase3.Item1" xml:space="preserve">
+    <value>Break down projects into smaller tasks</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase3.Item2" xml:space="preserve">
+    <value>Assign tasks to team members</value>
+  </data>
+  <data name="UserGuide.Section6.2.UseCase3.Item3" xml:space="preserve">
+    <value>Track progress with the reports page</value>
+  </data>
+
+  <!-- Help Section -->
+  <data name="UserGuide.Help.Title" xml:space="preserve">
+    <value>Need More Help?</value>
+  </data>
+  <data name="UserGuide.Help.Text" xml:space="preserve">
+    <value>If you have questions or need assistance that isn't covered in this guide:</value>
+  </data>
+  <data name="UserGuide.Help.ReportIssue" xml:space="preserve">
+    <value>Report an Issue</value>
+  </data>
+  <data name="UserGuide.Help.GoToSettings" xml:space="preserve">
+    <value>Go to Settings</value>
   </data>
 </root>

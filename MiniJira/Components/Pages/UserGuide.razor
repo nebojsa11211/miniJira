@@ -1,0 +1,1233 @@
+@page "/user-guide"
+@using MiniJira.Resources
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<Localization> Localizer
+
+<PageTitle>@Localizer["UserGuide.PageTitle"]</PageTitle>
+
+<AuthGuard>
+<div class="user-guide-container">
+    <!-- Hero Section -->
+    <div class="guide-hero">
+        <h1>
+            <svg class="hero-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+            </svg>
+            @Localizer["UserGuide.Hero.Title"]
+        </h1>
+        <p class="hero-subtitle">@Localizer["UserGuide.Hero.Subtitle"]</p>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc-card">
+        <h2>@Localizer["UserGuide.TOC.Title"]</h2>
+        <nav class="toc-nav">
+            <a href="#getting-started" class="toc-link">@Localizer["UserGuide.TOC.Section1"]</a>
+            <a href="#managing-tasks" class="toc-link">@Localizer["UserGuide.TOC.Section2"]</a>
+            <a href="#working-columns" class="toc-link">@Localizer["UserGuide.TOC.Section3"]</a>
+            <a href="#reports" class="toc-link">@Localizer["UserGuide.TOC.Section4"]</a>
+            <a href="#settings" class="toc-link">@Localizer["UserGuide.TOC.Section5"]</a>
+            <a href="#tips" class="toc-link">@Localizer["UserGuide.TOC.Section6"]</a>
+        </nav>
+    </div>
+
+    <!-- Section 1: Getting Started -->
+    <section id="getting-started" class="guide-section">
+        <div class="section-header">
+            <span class="section-number">1</span>
+            <h2>@Localizer["UserGuide.Section1.Title"]</h2>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section1.1.Title"]</h3>
+            <p>@Localizer["UserGuide.Section1.1.Intro"]</p>
+
+            <div class="step-card">
+                <div class="step-number">@Localizer["UserGuide.Section1.1.Step1.Label"]</div>
+                <div class="step-content">
+                    <h4>@Localizer["UserGuide.Section1.1.Step1.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section1.1.Step1.Text"]</p>
+                    <div class="screenshot-placeholder">
+                        <img src="/images/guide/01-user-selection.png" alt="User Selection Screen" class="guide-screenshot" />
+                        <p class="screenshot-caption">@Localizer["UserGuide.Section1.1.Step1.Caption"]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box info">
+                <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+                <p><strong>@Localizer["UserGuide.Section1.1.Note"]</strong> @Localizer["UserGuide.Section1.1.NoteText"]</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section1.2.Title"]</h3>
+            <p>@Localizer["UserGuide.Section1.2.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/02-main-dashboard.png" alt="Main Dashboard" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section1.2.Caption"]</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📋</div>
+                    <h4>@Localizer["UserGuide.Section1.2.Feature1.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section1.2.Feature1.Text"]</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">➕</div>
+                    <h4>@Localizer["UserGuide.Section1.2.Feature2.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section1.2.Feature2.Text"]</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <h4>@Localizer["UserGuide.Section1.2.Feature3.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section1.2.Feature3.Text"]</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <h4>@Localizer["UserGuide.Section1.2.Feature4.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section1.2.Feature4.Text"]</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section1.3.Title"]</h3>
+            <p>@Localizer["UserGuide.Section1.3.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/03-sidebar.png" alt="Navigation Sidebar" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section1.3.Caption"]</p>
+            </div>
+
+            <div class="nav-list">
+                <div class="nav-section">
+                    <h4>@Localizer["UserGuide.Section1.3.PlanningTitle"]</h4>
+                    <ul>
+                        <li><strong>@Localizer["UserGuide.Section1.3.Planning.Home"]</strong> - @Localizer["UserGuide.Section1.3.Planning.HomeDesc"]</li>
+                        <li><strong>@Localizer["UserGuide.Section1.3.Planning.Reports"]</strong> - @Localizer["UserGuide.Section1.3.Planning.ReportsDesc"]</li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h4>@Localizer["UserGuide.Section1.3.DevelopmentTitle"]</h4>
+                    <ul>
+                        <li><strong>@Localizer["UserGuide.Section1.3.Development.HiddenTasks"]</strong> - @Localizer["UserGuide.Section1.3.Development.HiddenTasksDesc"]</li>
+                        <li><strong>@Localizer["UserGuide.Section1.3.Development.ColumnManagement"]</strong> - @Localizer["UserGuide.Section1.3.Development.ColumnManagementDesc"]</li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <h4>@Localizer["UserGuide.Section1.3.SettingsTitle"]</h4>
+                    <ul>
+                        <li><strong>@Localizer["UserGuide.Section1.3.Settings.Settings"]</strong> - @Localizer["UserGuide.Section1.3.Settings.SettingsDesc"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Managing Tasks -->
+    <section id="managing-tasks" class="guide-section">
+        <div class="section-header">
+            <span class="section-number">2</span>
+            <h2>@Localizer["UserGuide.Section2.Title"]</h2>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section2.1.Title"]</h3>
+            <p>@Localizer["UserGuide.Section2.1.Intro"]</p>
+
+            <div class="step-card">
+                <div class="step-number">@Localizer["UserGuide.Section2.1.Step1.Label"]</div>
+                <div class="step-content">
+                    <h4>@Localizer["UserGuide.Section2.1.Step1.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section2.1.Step1.Text"]</p>
+                    <div class="screenshot-placeholder">
+                        <img src="/images/guide/04-create-task-button.png" alt="Create Task Button" class="guide-screenshot" />
+                        <p class="screenshot-caption">@Localizer["UserGuide.Section2.1.Step1.Caption"]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">@Localizer["UserGuide.Section2.1.Step2.Label"]</div>
+                <div class="step-content">
+                    <h4>@Localizer["UserGuide.Section2.1.Step2.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section2.1.Step2.Text"]</p>
+
+                    <ul class="field-list">
+                        <li><strong>@Localizer["UserGuide.Section2.1.Step2.Field1"]</strong> - @Localizer["UserGuide.Section2.1.Step2.Field1Desc"]</li>
+                        <li><strong>@Localizer["UserGuide.Section2.1.Step2.Field2"]</strong> - @Localizer["UserGuide.Section2.1.Step2.Field2Desc"]</li>
+                        <li><strong>@Localizer["UserGuide.Section2.1.Step2.Field3"]</strong> - @Localizer["UserGuide.Section2.1.Step2.Field3Desc"]</li>
+                        <li><strong>@Localizer["UserGuide.Section2.1.Step2.Field4"]</strong> - @Localizer["UserGuide.Section2.1.Step2.Field4Desc"]</li>
+                        <li><strong>@Localizer["UserGuide.Section2.1.Step2.Field5"]</strong> - @Localizer["UserGuide.Section2.1.Step2.Field5Desc"]</li>
+                    </ul>
+
+                    <div class="screenshot-placeholder">
+                        <img src="/images/guide/05-create-task-form.png" alt="Create Task Form" class="guide-screenshot" />
+                        <p class="screenshot-caption">@Localizer["UserGuide.Section2.1.Step2.Caption"]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">@Localizer["UserGuide.Section2.1.Step3.Label"]</div>
+                <div class="step-content">
+                    <h4>@Localizer["UserGuide.Section2.1.Step3.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section2.1.Step3.Text"]</p>
+
+                    <div class="info-box success">
+                        <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        <p><strong>@Localizer["UserGuide.Section2.1.Step3.Success"]</strong> @Localizer["UserGuide.Section2.1.Step3.SuccessText"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section2.2.Title"]</h3>
+            <p>@Localizer["UserGuide.Section2.2.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/06-task-detail.png" alt="Task Detail View" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section2.2.Caption"]</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📝</div>
+                    <h4>@Localizer["UserGuide.Section2.2.Feature1.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section2.2.Feature1.Text"]</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💬</div>
+                    <h4>@Localizer["UserGuide.Section2.2.Feature2.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section2.2.Feature2.Text"]</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📎</div>
+                    <h4>@Localizer["UserGuide.Section2.2.Feature3.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section2.2.Feature3.Text"]</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📅</div>
+                    <h4>@Localizer["UserGuide.Section2.2.Feature4.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section2.2.Feature4.Text"]</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section2.3.Title"]</h3>
+            <p>@Localizer["UserGuide.Section2.3.Intro"]</p>
+
+            <ol class="step-list">
+                <li>@Localizer["UserGuide.Section2.3.StepList1"]</li>
+                <li>@Localizer["UserGuide.Section2.3.StepList2"]</li>
+                <li>@Localizer["UserGuide.Section2.3.StepList3"]</li>
+                <li>@Localizer["UserGuide.Section2.3.StepList4"]</li>
+            </ol>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section2.4.Title"]</h3>
+            <p>@Localizer["UserGuide.Section2.4.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/07-drag-drop.png" alt="Drag and Drop" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section2.4.Caption"]</p>
+            </div>
+
+            <ol class="step-list">
+                <li>@Localizer["UserGuide.Section2.4.StepList1"]</li>
+                <li>@Localizer["UserGuide.Section2.4.StepList2"]</li>
+                <li>@Localizer["UserGuide.Section2.4.StepList3"]</li>
+                <li>@Localizer["UserGuide.Section2.4.StepList4"]</li>
+            </ol>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section2.5.Title"]</h3>
+            <p>@Localizer["UserGuide.Section2.5.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/08-hide-task.png" alt="Hide Task" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section2.5.Caption"]</p>
+            </div>
+
+            <div class="two-column-grid">
+                <div>
+                    <h4>@Localizer["UserGuide.Section2.5.HideTitle"]</h4>
+                    <ol class="step-list">
+                        <li>@Localizer["UserGuide.Section2.5.Hide.Step1"]</li>
+                        <li>@Localizer["UserGuide.Section2.5.Hide.Step2"]</li>
+                        <li>@Localizer["UserGuide.Section2.5.Hide.Step3"]</li>
+                    </ol>
+                </div>
+                <div>
+                    <h4>@Localizer["UserGuide.Section2.5.ShowTitle"]</h4>
+                    <ol class="step-list">
+                        <li>@Localizer["UserGuide.Section2.5.Show.Step1"]</li>
+                        <li>@Localizer["UserGuide.Section2.5.Show.Step2"]</li>
+                        <li>@Localizer["UserGuide.Section2.5.Show.Step3"]</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section2.6.Title"]</h3>
+
+            <div class="info-box warning">
+                <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                </svg>
+                <p><strong>@Localizer["UserGuide.Section2.6.Warning"]</strong> @Localizer["UserGuide.Section2.6.WarningText"]</p>
+            </div>
+
+            <ol class="step-list">
+                <li>@Localizer["UserGuide.Section2.6.Step1"]</li>
+                <li>@Localizer["UserGuide.Section2.6.Step2"]</li>
+                <li>@Localizer["UserGuide.Section2.6.Step3"]</li>
+            </ol>
+        </div>
+    </section>
+
+    <!-- Section 3: Working with Columns -->
+    <section id="working-columns" class="guide-section">
+        <div class="section-header">
+            <span class="section-number">3</span>
+            <h2>@Localizer["UserGuide.Section3.Title"]</h2>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section3.1.Title"]</h3>
+            <p>@Localizer["UserGuide.Section3.1.Intro"]</p>
+
+            <div class="column-showcase">
+                <div class="column-card">
+                    <h4>@Localizer["UserGuide.Section3.1.ToDo.Title"]</h4>
+                    <span class="badge">@Localizer["UserGuide.Section3.1.ToDo.Badge"]</span>
+                    <p>@Localizer["UserGuide.Section3.1.ToDo.Text"]</p>
+                </div>
+                <div class="column-card">
+                    <h4>@Localizer["UserGuide.Section3.1.InProgress.Title"]</h4>
+                    <span class="badge">@Localizer["UserGuide.Section3.1.InProgress.Badge"]</span>
+                    <p>@Localizer["UserGuide.Section3.1.InProgress.Text"]</p>
+                </div>
+                <div class="column-card">
+                    <h4>@Localizer["UserGuide.Section3.1.Done.Title"]</h4>
+                    <span class="badge">@Localizer["UserGuide.Section3.1.Done.Badge"]</span>
+                    <p>@Localizer["UserGuide.Section3.1.Done.Text"]</p>
+                </div>
+            </div>
+
+            <div class="info-box info">
+                <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+                <p><strong>@Localizer["UserGuide.Section3.1.Note"]</strong> @Localizer["UserGuide.Section3.1.NoteText"]</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section3.2.Title"]</h3>
+            <p>@Localizer["UserGuide.Section3.2.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/09-column-filter.png" alt="Column Filter" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section3.2.Caption"]</p>
+            </div>
+
+            <ol class="step-list">
+                <li>@Localizer["UserGuide.Section3.2.Step1"]</li>
+                <li>@Localizer["UserGuide.Section3.2.Step2"]</li>
+                <li>@Localizer["UserGuide.Section3.2.Step3"]</li>
+                <li>@Localizer["UserGuide.Section3.2.Step4"]</li>
+            </ol>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section3.3.Title"]</h3>
+            <p>@Localizer["UserGuide.Section3.3.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/10-column-management.png" alt="Column Management" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section3.3.Caption"]</p>
+            </div>
+
+            <div class="procedure-list">
+                <div class="procedure">
+                    <h4>@Localizer["UserGuide.Section3.3.CreateTitle"]</h4>
+                    <ol class="step-list">
+                        <li>@Localizer["UserGuide.Section3.3.Create.Step1"]</li>
+                        <li>@Localizer["UserGuide.Section3.3.Create.Step2"]</li>
+                        <li>@Localizer["UserGuide.Section3.3.Create.Step3"]</li>
+                        <li>@Localizer["UserGuide.Section3.3.Create.Step4"]</li>
+                        <li>@Localizer["UserGuide.Section3.3.Create.Step5"]</li>
+                    </ol>
+                </div>
+
+                <div class="procedure">
+                    <h4>@Localizer["UserGuide.Section3.3.EditTitle"]</h4>
+                    <ol class="step-list">
+                        <li>@Localizer["UserGuide.Section3.3.Edit.Step1"]</li>
+                        <li>@Localizer["UserGuide.Section3.3.Edit.Step2"]</li>
+                        <li>@Localizer["UserGuide.Section3.3.Edit.Step3"]</li>
+                    </ol>
+                </div>
+
+                <div class="procedure">
+                    <h4>@Localizer["UserGuide.Section3.3.DeleteTitle"]</h4>
+                    <div class="info-box warning">
+                        <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                        </svg>
+                        <p><strong>@Localizer["UserGuide.Section3.3.DeleteWarning"]</strong> @Localizer["UserGuide.Section3.3.DeleteWarningText"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Reports & Analytics -->
+    <section id="reports" class="guide-section">
+        <div class="section-header">
+            <span class="section-number">4</span>
+            <h2>@Localizer["UserGuide.Section4.Title"]</h2>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section4.1.Title"]</h3>
+            <p>@Localizer["UserGuide.Section4.1.Intro"]</p>
+
+            <ol class="step-list">
+                <li>@Localizer["UserGuide.Section4.1.Step1"]</li>
+                <li>@Localizer["UserGuide.Section4.1.Step2"]</li>
+            </ol>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/11-reports.png" alt="Reports Page" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section4.1.Caption"]</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section4.2.Title"]</h3>
+            <p>@Localizer["UserGuide.Section4.2.Intro"]</p>
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h4>@Localizer["UserGuide.Section4.2.Feature1.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section4.2.Feature1.Text"]</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">👥</div>
+                    <h4>@Localizer["UserGuide.Section4.2.Feature2.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section4.2.Feature2.Text"]</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h4>@Localizer["UserGuide.Section4.2.Feature3.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section4.2.Feature3.Text"]</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">✅</div>
+                    <h4>@Localizer["UserGuide.Section4.2.Feature4.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section4.2.Feature4.Text"]</p>
+                </div>
+            </div>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/12-reports-charts.png" alt="Reports Charts" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section4.2.Caption"]</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 5: Customization & Settings -->
+    <section id="settings" class="guide-section">
+        <div class="section-header">
+            <span class="section-number">5</span>
+            <h2>@Localizer["UserGuide.Section5.Title"]</h2>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section5.1.Title"]</h3>
+            <p>@Localizer["UserGuide.Section5.1.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/13-settings.png" alt="Settings Page" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section5.1.Caption"]</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section5.2.Title"]</h3>
+            <p>@Localizer["UserGuide.Section5.2.Intro"]</p>
+
+            <div class="step-card">
+                <div class="step-number">@Localizer["UserGuide.Section5.2.Step1.Label"]</div>
+                <div class="step-content">
+                    <h4>@Localizer["UserGuide.Section5.2.Step1.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section5.2.Step1.Text"]</p>
+                    <div class="screenshot-placeholder">
+                        <img src="/images/guide/14-language-selector.png" alt="Language Selector" class="guide-screenshot" />
+                        <p class="screenshot-caption">@Localizer["UserGuide.Section5.2.Step1.Caption"]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-card">
+                <div class="step-number">@Localizer["UserGuide.Section5.2.Step2.Label"]</div>
+                <div class="step-content">
+                    <h4>@Localizer["UserGuide.Section5.2.Step2.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section5.2.Step2.Text"]</p>
+
+                    <div class="info-box success">
+                        <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        <p><strong>@Localizer["UserGuide.Section5.2.Step2.Success"]</strong> @Localizer["UserGuide.Section5.2.Step2.SuccessText"]</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section5.3.Title"]</h3>
+            <p>@Localizer["UserGuide.Section5.3.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/15-font-size.png" alt="Font Size Settings" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section5.3.Caption"]</p>
+            </div>
+
+            <ol class="step-list">
+                <li>@Localizer["UserGuide.Section5.3.Step1"]</li>
+                <li>@Localizer["UserGuide.Section5.3.Step2"]</li>
+                <li>@Localizer["UserGuide.Section5.3.Step3"]</li>
+                <li>@Localizer["UserGuide.Section5.3.Step4"]</li>
+            </ol>
+
+            <div class="info-box tip">
+                <svg class="info-icon" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+                <p><strong>@Localizer["UserGuide.Section5.3.Tip"]</strong> @Localizer["UserGuide.Section5.3.TipText"]</p>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section5.4.Title"]</h3>
+            <p>@Localizer["UserGuide.Section5.4.Intro"]</p>
+
+            <div class="screenshot-placeholder">
+                <img src="/images/guide/16-color-palette.png" alt="Color Palette Settings" class="guide-screenshot" />
+                <p class="screenshot-caption">@Localizer["UserGuide.Section5.4.Caption"]</p>
+            </div>
+
+            <div class="palette-showcase">
+                <div class="palette-option">
+                    <h4>@Localizer["UserGuide.Section5.4.Palette1.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section5.4.Palette1.Text"]</p>
+                </div>
+                <div class="palette-option">
+                    <h4>@Localizer["UserGuide.Section5.4.Palette2.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section5.4.Palette2.Text"]</p>
+                </div>
+                <div class="palette-option">
+                    <h4>@Localizer["UserGuide.Section5.4.Palette3.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section5.4.Palette3.Text"]</p>
+                </div>
+                <div class="palette-option">
+                    <h4>@Localizer["UserGuide.Section5.4.Palette4.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section5.4.Palette4.Text"]</p>
+                </div>
+            </div>
+
+            <p class="note">@Localizer["UserGuide.Section5.4.Note"]</p>
+        </div>
+    </section>
+
+    <!-- Section 6: Tips & Best Practices -->
+    <section id="tips" class="guide-section">
+        <div class="section-header">
+            <span class="section-number">6</span>
+            <h2>@Localizer["UserGuide.Section6.Title"]</h2>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section6.1.Title"]</h3>
+
+            <div class="tip-card">
+                <div class="tip-number">💡</div>
+                <div class="tip-content">
+                    <h4>@Localizer["UserGuide.Section6.1.Tip1.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section6.1.Tip1.Text"]</p>
+                    <div class="example-box">
+                        <p><strong>@Localizer["UserGuide.Section6.1.Tip1.Good"]</strong> @Localizer["UserGuide.Section6.1.Tip1.GoodExample"]</p>
+                        <p><strong>@Localizer["UserGuide.Section6.1.Tip1.Bad"]</strong> @Localizer["UserGuide.Section6.1.Tip1.BadExample"]</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">🔄</div>
+                <div class="tip-content">
+                    <h4>@Localizer["UserGuide.Section6.1.Tip2.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section6.1.Tip2.Text"]</p>
+                    <ul class="checklist">
+                        <li>@Localizer["UserGuide.Section6.1.Tip2.Item1"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip2.Item2"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip2.Item3"]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">🎯</div>
+                <div class="tip-content">
+                    <h4>@Localizer["UserGuide.Section6.1.Tip3.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section6.1.Tip3.Text"]</p>
+                    <ul class="priority-list">
+                        <li><strong>@Localizer["UserGuide.Section6.1.Tip3.Highest"]</strong> @Localizer["UserGuide.Section6.1.Tip3.HighestDesc"]</li>
+                        <li><strong>@Localizer["UserGuide.Section6.1.Tip3.High"]</strong> @Localizer["UserGuide.Section6.1.Tip3.HighDesc"]</li>
+                        <li><strong>@Localizer["UserGuide.Section6.1.Tip3.Medium"]</strong> @Localizer["UserGuide.Section6.1.Tip3.MediumDesc"]</li>
+                        <li><strong>@Localizer["UserGuide.Section6.1.Tip3.Low"]</strong> @Localizer["UserGuide.Section6.1.Tip3.LowDesc"]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">💬</div>
+                <div class="tip-content">
+                    <h4>@Localizer["UserGuide.Section6.1.Tip4.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section6.1.Tip4.Text"]</p>
+                    <ul class="checklist">
+                        <li>@Localizer["UserGuide.Section6.1.Tip4.Item1"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip4.Item2"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip4.Item3"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip4.Item4"]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">📎</div>
+                <div class="tip-content">
+                    <h4>@Localizer["UserGuide.Section6.1.Tip5.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section6.1.Tip5.Text"]</p>
+                    <ul class="checklist">
+                        <li>@Localizer["UserGuide.Section6.1.Tip5.Item1"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip5.Item2"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip5.Item3"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip5.Item4"]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tip-card">
+                <div class="tip-number">🧹</div>
+                <div class="tip-content">
+                    <h4>@Localizer["UserGuide.Section6.1.Tip6.Title"]</h4>
+                    <p>@Localizer["UserGuide.Section6.1.Tip6.Text"]</p>
+                    <ul class="checklist">
+                        <li>@Localizer["UserGuide.Section6.1.Tip6.Item1"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip6.Item2"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip6.Item3"]</li>
+                        <li>@Localizer["UserGuide.Section6.1.Tip6.Item4"]</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>@Localizer["UserGuide.Section6.2.Title"]</h3>
+
+            <div class="use-case-card">
+                <h4>@Localizer["UserGuide.Section6.2.UseCase1.Title"]</h4>
+                <p>@Localizer["UserGuide.Section6.2.UseCase1.Text"]</p>
+                <ul class="checklist">
+                    <li>@Localizer["UserGuide.Section6.2.UseCase1.Item1"]</li>
+                    <li>@Localizer["UserGuide.Section6.2.UseCase1.Item2"]</li>
+                    <li>@Localizer["UserGuide.Section6.2.UseCase1.Item3"]</li>
+                </ul>
+            </div>
+
+            <div class="use-case-card">
+                <h4>@Localizer["UserGuide.Section6.2.UseCase2.Title"]</h4>
+                <p>@Localizer["UserGuide.Section6.2.UseCase2.Text"]</p>
+                <ul class="checklist">
+                    <li>@Localizer["UserGuide.Section6.2.UseCase2.Item1"]</li>
+                    <li>@Localizer["UserGuide.Section6.2.UseCase2.Item2"]</li>
+                    <li>@Localizer["UserGuide.Section6.2.UseCase2.Item3"]</li>
+                </ul>
+            </div>
+
+            <div class="use-case-card">
+                <h4>@Localizer["UserGuide.Section6.2.UseCase3.Title"]</h4>
+                <p>@Localizer["UserGuide.Section6.2.UseCase3.Text"]</p>
+                <ul class="checklist">
+                    <li>@Localizer["UserGuide.Section6.2.UseCase3.Item1"]</li>
+                    <li>@Localizer["UserGuide.Section6.2.UseCase3.Item2"]</li>
+                    <li>@Localizer["UserGuide.Section6.2.UseCase3.Item3"]</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Help Section -->
+    <div class="help-section">
+        <div class="help-card">
+            <h2>@Localizer["UserGuide.Help.Title"]</h2>
+            <p>@Localizer["UserGuide.Help.Text"]</p>
+            <div class="help-actions">
+                <a href="https://github.com/yourusername/minijira/issues" target="_blank" class="btn btn-primary">
+                    @Localizer["UserGuide.Help.ReportIssue"]
+                </a>
+                <a href="/settings" class="btn btn-secondary">
+                    @Localizer["UserGuide.Help.GoToSettings"]
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</AuthGuard>
+
+<style>
+    /* User Guide Styles */
+    .user-guide-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        background: var(--bg-primary);
+        min-height: 100vh;
+    }
+
+    /* Hero Section */
+    .guide-hero {
+        text-align: center;
+        padding: 3rem 0;
+        border-bottom: 2px solid var(--border-color);
+        margin-bottom: 3rem;
+    }
+
+    .guide-hero h1 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        font-size: 2.5rem;
+        color: var(--text-primary);
+        margin: 0;
+    }
+
+    .hero-icon {
+        color: var(--primary-color);
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        margin-top: 1rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Table of Contents */
+    .toc-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .toc-card h2 {
+        margin: 0 0 1.5rem 0;
+        color: var(--text-primary);
+    }
+
+    .toc-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .toc-link {
+        display: block;
+        padding: 0.75rem 1rem;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+
+    .toc-link:hover {
+        background: var(--bg-hover);
+        border-color: var(--primary-color);
+        transform: translateX(4px);
+    }
+
+    /* Guide Sections */
+    .guide-section {
+        margin-bottom: 4rem;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid var(--primary-color);
+        margin-bottom: 2rem;
+    }
+
+    .section-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .section-header h2 {
+        margin: 0;
+        color: var(--text-primary);
+    }
+
+    /* Subsections */
+    .subsection {
+        margin-bottom: 2.5rem;
+    }
+
+    .subsection h3 {
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .subsection p {
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    /* Step Cards */
+    .step-card {
+        display: flex;
+        gap: 1rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .step-number {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.875rem;
+    }
+
+    .step-content {
+        flex: 1;
+    }
+
+    .step-content h4 {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-primary);
+    }
+
+    /* Info Boxes */
+    .info-box {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 6px;
+        margin: 1rem 0;
+    }
+
+    .info-box.info {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+    }
+
+    .info-box.success {
+        background: #e8f5e9;
+        border-left: 4px solid #4caf50;
+    }
+
+    .info-box.warning {
+        background: #fff3e0;
+        border-left: 4px solid #ff9800;
+    }
+
+    .info-box.tip {
+        background: #f3e5f5;
+        border-left: 4px solid #9c27b0;
+    }
+
+    .info-icon {
+        flex-shrink: 0;
+    }
+
+    .info-box p {
+        margin: 0;
+        color: var(--text-primary);
+    }
+
+    /* Screenshot Placeholder */
+    .screenshot-placeholder {
+        margin: 1.5rem 0;
+    }
+
+    .guide-screenshot {
+        width: 100%;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .screenshot-caption {
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+        font-style: italic;
+    }
+
+    /* Feature Grid */
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .feature-item {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+    }
+
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .feature-item h4 {
+        margin: 0.5rem 0;
+        color: var(--text-primary);
+    }
+
+    .feature-item p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+    }
+
+    /* Lists */
+    .step-list, .field-list, .checklist, .priority-list {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .step-list li, .field-list li, .checklist li, .priority-list li {
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+    }
+
+    /* Navigation List */
+    .nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-section {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+    }
+
+    .nav-section h4 {
+        margin: 0 0 1rem 0;
+        color: var(--primary-color);
+    }
+
+    .nav-section ul {
+        margin: 0;
+        padding-left: 1.5rem;
+    }
+
+    .nav-section li {
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+    }
+
+    /* Column Showcase */
+    .column-showcase {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .column-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+    }
+
+    .column-card h4 {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-primary);
+    }
+
+    .column-card .badge {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        margin-bottom: 1rem;
+    }
+
+    .column-card p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+    }
+
+    /* Two Column Grid */
+    .two-column-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin: 1.5rem 0;
+    }
+
+    /* Procedure List */
+    .procedure-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .procedure {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+    }
+
+    .procedure h4 {
+        margin: 0 0 1rem 0;
+        color: var(--primary-color);
+    }
+
+    /* Tip Cards */
+    .tip-card {
+        display: flex;
+        gap: 1rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .tip-number {
+        flex-shrink: 0;
+        font-size: 2rem;
+    }
+
+    .tip-content h4 {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-primary);
+    }
+
+    .example-box {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .example-box p {
+        margin: 0.5rem 0;
+    }
+
+    /* Use Case Cards */
+    .use-case-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .use-case-card h4 {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-primary);
+    }
+
+    .use-case-card p {
+        margin-bottom: 1rem;
+    }
+
+    /* Palette Showcase */
+    .palette-showcase {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .palette-option {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+    }
+
+    .palette-option h4 {
+        margin: 0 0 0.5rem 0;
+        color: var(--text-primary);
+    }
+
+    .palette-option p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+    }
+
+    /* Help Section */
+    .help-section {
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 2px solid var(--border-color);
+    }
+
+    .help-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+    }
+
+    .help-card h2 {
+        margin: 0 0 1rem 0;
+        color: var(--text-primary);
+    }
+
+    .help-card p {
+        margin-bottom: 2rem;
+        color: var(--text-secondary);
+    }
+
+    .help-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+
+    .btn-primary {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+    }
+
+    .btn-primary:hover {
+        background: var(--primary-dark);
+    }
+
+    .btn-secondary {
+        background: transparent;
+        color: var(--primary-color);
+        border: 1px solid var(--primary-color);
+    }
+
+    .btn-secondary:hover {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .note {
+        color: var(--text-secondary);
+        font-style: italic;
+        margin-top: 1rem;
+    }
+
+    /* Responsive Design */
+    @@media (max-width: 768px) {
+        .user-guide-container {
+            padding: 1rem;
+        }
+
+        .guide-hero h1 {
+            font-size: 1.75rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .two-column-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .help-actions {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+    }
+</style>
