@@ -1,0 +1,4 @@
+.tooltip-trigger {
+    position: relative;
+    display: inline-block; /* Or 'block' if the wrapped element is a block */
+}

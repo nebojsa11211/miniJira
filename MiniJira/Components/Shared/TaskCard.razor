@@ -3,11 +3,13 @@
 @inject Microsoft.Extensions.Localization.IStringLocalizer<Localization> Localizer
 
 <div id="task-card-@Task.Id"
-     class="jira-task-card card-elevated fade-in bounce-click @(IsRecentlyUpdated ? "recently-updated" : "")"
+     class="jira-task-card card-elevated fade-in bounce-click @(IsRecentlyUpdated ? "recently-updated" : "") @Class"
      @onclick="HandleClick"
      role="button"
      tabindex="0"
-     @onkeydown="HandleKeyDown">
+     @onkeydown="HandleKeyDown"
+     aria-live="polite"
+     aria-label="@($"Task: {Task.Title}. Status: {Task.Status}. Priority: {Task.Priority}. {(string.IsNullOrEmpty(Task.Customer) ? "No customer assigned" : $"Customer: {Task.Customer}")}")">
     @if (IsRecentlyUpdated)
     {
         <div class="recently-updated-badge" title="@Localizer["TaskCard.RecentlyUpdated"]">
@@ -27,7 +29,7 @@
     </div>
 
     <div id="task-card-category-@Task.Id" class="task-card-category @GetCategoryClass()">
-        @GetCategoryName()
+        @(string.IsNullOrWhiteSpace(Task.Description) ? Localizer["TaskCard.NoDescription"] : Task.Description)
     </div>
 
     <div id="task-card-footer-@Task.Id" class="task-card-footer">

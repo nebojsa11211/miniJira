@@ -1129,6 +1129,54 @@
   <data name="Settings.ColorPaletteDescription" xml:space="preserve">
     <value>Choose a color scheme for the application</value>
   </data>
+
+  <!-- Data Reset Settings -->
+  <data name="Settings.DataReset" xml:space="preserve">
+    <value>Data Reset</value>
+  </data>
+  <data name="Settings.DataResetDescription" xml:space="preserve">
+    <value>WARNING: This will permanently delete all tasks, comments, attachments, and custom columns. System columns (To Do, In Progress, Done) will be preserved.</value>
+  </data>
+  <data name="Settings.ResetAllData" xml:space="preserve">
+    <value>Reset All Data</value>
+  </data>
+  <data name="Settings.Resetting" xml:space="preserve">
+    <value>Resetting...</value>
+  </data>
+  <data name="Settings.ResetSuccessful" xml:space="preserve">
+    <value>All data has been reset successfully!</value>
+  </data>
+  <data name="Settings.ResetError" xml:space="preserve">
+    <value>Error resetting data: {0}</value>
+  </data>
+  <data name="Settings.ResetConfirmationTitle" xml:space="preserve">
+    <value>Confirm Data Reset</value>
+  </data>
+  <data name="Settings.ResetConfirmationMessage" xml:space="preserve">
+    <value>Are you sure you want to reset all data? This action cannot be undone!</value>
+  </data>
+  <data name="Settings.ResetWarning1" xml:space="preserve">
+    <value>All tasks and their details will be permanently deleted</value>
+  </data>
+  <data name="Settings.ResetWarning2" xml:space="preserve">
+    <value>All custom columns will be removed</value>
+  </data>
+  <data name="Settings.ResetWarning3" xml:space="preserve">
+    <value>Comments, attachments, and work orders will be erased</value>
+  </data>
+  <data name="Settings.Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Settings.ConfirmReset" xml:space="preserve">
+    <value>Yes, Reset All Data</value>
+  </data>
+  <data name="Settings.ColumnManagementDescription" xml:space="preserve">
+    <value>Create, edit, delete, and reorder your board columns</value>
+  </data>
+  <data name="Settings.ManageColumns" xml:space="preserve">
+    <value>Manage Columns</value>
+  </data>
+
   <data name="ColorPalette" xml:space="preserve">
     <value>Color Palette</value>
   </data>

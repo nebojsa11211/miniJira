@@ -1,30 +1,32 @@
 using System.Globalization;
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 
 namespace MiniJira.Services;
 
 /// <summary>
 /// Implementation of the localization service.
 /// Manages culture settings and provides culture switching functionality for the application.
+/// Uses cookies to store culture preference (compatible with ASP.NET Core request localization middleware).
 /// </summary>
 public class LocalizationService : ILocalizationService
 {
-    private readonly IJSRuntime _jsRuntime;
+    private readonly IHttpContextAccessor _httpContextAccessor;
     private CultureInfo _currentCulture;
     private readonly CultureInfo[] _supportedCultures;
-    private const string StorageKey = "culture";
+    private static readonly string CultureCookieName = CookieRequestCultureProvider.DefaultCookieName; // ".AspNetCore.Culture"
 
-    public LocalizationService(IJSRuntime jsRuntime)
+    public LocalizationService(IHttpContextAccessor httpContextAccessor)
     {
-        _jsRuntime = jsRuntime;
+        _httpContextAccessor = httpContextAccessor;
         _supportedCultures = new[]
         {
             new CultureInfo("en-US"),
             new CultureInfo("hr-HR")
         };
 
-        // Default to English
-        _currentCulture = _supportedCultures[0];
+        // Initialize from current thread culture (set by middleware)
+        _currentCulture = CultureInfo.CurrentUICulture;
     }
 
     public CultureInfo CurrentCulture => _currentCulture;
@@ -33,29 +35,12 @@ public class LocalizationService : ILocalizationService
 
     public event EventHandler? CultureChanged;
 
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
-        try
-        {
-            var cultureName = await _jsRuntime.InvokeAsync<string>("localStorage.getItem", StorageKey);
-            if (!string.IsNullOrEmpty(cultureName))
-            {
-                var culture = _supportedCultures.FirstOrDefault(c => c.Name == cultureName);
-                if (culture != null)
-                {
-                    _currentCulture = culture;
-                    CultureInfo.CurrentCulture = culture;
-                    CultureInfo.CurrentUICulture = culture;
-
-                    // Trigger CultureChanged event to notify all subscribers
-                    CultureChanged?.Invoke(this, EventArgs.Empty);
-                }
-            }
-        }
-        catch
-        {
-            // If loading fails, keep default culture
-        }
+        // No longer needed - culture is set by middleware before this service is created
+        // The middleware reads the culture cookie on every request and sets CultureInfo.CurrentCulture/CurrentUICulture
+        // This method is kept for backward compatibility but does nothing
+        return Task.CompletedTask;
     }
 
     public void SetCulture(CultureInfo culture)
@@ -89,15 +74,35 @@ public class LocalizationService : ILocalizationService
         await SaveAsync();
     }
 
-    public async Task SaveAsync()
+    public Task SaveAsync()
     {
         try
         {
-            await _jsRuntime.InvokeVoidAsync("localStorage.setItem", StorageKey, _currentCulture.Name);
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext != null)
+            {
+                // Set the culture cookie in ASP.NET Core format: "c=CULTURE|uic=UI_CULTURE"
+                var cookieValue = CookieRequestCultureProvider.MakeCookieValue(
+                    new RequestCulture(_currentCulture, _currentCulture));
+
+                httpContext.Response.Cookies.Append(
+                    CultureCookieName,
+                    cookieValue,
+                    new CookieOptions
+                    {
+                        Expires = DateTimeOffset.UtcNow.AddYears(1),
+                        IsEssential = true,
+                        Path = "/",
+                        HttpOnly = false, // Allow JavaScript to read if needed
+                        SameSite = SameSiteMode.Lax
+                    });
+            }
         }
         catch
         {
-            // Silently fail if storage is not available
+            // Silently fail if cookie cannot be set
         }
+
+        return Task.CompletedTask;
     }
 }

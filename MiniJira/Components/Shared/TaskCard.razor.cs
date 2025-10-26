@@ -16,6 +16,9 @@ public partial class TaskCard
     [Parameter]
     public bool IsRecentlyUpdated { get; set; }
 
+    [Parameter]
+    public string? Class { get; set; }
+
     private async System.Threading.Tasks.Task HandleClick()
     {
         await OnClick.InvokeAsync(Task.Id);

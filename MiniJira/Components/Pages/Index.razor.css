@@ -7,6 +7,8 @@
     padding: 0;
     min-height: calc(100vh - 120px);
     background-color: var(--jira-bg-page);
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 /* Kanban Header - Jira board header style */
@@ -80,13 +82,15 @@
     align-items: start;
     width: 100%;
     max-width: 100%;
+    min-height: calc(100vh - 150px);
 }
 
 /* Kanban Column - Exact Jira column styling */
 .kanban-column {
     background-color: var(--jira-bg-secondary);
     border-radius: var(--jira-radius-small);
-    min-height: 600px;
+    min-height: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -137,9 +141,11 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: var(--jira-space-100);
+    gap: var(--jira-space-150);
     overflow-y: auto;
+    overflow-x: visible;
     max-height: calc(100vh - 280px);
+    perspective: 1000px; /* Enables 3D space for children */
 }
 
 /* Scrollbar styling for column content */
@@ -185,7 +191,7 @@
 
 /* Responsive Design - Mobile-first approach with standardized breakpoints */
 
-/* Mobile (< 768px) - Default styles already mobile-optimized above */
+/* Mobile (< 768px) - Mobile-optimized styles */
 @media (max-width: 767px) {
     .kanban-container {
         padding: 0;
@@ -228,19 +234,30 @@
         padding: var(--jira-space-100) var(--jira-space-150);
     }
 
+    /* Increase column title size for better readability on mobile */
     .column-title {
-        font-size: calc(11px * var(--font-size-multiplier));
+        font-size: calc(13px * var(--font-size-multiplier));
     }
 
     .column-count {
-        font-size: calc(11px * var(--font-size-multiplier));
+        font-size: calc(13px * var(--font-size-multiplier));
     }
 
     .kanban-column-content {
         max-height: none;
         min-height: 200px;
         padding: var(--jira-space-100);
-        gap: var(--jira-space-100);
+        gap: var(--jira-space-150);
+    }
+
+    /* Fix loading skeleton to be responsive */
+    .loading-container .kanban-board {
+        grid-template-columns: 1fr !important;
+    }
+
+    /* Reduce loading skeleton height on mobile */
+    .loading-text {
+        font-size: calc(13px * var(--font-size-multiplier));
     }
 }
 
@@ -361,7 +378,6 @@
     line-height: 1;
     flex-shrink: 0;
     text-transform: uppercase;
-    box-shadow: 0 0 0 2px var(--jira-bg-primary);
 }
 
 .user-name {
@@ -434,4 +450,19 @@
 .btn-outline-secondary {
     min-height: 44px;
     min-width: 44px;
+}
+
+@keyframes slideAndFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.jira-task-card.newly-added {
+  animation: slideAndFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }

@@ -34,8 +34,8 @@
     align-items: center;
     padding: var(--jira-space-200) var(--jira-space-250);
     border-bottom: 1px solid var(--jira-border);
-    min-height: 64px;
-    height: 64px;
+    min-height: 160px;
+    height: auto;
     flex-shrink: 0;
     position: relative;
     background: linear-gradient(135deg, var(--jira-bg-primary) 0%, var(--jira-bg-secondary) 100%);
@@ -58,6 +58,7 @@
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
 }
 
 .sidebar-collapse-toggle:hover {
@@ -77,38 +78,6 @@
 .sidebar-collapse-toggle:active {
     transform: translateY(0) scale(0.95);
     box-shadow: 0 1px 2px rgba(0, 82, 204, 0.2);
-}
-
-/* Sidebar collapse toggle button */
-.sidebar-collapse-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    padding: 0;
-    margin-left: auto;
-    background-color: transparent;
-    border: none;
-    border-radius: var(--jira-radius-small);
-    color: var(--jira-text-secondary);
-    cursor: pointer;
-    transition: background-color 0.08s linear, color 0.08s linear;
-}
-
-.sidebar-collapse-toggle:hover {
-    background-color: var(--jira-bg-secondary);
-    color: var(--jira-primary);
-}
-
-.sidebar-collapse-toggle:focus {
-    outline: 2px solid var(--jira-border-focus);
-    outline-offset: 2px;
-}
-
-.sidebar-collapse-toggle:active {
-    background-color: var(--jira-bg-tertiary);
-    color: var(--jira-primary-active);
 }
 
 /* Enhanced Navbar toggler with modern styling */
@@ -166,6 +135,7 @@
 
 .project-link {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: var(--jira-space-150);
     text-decoration: none;
@@ -207,9 +177,9 @@
 .project-info {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 3px;
     min-width: 0;
-    flex: 1;
 }
 
 .project-name {
@@ -327,17 +297,22 @@ nav {
     box-shadow: 0 6px 16px rgba(0, 82, 204, 0.25);
 }
 
-/* Enhanced active indicator with gradient */
-.nav-item.active::before {
+/* Enhanced active indicator with gradient and animation */
+.nav-item::before {
     content: '';
     position: absolute;
     left: 0;
     top: 0;
     bottom: 0;
-    width: 4px;
+    width: 0;
     background: linear-gradient(180deg, var(--jira-primary) 0%, var(--jira-primary-hover) 100%);
     border-radius: 0 var(--jira-radius-medium) var(--jira-radius-medium) 0;
     box-shadow: 2px 0 4px rgba(0, 82, 204, 0.3);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item.active::before {
+    width: 4px;
 }
 
 /* Ripple effect on click */
@@ -450,23 +425,125 @@ nav::-webkit-scrollbar-thumb:hover {
     background-color: var(--jira-text-subtle);
 }
 
-/* Mobile responsive behavior */
-@media (max-width: 640px) {
+/* ===================================
+   MOBILE RESPONSIVE BEHAVIOR
+   Enhanced overlay/drawer pattern for mobile
+   =================================== */
+
+/* Mobile viewport (< 768px) - Overlay drawer menu */
+@media (max-width: 767px) {
+    /* Hide navigation menu by default on mobile */
     .nav-menu-collapsed {
         display: none;
     }
 
+    /* Show navigation menu when expanded */
     .nav-menu-expanded {
         display: flex;
     }
 
+    /* Force nav menu to show when mobile menu is open (overrides collapsed state) */
+    .mobile-menu-open .nav-menu-collapsed,
+    .mobile-menu-open .nav-menu-expanded {
+        display: flex !important;
+    }
+
+    /* Sidebar becomes overlay drawer on mobile */
+    .jira-sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 280px;
+        height: 100vh;
+        z-index: 9999;
+        transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 2px 0 16px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Expanded sidebar slides in from left */
+    .jira-sidebar:has(.nav-menu-expanded),
+    .mobile-menu-open .jira-sidebar {
+        left: 0;
+    }
+
+    /* Backdrop overlay when menu is open */
+    .jira-sidebar .nav-menu-expanded::before,
+    .mobile-menu-open .jira-sidebar::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 280px;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: -1;
+        backdrop-filter: blur(2px);
+    }
+
+    /* Adjust sidebar header for mobile */
     .sidebar-header {
-        justify-content: space-between;
+        justify-content: flex-start;
+        min-height: 80px;
+        padding: var(--jira-space-150);
+        gap: var(--jira-space-100);
+    }
+
+    /* Hide navbar-toggler on mobile - using top bar hamburger instead */
+    .navbar-toggler {
+        display: none;
+    }
+
+    /* Reduce logo size on mobile */
+    .project-icon {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    /* Adjust project name for mobile */
+    .project-name {
+        font-size: calc(16px * var(--font-size-multiplier));
+        line-height: calc(20px * var(--font-size-multiplier));
+    }
+
+    /* Adjust project type for mobile */
+    .project-type {
+        font-size: calc(11px * var(--font-size-multiplier));
+        line-height: calc(15px * var(--font-size-multiplier));
+    }
+
+    /* Hide sidebar collapse toggle on mobile (use hamburger instead) */
+    .sidebar-collapse-toggle {
+        display: none;
+    }
+
+    /* Ensure nav items have proper touch targets */
+    .nav-item {
+        min-height: 44px;
+        padding: var(--jira-space-150) var(--jira-space-200);
+    }
+
+    /* Larger icons for touch */
+    .nav-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Tablet viewport (768px - 1023px) - Keep drawer but adjust sizing */
+@media (min-width: 768px) and (max-width: 1023px) {
+    /* Reduce logo size on tablets */
+    .project-icon {
+        width: 80px !important;
+        height: 80px !important;
+    }
+
+    .project-name {
+        font-size: calc(18px * var(--font-size-multiplier));
     }
 }
 
 /* Desktop behavior - always show navigation */
-@media (min-width: 641px) {
+@media (min-width: 768px) {
     .navbar-toggler {
         display: none;
     }
@@ -519,6 +596,7 @@ nav::-webkit-scrollbar-thumb:hover {
     transition: width 0.2s ease-in-out;
 }
 
+.jira-sidebar.sidebar-collapsed .project-header,
 .jira-sidebar.sidebar-collapsed .project-info,
 .jira-sidebar.sidebar-collapsed .nav-text,
 .jira-sidebar.sidebar-collapsed .nav-section-header {
@@ -527,31 +605,22 @@ nav::-webkit-scrollbar-thumb:hover {
 
 .jira-sidebar.sidebar-collapsed .nav-section {
     padding: var(--jira-space-050) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .jira-sidebar.sidebar-collapsed .nav-item {
     justify-content: center;
     align-items: center;
-    padding: var(--jira-space-100) 0;
+    padding: var(--jira-space-050);
     margin: 2px 0;
+    width: 56px;
+    display: flex;
 }
 
 .jira-sidebar.sidebar-collapsed .nav-icon {
-    margin-right: 0;
-    width: 32px;
-    height: 32px;
-}
-
-.jira-sidebar.sidebar-collapsed .project-header {
-    overflow: hidden;
-}
-
-.jira-sidebar.sidebar-collapsed .project-link {
-    padding: var(--jira-space-050);
-    justify-content: center;
-}
-
-.jira-sidebar.sidebar-collapsed .project-icon {
+    margin: 0 auto;
     width: 48px;
     height: 48px;
 }
@@ -559,10 +628,37 @@ nav::-webkit-scrollbar-thumb:hover {
 .jira-sidebar.sidebar-collapsed .sidebar-header {
     padding: var(--jira-space-150) var(--jira-space-100);
     justify-content: center;
+    position: relative;
+    flex-direction: column;
+    min-height: 80px;
 }
 
 .jira-sidebar.sidebar-collapsed .navbar-toggler {
     display: none;
+}
+
+/* Collapse toggle button in collapsed state - fixed at bottom center */
+.jira-sidebar.sidebar-collapsed .sidebar-collapse-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-left: 0;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--jira-primary) 0%, var(--jira-primary-hover) 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+    z-index: 1000;
+}
+
+.jira-sidebar.sidebar-collapsed .sidebar-collapse-toggle:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 82, 204, 0.4);
+}
+
+.jira-sidebar.sidebar-collapsed .sidebar-collapse-toggle:active {
+    transform: translateX(-50%) translateY(0) scale(0.95);
 }
 
 /* Smooth transition for sidebar width */

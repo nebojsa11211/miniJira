@@ -7,6 +7,7 @@
 @inject ILocalizationService LocalizationService
 @inject IFontSizeService FontSizeService
 @inject IColorPaletteService ColorPaletteService
+@inject IDataResetService DataResetService
 
 <PageTitle>@Localizer["Nav.Settings"] - MiniJira</PageTitle>
 
@@ -57,7 +58,64 @@
             </div>
         </div>
 
-        <!-- You can add more settings sections here -->
+        <!-- Column Management Section -->
+        <div id="settings-section-column-management" class="settings-section">
+            <h2 class="section-title">
+                <svg class="section-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 5h4v14H4V5zm6 0h4v14h-4V5zm6 0h4v14h-4V5z"/>
+                </svg>
+                @Localizer["Nav.ColumnManagement"]
+            </h2>
+            <p class="section-description">@Localizer["Settings.ColumnManagementDescription"]</p>
+            <a id="manage-columns-btn" class="manage-columns-button" href="admin/columns">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M14.5 2.5L17.5 5.5L7 16H4V13L14.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>@Localizer["Settings.ManageColumns"]</span>
+            </a>
+        </div>
+
+        <!-- Test Data Section -->
+        <div id="settings-section-test-data" class="settings-section settings-section-info">
+            <h2 class="section-title">
+                <svg class="section-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+                Test Data
+            </h2>
+            <p class="section-description">Generate sample tasks for testing and demonstration purposes.</p>
+            <button type="button" id="seed-data-btn" class="seed-button" @onclick="SeedTestData" disabled="@isSeeding">
+                @if (isSeeding)
+                {
+                    <span>Generating test data...</span>
+                }
+                else
+                {
+                    <span>Generate 100 Test Tasks</span>
+                }
+            </button>
+        </div>
+
+        <!-- Data Reset Section -->
+        <div id="settings-section-data-reset" class="settings-section settings-section-danger">
+            <h2 class="section-title">
+                <svg class="section-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                </svg>
+                @Localizer["Settings.DataReset"]
+            </h2>
+            <p class="section-description section-description-danger">@Localizer["Settings.DataResetDescription"]</p>
+            <button id="reset-data-btn" class="reset-button" @onclick="ShowResetConfirmation" disabled="@isResetting">
+                @if (isResetting)
+                {
+                    <span>@Localizer["Settings.Resetting"]</span>
+                }
+                else
+                {
+                    <span>@Localizer["Settings.ResetAllData"]</span>
+                }
+            </button>
+        </div>
 
         <div id="settings-actions" class="settings-actions">
             @if (!string.IsNullOrEmpty(feedbackMessage))
@@ -79,12 +137,131 @@
         </div>
     </div>
 </div>
+
+<!-- Confirmation Modal -->
+@if (showConfirmation)
+{
+    <div class="modal-overlay" @onclick="HideResetConfirmation">
+        <div class="modal-content" @onclick:stopPropagation="true">
+            <div class="modal-header">
+                <svg class="warning-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                </svg>
+                <h2>@Localizer["Settings.ResetConfirmationTitle"]</h2>
+            </div>
+            <div class="modal-body">
+                <p class="warning-text">@Localizer["Settings.ResetConfirmationMessage"]</p>
+                <ul class="warning-list">
+                    <li>@Localizer["Settings.ResetWarning1"]</li>
+                    <li>@Localizer["Settings.ResetWarning2"]</li>
+                    <li>@Localizer["Settings.ResetWarning3"]</li>
+                </ul>
+            </div>
+            <div class="modal-actions">
+                <button class="cancel-button" @onclick="HideResetConfirmation">
+                    @Localizer["Settings.Cancel"]
+                </button>
+                <button class="confirm-reset-button" @onclick="ResetData">
+                    @Localizer["Settings.ConfirmReset"]
+                </button>
+            </div>
+        </div>
+    </div>
+}
 </AuthGuard>
 
 @code {
     private bool isSaving = false;
+    private bool isResetting = false;
+    private bool isSeeding = false;
+    private bool showConfirmation = false;
     private string feedbackMessage = string.Empty;
     private string feedbackClass = string.Empty;
+
+    private void ShowResetConfirmation()
+    {
+        showConfirmation = true;
+        StateHasChanged();
+    }
+
+    private void HideResetConfirmation()
+    {
+        showConfirmation = false;
+        StateHasChanged();
+    }
+
+    private async System.Threading.Tasks.Task ResetData()
+    {
+        try
+        {
+            isResetting = true;
+            showConfirmation = false;
+            feedbackMessage = string.Empty;
+            StateHasChanged();
+
+            // Reset all data
+            await DataResetService.ResetAllDataAsync();
+
+            // Show success message
+            feedbackMessage = Localizer["Settings.ResetSuccessful"];
+            feedbackClass = "success";
+            StateHasChanged();
+
+            // Clear the message after 5 seconds
+            await System.Threading.Tasks.Task.Delay(5000);
+            feedbackMessage = string.Empty;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            feedbackMessage = string.Format(Localizer["Settings.ResetError"], ex.Message);
+            feedbackClass = "error";
+            StateHasChanged();
+        }
+        finally
+        {
+            isResetting = false;
+            StateHasChanged();
+        }
+    }
+
+    private async System.Threading.Tasks.Task SeedTestData()
+    {
+        try
+        {
+            Console.WriteLine("SeedTestData method called!");
+            isSeeding = true;
+            feedbackMessage = "Starting to generate test data...";
+            feedbackClass = "success";
+            StateHasChanged();
+
+            // Seed 100 test tasks with 70% done
+            await DataResetService.SeedTestTasksAsync(100, 0.7);
+
+            // Show success message
+            feedbackMessage = "Successfully generated 100 test tasks (70 Done, 20 In Progress, 10 To Do)";
+            feedbackClass = "success";
+            StateHasChanged();
+
+            // Clear the message after 5 seconds
+            await System.Threading.Tasks.Task.Delay(5000);
+            feedbackMessage = string.Empty;
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in SeedTestData: {ex.Message}");
+            Console.WriteLine($"Stack trace: {ex.StackTrace}");
+            feedbackMessage = $"Error generating test data: {ex.Message}";
+            feedbackClass = "error";
+            StateHasChanged();
+        }
+        finally
+        {
+            isSeeding = false;
+            StateHasChanged();
+        }
+    }
 
     private async System.Threading.Tasks.Task SaveSettings()
     {
@@ -262,5 +439,274 @@
             opacity: 1;
             transform: translateY(0);
         }
+    }
+
+    /* Test Data Styles */
+    .settings-section-info {
+        border: 2px solid #DEEBFF;
+        background: #F4F9FF;
+    }
+
+    .settings-section-info:hover {
+        border-color: #4C9AFF;
+        box-shadow: 0 4px 12px rgba(0, 82, 204, 0.15);
+    }
+
+    .settings-section-info .section-icon {
+        color: #0052CC;
+    }
+
+    .seed-button {
+        background: #0052CC;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+        margin-top: 1rem;
+    }
+
+    .seed-button:hover:not(:disabled) {
+        background: #0065FF;
+        transform: translateY(-1px);
+    }
+
+    .seed-button:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    .seed-button:disabled {
+        background: #A5ADBA;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    /* Data Reset Styles */
+    .settings-section-danger {
+        border: 2px solid #FFEBE6;
+        background: #FFF9F8;
+    }
+
+    .settings-section-danger:hover {
+        border-color: #FF8F73;
+        box-shadow: 0 4px 12px rgba(191, 38, 0, 0.15);
+    }
+
+    .settings-section-danger .section-icon {
+        color: #DE350B;
+    }
+
+    .section-description-danger {
+        color: #BF2600;
+        font-weight: 500;
+    }
+
+    .reset-button {
+        background: #DE350B;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+        margin-top: 1rem;
+    }
+
+    .reset-button:hover:not(:disabled) {
+        background: #BF2600;
+        transform: translateY(-1px);
+    }
+
+    .reset-button:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    .reset-button:disabled {
+        background: #FFBDAD;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        animation: fadeIn 0.2s ease;
+    }
+
+    .modal-content {
+        background: white;
+        border-radius: 8px;
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @@keyframes slideUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .modal-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .warning-icon {
+        color: #DE350B;
+        margin-bottom: 1rem;
+    }
+
+    .modal-header h2 {
+        color: #172B4D;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+        text-align: center;
+    }
+
+    .modal-body {
+        margin-bottom: 2rem;
+    }
+
+    .warning-text {
+        color: #5E6C84;
+        font-size: 1rem;
+        margin: 0 0 1rem 0;
+        line-height: 1.5;
+    }
+
+    .warning-list {
+        color: #BF2600;
+        font-size: 0.95rem;
+        margin: 0;
+        padding-left: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .warning-list li {
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+    }
+
+    .cancel-button {
+        background: #FAFBFC;
+        color: #172B4D;
+        border: 2px solid #DFE1E6;
+        border-radius: 6px;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .cancel-button:hover {
+        background: #EBECF0;
+        border-color: #C1C7D0;
+    }
+
+    .confirm-reset-button {
+        background: #DE350B;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+    }
+
+    .confirm-reset-button:hover {
+        background: #BF2600;
+        transform: translateY(-1px);
+    }
+
+    .confirm-reset-button:active {
+        transform: translateY(0);
+    }
+
+    /* Column Management Styles */
+    .manage-columns-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #0052CC;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.1s ease;
+        margin-top: 1rem;
+    }
+
+    .manage-columns-button:hover {
+        background: #0065FF;
+        transform: translateY(-1px);
+        color: white;
+        text-decoration: none;
+    }
+
+    .manage-columns-button:active {
+        transform: translateY(0);
+    }
+
+    .manage-columns-button svg {
+        flex-shrink: 0;
+    }
+</style>
+
+<style>
+    /* Mobile Responsive Styles */
+    @@media (max-width: 767px) {
+        .settings-container { padding: 1rem; max-width: 100%; }
+        .settings-header { margin-bottom: 1.5rem; padding-bottom: 1rem; }
+        .settings-header h1 { font-size: 1.5rem; }
+        .settings-description { font-size: 0.875rem; }
+        .settings-content { gap: 1.5rem; }
+        .settings-section { padding: 1rem; }
+        .section-title { font-size: 1rem; }
+        .section-description { font-size: 0.875rem; }
+        .theme-buttons button, .btn-primary, .manage-columns-button { min-height: 48px; font-size: 1rem; }
+        .language-selector select, .font-size-selector select { font-size: 16px; min-height: 48px; }
+    }
+
+    @@media (max-width: 374px) {
+        .settings-container { padding: 0.75rem; }
+        .settings-section { padding: 0.75rem; }
+        .settings-header h1 { font-size: 1.25rem; }
     }
 </style>

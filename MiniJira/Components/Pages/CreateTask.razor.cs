@@ -23,9 +23,9 @@ public partial class CreateTask
 
             var result = await TaskService.CreateTaskAsync(model);
 
-            if (result.IsSuccess)
+            if (result.IsSuccess && result.Value != null)
             {
-                NavigationManager.NavigateTo("/");
+                NavigationManager.NavigateTo($"/?newTaskId={result.Value.Id}");
             }
             else
             {

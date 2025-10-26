@@ -165,27 +165,51 @@
 /* Floating label input */
 .form-floating-modern {
     position: relative;
+    margin-bottom: 24px;
 }
 
-.form-floating-modern .form-control {
-    padding-top: var(--jira-space-200);
+.form-floating-modern .form-control,
+.form-floating-modern textarea {
+    padding-top: calc(var(--jira-space-200) + 4px);
+    padding-bottom: var(--jira-space-100);
 }
 
 .form-floating-modern label {
     position: absolute;
-    top: var(--jira-space-100);
+    top: 50%;
     left: var(--jira-space-100);
-    font-size: calc(12px * var(--font-size-multiplier));
+    transform: translateY(-50%);
+    font-size: calc(14px * var(--font-size-multiplier));
     color: var(--jira-text-subtle);
     transition: all 0.2s ease;
     pointer-events: none;
+    background-color: transparent;
+    padding: 0 4px;
+    margin: 0;
+}
+
+.form-floating-modern textarea ~ label {
+    top: var(--jira-space-200);
+    transform: translateY(0);
 }
 
 .form-floating-modern .form-control:focus ~ label,
-.form-floating-modern .form-control:not(:placeholder-shown) ~ label {
-    top: var(--jira-space-050);
-    font-size: calc(10px * var(--font-size-multiplier));
+.form-floating-modern .form-control:not(:placeholder-shown) ~ label,
+.form-floating-modern textarea:focus ~ label,
+.form-floating-modern textarea:not(:placeholder-shown) ~ label {
+    top: -8px;
+    transform: translateY(0);
+    font-size: calc(11px * var(--font-size-multiplier));
     color: var(--jira-primary);
+    background-color: var(--jira-bg-primary);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .form-floating-modern .form-control:focus ~ label,
+[data-theme="dark"] .form-floating-modern .form-control:not(:placeholder-shown) ~ label,
+[data-theme="dark"] .form-floating-modern textarea:focus ~ label,
+[data-theme="dark"] .form-floating-modern textarea:not(:placeholder-shown) ~ label {
+    background-color: var(--jira-dn20);
 }
 
 /* Animated input border */
@@ -229,6 +253,23 @@
 
 .input-with-icon .form-control {
     padding-left: var(--jira-space-500);
+}
+
+/* Animated glow effect for form controls */
+.form-control.form-control-glow,
+.form-select.form-control-glow {
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.form-control.form-control-glow:focus,
+.form-select.form-control-glow:focus {
+    border-color: var(--jira-border-focus);
+    box-shadow: 0 0 0 3px rgba(228, 30, 38, 0.2);
+}
+
+[data-theme="dark"] .form-control.form-control-glow:focus,
+[data-theme="dark"] .form-select.form-control-glow:focus {
+    box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.25);
 }
 
 /* ===================================
@@ -280,8 +321,17 @@
    TOOLTIPS & POPOVERS
    =================================== */
 
+.tooltip-trigger {
+    position: relative;
+    display: inline-block;
+}
+
 .tooltip-modern {
     position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(4px); /* Start slightly lower */
+    margin-bottom: 8px;
     background: var(--jira-n800);
     color: var(--jira-n0);
     padding: var(--jira-space-075) var(--jira-space-150);
@@ -297,7 +347,7 @@
 
 .tooltip-trigger:hover .tooltip-modern {
     opacity: 1;
-    transform: translateY(-4px);
+    transform: translateX(-50%) translateY(0);
 }
 
 [data-theme="dark"] .tooltip-modern {

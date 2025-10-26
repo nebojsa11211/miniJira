@@ -10,6 +10,7 @@ public partial class MainLayout : IAsyncDisposable
 {
     private IJSObjectReference? _fontSizeModule;
     private IJSObjectReference? _colorPaletteModule;
+    private bool _localizationInitialized = false;
 
     [Inject]
     private IStringLocalizer<Localization> Localizer { get; set; } = null!;
@@ -29,20 +30,46 @@ public partial class MainLayout : IAsyncDisposable
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = null!;
 
+    [Inject]
+    private ISidebarStateService SidebarStateService { get; set; } = null!;
+
+    [Inject]
+    private IMobileMenuStateService MobileMenuStateService { get; set; } = null!;
+
     protected override void OnInitialized()
     {
         LocalizationService.CultureChanged += OnCultureChanged;
         FontSizeService.FontSizeChanged += OnFontSizeChanged;
         ColorPaletteService.ColorPaletteChanged += OnColorPaletteChanged;
         ThemeService.OnThemeChanged += OnThemeChangedHandler;
+        SidebarStateService.SidebarStateChanged += OnSidebarStateChanged;
+        MobileMenuStateService.MenuStateChanged += OnMobileMenuStateChanged;
+
+        // Culture is now set by middleware from cookie before this component initializes
+        // No need to call InitializeAsync - just mark as initialized
+        _localizationInitialized = true;
+    }
+
+    private void OnMobileMenuStateChanged(object? sender, EventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void ToggleMobileMenu()
+    {
+        MobileMenuStateService.ToggleMenu();
+    }
+
+    private void OnSidebarStateChanged(object? sender, EventArgs e)
+    {
+        InvokeAsync(StateHasChanged);
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            // Initialize services to load saved settings from localStorage
-            await LocalizationService.InitializeAsync();
+            // Initialize other services to load saved settings from localStorage
             await FontSizeService.InitializeAsync();
             await ThemeService.InitializeAsync();
             await ColorPaletteService.InitializeAsync();
@@ -126,6 +153,8 @@ public partial class MainLayout : IAsyncDisposable
         FontSizeService.FontSizeChanged -= OnFontSizeChanged;
         ColorPaletteService.ColorPaletteChanged -= OnColorPaletteChanged;
         ThemeService.OnThemeChanged -= OnThemeChangedHandler;
+        SidebarStateService.SidebarStateChanged -= OnSidebarStateChanged;
+        MobileMenuStateService.MenuStateChanged -= OnMobileMenuStateChanged;
 
         if (_fontSizeModule != null)
         {

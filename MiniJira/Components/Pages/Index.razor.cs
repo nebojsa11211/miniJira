@@ -6,8 +6,12 @@ using MiniJira.Services.DTOs;
 
 namespace MiniJira.Components.Pages;
 
-public partial class Index : IAsyncDisposable, IDisposable
+public partial class Index
 {
+    [SupplyParameterFromQuery]
+    public Guid? NewTaskId { get; set; }
+
+    private Guid? _highlightedTaskId;
     [Inject]
     private IColumnService ColumnService { get; set; } = default!;
 
@@ -27,6 +31,7 @@ public partial class Index : IAsyncDisposable, IDisposable
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
+        _highlightedTaskId = NewTaskId;
         LocalizationService.CultureChanged += OnCultureChanged;
 
         try
@@ -135,6 +140,13 @@ public partial class Index : IAsyncDisposable, IDisposable
 
     protected override async System.Threading.Tasks.Task OnAfterRenderAsync(bool firstRender)
     {
+        if (_highlightedTaskId != null)
+        {
+            await System.Threading.Tasks.Task.Delay(1500); 
+            _highlightedTaskId = null;
+            await InvokeAsync(StateHasChanged);
+        }
+
         if (firstRender)
         {
             // Create a reference to this component instance for JS callbacks
@@ -160,7 +172,7 @@ public partial class Index : IAsyncDisposable, IDisposable
     /// This method is invoked via JS Interop.
     /// </summary>
     [JSInvokable]
-    public async Task<bool> OnTaskDropped(string taskIdString, string columnIdString)
+    public async System.Threading.Tasks.Task<bool> OnTaskDropped(string taskIdString, string columnIdString)
     {
         if (isUpdating)
         {
@@ -243,6 +255,9 @@ public partial class Index : IAsyncDisposable, IDisposable
 
                 // Update which task is most recently updated
                 UpdateMostRecentlyUpdatedTask();
+
+                // Set the dropped task to be highlighted for animation
+                _highlightedTaskId = task.Id;
 
                 errorMessage = null;
                 StateHasChanged();
@@ -411,5 +426,10 @@ public partial class Index : IAsyncDisposable, IDisposable
     {
         // Trigger re-render to apply new filters/sort
         StateHasChanged();
+    }
+
+    private string GetCardClass(Guid taskId)
+    {
+        return taskId == _highlightedTaskId ? "newly-added" : "";
     }
 }

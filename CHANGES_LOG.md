@@ -1,13 +1,56 @@
-# MiniJira UI/UX Redesign - Changes Log
+# MiniJira - Changes Log
 
-## Date: 2025-10-16
-## Version: 1.0
+This document tracks all files created and modified during the development of MiniJira.
 
 ---
 
-## Summary of Changes
+## Version 1.1 - October 2025 (Current)
 
-This document tracks all files created and modified during the comprehensive UI/UX redesign analysis and enhancement of MiniJira.
+### Date: 2025-10-26
+### Summary: Localization Enhancements, Test Data Seeding, and UI State Management
+
+#### New Features
+1. **Test Data Seeding System**
+   - Added `DataResetService` for programmatic data reset and test data generation
+   - Added `TestDataController` API endpoint for seeding test tasks
+   - Integrated test data management in Settings page
+
+2. **Enhanced Localization Support**
+   - Added `CultureController` for proper language switching in Blazor Server
+   - Fixed font size persistence with culture-specific decimal formatting
+   - Completed comprehensive Croatian (hr-HR) localization
+   - Removed hardcoded strings throughout the application
+
+3. **UI State Management Services**
+   - Added `MobileMenuStateService` for mobile menu state management
+   - Added `SidebarStateService` for sidebar collapse state management
+   - Improved responsive design behavior
+
+4. **Documentation**
+   - Added comprehensive bilingual user guide with screenshots
+
+#### Files Created
+- `MiniJira/Controllers/CultureController.cs` - Language switching controller
+- `MiniJira/Controllers/TestDataController.cs` - Test data seeding API
+- `MiniJira/Services/DataResetService.cs` - Data reset and seeding service
+- `MiniJira/Services/MobileMenuStateService.cs` - Mobile menu state management
+- `MiniJira/Services/SidebarStateService.cs` - Sidebar state management
+- `MiniJira/Components/Shared/Tooltip.razor` - Tooltip component
+
+#### Files Modified
+- Enhanced Croatian localization in `Resources/Localization.hr-HR.resx`
+- Updated Settings page with test data management features
+- Updated navigation components with improved state management
+- Fixed font size formatting issues with culture-specific decimal separators
+
+---
+
+## Version 1.0 - UI/UX Redesign
+
+### Date: 2025-10-16
+### Summary: Comprehensive UI/UX Redesign Analysis and Enhancement
+
+This section tracks all files created and modified during the comprehensive UI/UX redesign analysis and enhancement of MiniJira.
 
 ---
 

@@ -35,6 +35,62 @@ main {
     flex-shrink: 0;
     z-index: 100;
     gap: var(--jira-space-100);
+    transition: all 0.2s ease-in-out;
+}
+
+.top-row.with-logo {
+    justify-content: space-between;
+    height: 80px;
+}
+
+.top-row-branding {
+    display: flex;
+    align-items: center;
+    margin-right: auto;
+}
+
+.top-row-logo-link {
+    display: flex;
+    align-items: center;
+    gap: var(--jira-space-150);
+    text-decoration: none;
+    padding: var(--jira-space-100) var(--jira-space-150);
+    border-radius: var(--jira-radius-medium);
+    transition: all 0.2s ease;
+}
+
+.top-row-logo-link:hover {
+    background-color: var(--jira-bg-secondary);
+}
+
+.top-row.with-logo .top-row-logo {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--jira-radius-small);
+    object-fit: cover;
+}
+
+.top-row-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--jira-radius-small);
+    object-fit: cover;
+    transition: all 0.2s ease;
+}
+
+.top-row.with-logo .top-row-title {
+    font-weight: 700;
+    font-size: calc(20px * var(--font-size-multiplier));
+    color: var(--jira-text-primary);
+    white-space: nowrap;
+}
+
+.top-row-title {
+    font-weight: 600;
+    font-size: calc(16px * var(--font-size-multiplier));
+    color: var(--jira-text-primary);
+    white-space: nowrap;
+    transition: all 0.2s ease;
 }
 
 .top-row ::deep a,
@@ -72,31 +128,111 @@ article.content {
     overflow-x: hidden;
 }
 
-/* Mobile responsive layout (< 768px) */
+/* Mobile menu toggle button - hidden on desktop */
+.mobile-menu-toggle {
+    display: none;
+}
+
+/* Mobile menu backdrop - always show when it exists (conditionally rendered) */
+.mobile-menu-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    backdrop-filter: blur(2px);
+    cursor: pointer;
+}
+
+/* Mobile responsive layout (< 768px) - Overlay drawer pattern */
 @media (max-width: 767px) {
     .page {
         flex-direction: column;
     }
 
-    .sidebar {
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 2px solid var(--jira-border);
-        box-shadow: none;
+    /* Mobile menu toggle button - visible on mobile only */
+    .mobile-menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 48px;
+        min-height: 48px;
+        padding: 0.75rem;
+        background: transparent;
+        border: none;
+        border-radius: var(--jira-radius-small);
+        color: var(--jira-text-secondary);
+        cursor: pointer;
+        margin-right: auto;
+        transition: background-color 0.2s, color 0.2s;
     }
 
+    .mobile-menu-toggle:hover {
+        background-color: var(--jira-bg-secondary);
+        color: var(--jira-text-primary);
+    }
+
+    .mobile-menu-toggle:active {
+        background-color: var(--jira-bg-tertiary);
+    }
+
+    /* Sidebar doesn't take up space on mobile - handled by NavMenu overlay */
+    .sidebar {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: none;
+        box-shadow: none;
+        overflow: visible;
+        z-index: 9999;
+    }
+
+    /* When mobile menu is open, show the NavMenu drawer */
+    .sidebar.mobile-menu-open {
+        width: auto;
+        height: auto;
+    }
+
+    /* Main content takes full width on mobile */
+    main {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Top row adjustments for small screens */
     .top-row {
         height: 56px;
         padding: 0 var(--jira-space-200);
     }
 
-    .top-row:not(.auth) {
-        display: none;
+    /* Top row with logo - reduce height and adjust spacing */
+    .top-row.with-logo {
+        height: auto;
+        min-height: 60px;
+        padding: var(--jira-space-100) var(--jira-space-150);
+        flex-wrap: wrap;
     }
 
-    .top-row.auth {
-        justify-content: space-between;
+    /* Reduce logo size on very small screens */
+    .top-row.with-logo .top-row-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    /* Adjust title size for mobile */
+    .top-row.with-logo .top-row-title {
+        font-size: calc(16px * var(--font-size-multiplier));
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Show top-row on mobile for hamburger menu access */
+    .top-row {
+        display: flex;
+        justify-content: flex-end;
     }
 
     .top-row a,
@@ -106,9 +242,35 @@ article.content {
         font-size: calc(13px * var(--font-size-multiplier));
     }
 
+    /* Content padding for mobile */
     article.content {
         padding: var(--jira-space-200);
         min-height: calc(100vh - 56px);
+    }
+}
+
+/* Very small screens (< 375px) - Additional optimizations */
+@media (max-width: 374px) {
+    .top-row {
+        padding: 0 var(--jira-space-100);
+    }
+
+    .top-row.with-logo {
+        min-height: 56px;
+        padding: var(--jira-space-075) var(--jira-space-100);
+    }
+
+    .top-row.with-logo .top-row-logo {
+        width: 36px;
+        height: 36px;
+    }
+
+    .top-row.with-logo .top-row-title {
+        font-size: calc(14px * var(--font-size-multiplier));
+    }
+
+    article.content {
+        padding: var(--jira-space-150);
     }
 }
 
@@ -136,6 +298,12 @@ article.content {
     main {
         flex: 1;
         width: auto;
+        max-width: calc(100vw - 240px);
+        transition: max-width 0.2s ease-in-out;
+    }
+
+    .sidebar:has(.jira-sidebar.sidebar-collapsed) ~ main {
+        max-width: calc(100vw - 64px);
     }
 
     .top-row {
@@ -175,7 +343,12 @@ article.content {
     main {
         flex: 1;
         width: auto;
-        transition: margin-left 0.2s ease-in-out;
+        max-width: calc(100vw - 260px);
+        transition: max-width 0.2s ease-in-out;
+    }
+
+    .sidebar:has(.jira-sidebar.sidebar-collapsed) ~ main {
+        max-width: calc(100vw - 64px);
     }
 
     .top-row {
@@ -217,6 +390,11 @@ article.content {
         max-width: calc(100vw - 280px);
         overflow-x: hidden;
         box-sizing: border-box;
+        transition: max-width 0.2s ease-in-out;
+    }
+
+    .sidebar:has(.jira-sidebar.sidebar-collapsed) ~ main {
+        max-width: calc(100vw - 64px);
     }
 
     article.content {

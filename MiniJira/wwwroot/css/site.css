@@ -525,6 +525,8 @@ a:active, .btn-link:active {
     font-size: calc(12px * var(--font-size-multiplier));
     line-height: calc(16px * var(--font-size-multiplier));
     margin-top: var(--jira-space-050);
+    /* ARIA: Validation messages should be announced to screen readers */
+    /* Note: role="alert" should be added via component attribute */
 }
 
 /* Modal Styles */
@@ -666,20 +668,25 @@ a:active, .btn-link:active {
 
 /* Mobile-specific typography adjustments */
 @media (max-width: 767px) {
-    /* Reduce heading sizes on mobile for better fit */
+    /* Reduce heading sizes on mobile for better fit with max constraints */
     h1 {
-        font-size: calc(24px * var(--font-size-multiplier));
-        line-height: calc(28px * var(--font-size-multiplier));
+        font-size: min(calc(24px * var(--font-size-multiplier)), 28px);
+        line-height: min(calc(28px * var(--font-size-multiplier)), 32px);
     }
 
     h2 {
-        font-size: calc(20px * var(--font-size-multiplier));
-        line-height: calc(24px * var(--font-size-multiplier));
+        font-size: min(calc(20px * var(--font-size-multiplier)), 24px);
+        line-height: min(calc(24px * var(--font-size-multiplier)), 28px);
     }
 
     h3 {
-        font-size: calc(18px * var(--font-size-multiplier));
-        line-height: calc(22px * var(--font-size-multiplier));
+        font-size: min(calc(18px * var(--font-size-multiplier)), 22px);
+        line-height: min(calc(22px * var(--font-size-multiplier)), 26px);
+    }
+
+    h4 {
+        font-size: min(calc(16px * var(--font-size-multiplier)), 19px);
+        line-height: min(calc(20px * var(--font-size-multiplier)), 23px);
     }
 
     /* Reduce spacing on mobile */
@@ -746,4 +753,19 @@ a:active, .btn-link:active {
 .language-selector .form-select:focus {
     border-color: var(--jira-primary);
     box-shadow: 0 0 0 1px var(--jira-primary);
+}
+
+@keyframes page-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-transition {
+    animation: page-fade-in 0.3s ease-out forwards;
 }

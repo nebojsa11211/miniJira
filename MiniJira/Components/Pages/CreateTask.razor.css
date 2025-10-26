@@ -71,7 +71,8 @@
     margin-bottom: 0;
 }
 
-.form-label {
+/* Non-floating labels (like Priority) */
+.form-group .form-label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
@@ -211,6 +212,7 @@
 
     .task-form {
         padding: var(--jira-space-200) var(--jira-space-150);
+        order: 1; /* Ensure form appears before help section */
     }
 
     .form-group {

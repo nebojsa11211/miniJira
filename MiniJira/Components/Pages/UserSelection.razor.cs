@@ -29,17 +29,22 @@ public partial class UserSelection : IDisposable
             return;
         }
 
+        // Subscribe to culture changes to re-render when language changes
+        LocalizationService.CultureChanged += OnCultureChanged;
+
         await LoadUsers();
+    }
+
+    private void OnCultureChanged(object? sender, EventArgs e)
+    {
+        // Re-render component when culture changes
+        InvokeAsync(StateHasChanged);
     }
 
     protected override async System.Threading.Tasks.Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            // Initialize localization FIRST to load saved culture preference
-            await LocalizationService.InitializeAsync();
-            StateHasChanged(); // Force re-render with correct culture
-
             try
             {
                 await JSRuntime.InvokeVoidAsync("initializeUserSelection");
@@ -241,5 +246,6 @@ public partial class UserSelection : IDisposable
     public void Dispose()
     {
         loadingTimer?.Dispose();
+        LocalizationService.CultureChanged -= OnCultureChanged;
     }
 }

@@ -14,6 +14,9 @@ public partial class LanguageSelector : IDisposable
     [Inject]
     private IStringLocalizer<Localization> Localizer { get; set; } = null!;
 
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = null!;
+
     private string currentCulture = "en-US";
 
     protected override void OnInitialized()
@@ -22,13 +25,18 @@ public partial class LanguageSelector : IDisposable
         LocalizationService.CultureChanged += OnCultureChanged;
     }
 
-    private async Task OnLanguageChanged(ChangeEventArgs e)
+    private void OnLanguageChanged(ChangeEventArgs e)
     {
         var cultureName = e.Value?.ToString();
         if (!string.IsNullOrEmpty(cultureName))
         {
-            var culture = new CultureInfo(cultureName);
-            await LocalizationService.SetCultureAsync(culture);
+            // Navigate to the culture controller endpoint which will:
+            // 1. Set the culture cookie via HTTP response (not SignalR)
+            // 2. Redirect back to the current page
+            // This is required because Blazor Server uses SignalR and cannot set cookies directly
+            var uri = new Uri(NavigationManager.Uri);
+            var redirectUri = uri.PathAndQuery;
+            NavigationManager.NavigateTo($"/Culture/Set?culture={Uri.EscapeDataString(cultureName)}&redirectUri={Uri.EscapeDataString(redirectUri)}", forceLoad: true);
         }
     }
 

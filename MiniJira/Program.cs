@@ -55,6 +55,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Add HttpClient for Blazor Server
 builder.Services.AddHttpClient();
 
+// Add HttpContextAccessor for accessing cookies in services
+builder.Services.AddHttpContextAccessor();
+
 // Add custom services
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IThemeService, ThemeService>();
@@ -66,6 +69,9 @@ builder.Services.AddScoped<IFileStorageService, FileStorageService>();
 builder.Services.AddScoped<IUserService, MockUserService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddScoped<IWorkOrderService, WorkOrderService>();
+builder.Services.AddScoped<ISidebarStateService, SidebarStateService>();
+builder.Services.AddScoped<IDataResetService, DataResetService>();
+builder.Services.AddScoped<IMobileMenuStateService, MobileMenuStateService>();
 
 var app = builder.Build();
 

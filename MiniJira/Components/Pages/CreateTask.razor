@@ -31,15 +31,15 @@
                 </div>
             }
 
-            <div id="form-group-title" class="form-group">
+            <div id="form-group-title" class="form-floating-modern">
+                <InputText id="Title" name="Title" class="form-control form-control-glow" @bind-Value="model.Title" placeholder=" " title="@Localizer["Tooltip.TitleInput"]" />
                 <label for="Title" class="form-label">@Localizer["CreateTask.TaskTitle"]</label>
-                <InputText id="Title" name="Title" class="form-control" @bind-Value="model.Title" placeholder="@Localizer["CreateTask.TitlePlaceholder"]" title="@Localizer["Tooltip.TitleInput"]" />
                 <ValidationMessage For="@(() => model.Title)" class="validation-message" />
             </div>
 
-            <div id="form-group-description" class="form-group">
+            <div id="form-group-description" class="form-floating-modern">
+                <InputTextArea id="Description" name="Description" class="form-control form-control-glow" style="height: 120px" @bind-Value="model.Description" placeholder=" " title="@Localizer["Tooltip.DescriptionInput"]" />
                 <label for="Description" class="form-label">@Localizer["CreateTask.Description"]</label>
-                <InputTextArea id="Description" name="Description" class="form-control" rows="6" @bind-Value="model.Description" placeholder="@Localizer["CreateTask.DescriptionPlaceholder"]" title="@Localizer["Tooltip.DescriptionInput"]" />
                 <ValidationMessage For="@(() => model.Description)" class="validation-message" />
             </div>
 
@@ -60,9 +60,9 @@
                 </div>
             </div>
 
-            <div id="form-group-customer" class="form-group">
+            <div id="form-group-customer" class="form-floating-modern">
+                <InputText id="Customer" name="Customer" class="form-control form-control-glow" @bind-Value="model.Customer" placeholder=" " title="@Localizer["Tooltip.CustomerInput"]" list="customer-suggestions" />
                 <label for="Customer" class="form-label">@Localizer["CreateTask.Customer"]</label>
-                <InputText id="Customer" name="Customer" class="form-control" @bind-Value="model.Customer" placeholder="@Localizer["CreateTask.CustomerPlaceholder"]" title="@Localizer["Tooltip.CustomerInput"]" list="customer-suggestions" />
                 <datalist id="customer-suggestions">
                     @foreach (var customer in existingCustomers)
                     {

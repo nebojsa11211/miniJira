@@ -99,7 +99,10 @@ MiniJira/                    (Main Blazor Server project)
 │   ├── ITaskService.cs
 │   ├── TaskService.cs
 │   ├── IWorkOrderService.cs
-│   └── WorkOrderService.cs
+│   ├── WorkOrderService.cs
+│   ├── DataResetService.cs    (Test data seeding)
+│   ├── LocalizationService.cs (Localization)
+│   └── UI State Services (Mobile menu, Sidebar)
 ├── Shared/                 (Layout components)
 ├── wwwroot/                (Static files - CSS, JS)
 ├── Resources/              (Localization)
@@ -130,6 +133,24 @@ Supported languages:
 - Croatian (hr-HR)
 
 Change language using the language selector in the navigation menu.
+
+### Test Data Seeding
+
+For testing purposes, you can seed the database with test tasks:
+
+**Via Settings Page:**
+- Navigate to Settings
+- Use the "Test Data Management" section
+- Click "Generate Test Data"
+
+**Via API:**
+```bash
+curl -X POST "http://localhost:5000/api/TestData/seed?count=100&donePercentage=0.7"
+```
+
+Parameters:
+- `count`: Number of tasks to generate (default: 100)
+- `donePercentage`: Percentage of tasks in "Done" status (default: 0.7)
 
 ### File Storage
 
@@ -224,5 +245,11 @@ For issues or questions:
 
 ---
 
-**Version**: 1.0
-**Last Updated**: 2025-10-19
+**Version**: 1.1
+**Last Updated**: 2025-10-26
+
+**Recent Updates:**
+- Test data seeding via API and Settings UI
+- Enhanced Croatian localization
+- Improved UI state management (mobile menu, sidebar)
+- Fixed font size persistence with culture-specific formatting

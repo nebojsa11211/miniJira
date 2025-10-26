@@ -1,6 +1,6 @@
 ﻿# MiniJira Development Guidelines
 
-Auto-generated from all feature plans. Last updated: 2025-10-05
+Auto-generated from all feature plans. Last updated: 2025-10-26
 
 ## Active Technologies
 - C# with .NET 8.0 (LTS) or .NET 9.0 + ASP.NET Core Blazor Server (for interactive UI components) (001-generate-a-minimal)
@@ -9,10 +9,19 @@ Auto-generated from all feature plans. Last updated: 2025-10-05
 ```
 MiniJira/                    (Main Blazor Server project)
 ├── Components/             (Blazor components - Pages and Shared)
+│   ├── Pages/             (Page components)
+│   └── Shared/            (Reusable components: TaskCard, Tooltip, etc.)
 ├── Controllers/            (API endpoints)
+│   ├── CultureController.cs     (Language switching)
+│   └── TestDataController.cs    (Test data seeding API)
 ├── Data/                   (EF Core DbContext)
 ├── Models/                 (Domain models and enums)
 ├── Services/               (Business logic and DTOs)
+│   ├── DataResetService.cs      (Data reset and test seeding)
+│   ├── MobileMenuStateService.cs (Mobile menu state management)
+│   ├── SidebarStateService.cs   (Sidebar collapse state)
+│   ├── LocalizationService.cs   (Localization support)
+│   └── ...                      (Task, Column, WorkOrder services)
 ├── Shared/                 (Layout components)
 ├── wwwroot/                (Static files - CSS, JS, images)
 ├── Resources/              (Localization .resx files)
@@ -63,6 +72,12 @@ dotnet test
 - **Services**: Register as Scoped for per-request lifetime
 
 ## Recent Changes
+- 2025-10-26: Added test data seeding API and services (DataResetService, TestDataController)
+- 2025-10-26: Added UI state management services (MobileMenuStateService, SidebarStateService)
+- 2025-10-26: Added CultureController for language switching in Blazor Server
+- 2025-10-26: Enhanced localization support and fixed font size persistence with culture-specific formatting
+- 2025-10-26: Completed comprehensive Croatian localization
+- 2025-10-19: Added comprehensive bilingual user guide with screenshots
 - 001-generate-a-minimal: Added C# with .NET 8.0 (LTS) or .NET 9.0 + ASP.NET Core Blazor Server (for interactive UI components)
 
 <!-- MANUAL ADDITIONS START -->

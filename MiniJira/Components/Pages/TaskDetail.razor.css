@@ -90,6 +90,9 @@
     margin-bottom: 20px;
     line-height: 1.3;
     word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
 }
 
 /* Task Meta */
@@ -406,7 +409,7 @@
     /* Status buttons - full width and touch-friendly */
     .status-buttons {
         flex-direction: column;
-        gap: var(--jira-space-100);
+        gap: var(--jira-space-150); /* Increased from 100 to 150 for better thumb reachability */
     }
 
     .status-btn {
@@ -458,6 +461,14 @@
         width: 100%;
         min-height: 48px;
         justify-content: center;
+    }
+
+    /* Tab navigation touch targets */
+    .task-tab,
+    button[class*="tab"] {
+        min-height: 48px;
+        font-size: calc(15px * var(--font-size-multiplier));
+        padding: 0.75rem 1rem;
     }
 }
 

@@ -92,6 +92,8 @@
                         <p id="task-description" class="task-description">@task.Description</p>
                     </div>
 
+                    <div class="divider-gradient"></div>
+
                     <div id="task-section-status-change" class="task-section">
                         <h2 id="status-change-title" class="section-title">@Localizer["TaskDetail.QuickStatusChange"]</h2>
                         <div id="status-buttons" class="status-buttons">
@@ -111,6 +113,8 @@
                             }
                         </div>
                     </div>
+
+                    <div class="divider-gradient"></div>
 
                     @* Comments Section *@
                     @if (task.ColumnId.HasValue)
@@ -194,15 +198,15 @@
                 <EditForm id="edit-form" Model="@updateModel" OnValidSubmit="@HandleSave">
                     <DataAnnotationsValidator />
 
-                    <div id="edit-form-group-title" class="form-group">
+                    <div id="edit-form-group-title" class="form-floating-modern">
+                        <InputText id="Title" name="Title" class="form-control form-control-glow" @bind-Value="updateModel.Title" placeholder="@Localizer["CreateTask.TaskTitle"]" title="@Localizer["Tooltip.TitleInput"]" />
                         <label id="title-label" for="Title" class="form-label">@Localizer["CreateTask.TaskTitle"]</label>
-                        <InputText id="Title" name="Title" class="form-control" @bind-Value="updateModel.Title" title="@Localizer["Tooltip.TitleInput"]" />
                         <ValidationMessage For="@(() => updateModel.Title)" class="validation-message" />
                     </div>
 
-                    <div id="edit-form-group-description" class="form-group">
+                    <div id="edit-form-group-description" class="form-floating-modern">
+                        <InputTextArea id="Description" name="Description" class="form-control form-control-glow" style="height: 120px" @bind-Value="updateModel.Description" placeholder="@Localizer["CreateTask.Description"]" title="@Localizer["Tooltip.DescriptionInput"]" />
                         <label id="description-label" for="Description" class="form-label">@Localizer["CreateTask.Description"]</label>
-                        <InputTextArea id="Description" name="Description" class="form-control" rows="6" @bind-Value="updateModel.Description" title="@Localizer["Tooltip.DescriptionInput"]" />
                         <ValidationMessage For="@(() => updateModel.Description)" class="validation-message" />
                     </div>
 
@@ -228,9 +232,9 @@
                         </div>
                     </div>
 
-                    <div id="edit-form-group-customer" class="form-group">
+                    <div id="edit-form-group-customer" class="form-floating-modern">
+                        <InputText id="Customer" name="Customer" class="form-control form-control-glow" @bind-Value="updateModel.Customer" placeholder="@Localizer["TaskDetail.Customer"]" title="@Localizer["Tooltip.CustomerInput"]" list="customer-suggestions-detail" />
                         <label id="customer-label-edit" for="Customer" class="form-label">@Localizer["TaskDetail.Customer"]</label>
-                        <InputText id="Customer" name="Customer" class="form-control" @bind-Value="updateModel.Customer" placeholder="@Localizer["TaskDetail.CustomerPlaceholder"]" title="@Localizer["Tooltip.CustomerInput"]" list="customer-suggestions-detail" />
                         <datalist id="customer-suggestions-detail">
                             @foreach (var customer in existingCustomers)
                             {

@@ -1129,6 +1129,54 @@
   <data name="Settings.ColorPaletteDescription" xml:space="preserve">
     <value>Odaberite shemu boja za aplikaciju</value>
   </data>
+
+  <!-- Resetiranje Podataka -->
+  <data name="Settings.DataReset" xml:space="preserve">
+    <value>Resetiranje Podataka</value>
+  </data>
+  <data name="Settings.DataResetDescription" xml:space="preserve">
+    <value>UPOZORENJE: Ovo će trajno izbrisati sve zadatke, komentare, privitke i prilagođene stupce. Sistemski stupci (Za uraditi, U tijeku, Gotovo) bit će sačuvani.</value>
+  </data>
+  <data name="Settings.ResetAllData" xml:space="preserve">
+    <value>Resetiraj Sve Podatke</value>
+  </data>
+  <data name="Settings.Resetting" xml:space="preserve">
+    <value>Resetiranje...</value>
+  </data>
+  <data name="Settings.ResetSuccessful" xml:space="preserve">
+    <value>Svi podaci su uspješno resetirani!</value>
+  </data>
+  <data name="Settings.ResetError" xml:space="preserve">
+    <value>Greška prilikom resetiranja podataka: {0}</value>
+  </data>
+  <data name="Settings.ResetConfirmationTitle" xml:space="preserve">
+    <value>Potvrdi Resetiranje Podataka</value>
+  </data>
+  <data name="Settings.ResetConfirmationMessage" xml:space="preserve">
+    <value>Jeste li sigurni da želite resetirati sve podatke? Ova radnja se ne može poništiti!</value>
+  </data>
+  <data name="Settings.ResetWarning1" xml:space="preserve">
+    <value>Svi zadaci i njihovi detalji bit će trajno izbrisani</value>
+  </data>
+  <data name="Settings.ResetWarning2" xml:space="preserve">
+    <value>Svi prilagođeni stupci bit će uklonjeni</value>
+  </data>
+  <data name="Settings.ResetWarning3" xml:space="preserve">
+    <value>Komentari, privici i radni nalozi bit će obrisani</value>
+  </data>
+  <data name="Settings.Cancel" xml:space="preserve">
+    <value>Otkaži</value>
+  </data>
+  <data name="Settings.ConfirmReset" xml:space="preserve">
+    <value>Da, Resetiraj Sve Podatke</value>
+  </data>
+  <data name="Settings.ColumnManagementDescription" xml:space="preserve">
+    <value>Kreirajte, uređujte, brišite i preuredite stupce vaše ploče</value>
+  </data>
+  <data name="Settings.ManageColumns" xml:space="preserve">
+    <value>Upravljaj Stupcima</value>
+  </data>
+
   <data name="ColorPalette" xml:space="preserve">
     <value>Paleta Boja</value>
   </data>
