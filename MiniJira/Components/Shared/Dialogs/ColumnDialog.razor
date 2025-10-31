@@ -10,7 +10,7 @@
                 <h5 id="columnDialogTitle" class="modal-title">
                     @(Column == null ? Localizer["ColumnManagement.CreateColumn"] : Localizer["ColumnManagement.EditColumn"])
                 </h5>
-                <button type="button" class="btn-close" @onclick="HandleCancel" aria-label="@Localizer["Common.Close"]" title="@Localizer["Tooltip.CloseDialog"]">
+                <button id="column-dialog-close-button" type="button" class="btn-close" @onclick="HandleCancel" aria-label="@Localizer["Common.Close"]" title="@Localizer["Tooltip.CloseDialog"]">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
@@ -23,7 +23,8 @@
                 <div id="column-dialog-body" class="modal-body">
                     <!-- Tab Navigation -->
                     <div id="column-dialog-tab-navigation" class="tab-navigation" role="tablist">
-                        <button type="button"
+                        <button id="tab-button-en"
+                                type="button"
                                 class="tab-button @(activeTab == "en" ? "active" : "")"
                                 @onclick='() => SetActiveTab("en")'
                                 role="tab"
@@ -35,7 +36,8 @@
                             </svg>
                             @Localizer["ColumnDialog.EnglishTab"]
                         </button>
-                        <button type="button"
+                        <button id="tab-button-hr"
+                                type="button"
                                 class="tab-button @(activeTab == "hr" ? "active" : "")"
                                 @onclick='() => SetActiveTab("hr")'
                                 role="tab"

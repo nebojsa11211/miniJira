@@ -14,12 +14,12 @@
 
 <div id="user-selection-container" class="user-selection-container">
     <div id="user-selection-card" class="user-selection-card">
-        <div class="app-logo-section">
-            <div class="app-logo">
+        <div id="app-logo-section" class="app-logo-section">
+            <div id="app-logo" class="app-logo">
                 <img src="/LogoHrastic.jpg" alt="Klesarija Hrast Logo" width="120" height="120" />
             </div>
-            <h1 class="user-selection-title">@Localizer["UserSelection.Title"]</h1>
-            <p class="user-selection-subtitle">@Localizer["UserSelection.Subtitle"]</p>
+            <h1 id="user-selection-title" class="user-selection-title">@Localizer["UserSelection.Title"]</h1>
+            <p id="user-selection-subtitle" class="user-selection-subtitle">@Localizer["UserSelection.Subtitle"]</p>
         </div>
 
         @if (isLoading)
@@ -44,7 +44,7 @@
                     <h3 class="error-title">@Localizer["UserSelection.ErrorTitle"]</h3>
                     <p class="error-message">@errorMessage</p>
                 </div>
-                <button class="retry-button" @onclick="RetryLoadUsers">
+                <button id="retry-button" class="retry-button" @onclick="RetryLoadUsers">
                     <span>@Localizer["UserSelection.TryAgain"]</span>
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
@@ -54,13 +54,14 @@
         }
         else
         {
-            <div class="search-container">
-                <div class="search-input-wrapper">
+            <div id="search-container" class="search-container">
+                <div id="search-input-wrapper" class="search-input-wrapper">
                     <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="11" cy="11" r="8"/>
                         <path d="m21 21-4.35-4.35"/>
                     </svg>
                     <input
+                        id="search-input"
                         type="text"
                         class="search-input"
                         placeholder="@Localizer["UserSelection.SearchPlaceholder"]"
@@ -70,7 +71,7 @@
                         @ref="searchInputElement" />
                     @if (!string.IsNullOrEmpty(searchTerm))
                     {
-                        <button class="clear-search" @onclick="ClearSearch" title="@Localizer["UserSelection.ClearSearch"]">
+                        <button id="clear-search-button" class="clear-search" @onclick="ClearSearch" title="@Localizer["UserSelection.ClearSearch"]">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <line x1="18" y1="6" x2="6" y2="18"/>
                                 <line x1="6" y1="6" x2="18" y2="18"/>
@@ -110,7 +111,7 @@
                 }
                 else
                 {
-                    <div class="no-results">
+                    <div id="no-results" class="no-results">
                         <div class="no-results-icon">🔍</div>
                         <h3 class="no-results-title">@Localizer["UserSelection.NoUsersFound"]</h3>
                         <p class="no-results-message">@Localizer["UserSelection.TryAdjustingSearch"]</p>
@@ -120,7 +121,7 @@
 
             @if (filteredUsers.Any())
             {
-                <div class="selection-hint">
+                <div id="selection-hint" class="selection-hint">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="10"/>
                         <line x1="12" y1="16" x2="12" y2="12"/>

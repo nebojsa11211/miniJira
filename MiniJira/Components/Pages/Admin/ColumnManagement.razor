@@ -8,7 +8,7 @@
 <div id="column-management-container" class="column-management-container">
     <div id="column-management-page-header" class="page-header">
         <h1 class="page-title">@Localizer["ColumnManagement.Title"]</h1>
-        <button class="btn btn-primary" @onclick="ShowCreateDialog" aria-label="@Localizer["ColumnManagement.CreateColumn"]" title="@Localizer["Tooltip.CreateColumn"]">
+        <button id="create-column-button" class="btn btn-primary" @onclick="ShowCreateDialog" aria-label="@Localizer["ColumnManagement.CreateColumn"]" title="@Localizer["Tooltip.CreateColumn"]">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
@@ -40,7 +40,7 @@
                 <rect x="48" y="8" width="16" height="48" rx="2" fill="var(--jira-n50)"/>
             </svg>
             <p class="empty-text">@Localizer["ColumnManagement.NoColumns"]</p>
-            <button class="btn btn-primary" @onclick="ShowCreateDialog">
+            <button id="create-column-empty-button" class="btn btn-primary" @onclick="ShowCreateDialog">
                 @Localizer["ColumnManagement.CreateColumn"]
             </button>
         </div>
@@ -105,7 +105,8 @@
                     </div>
 
                     <div id="column-actions-@column.Id" class="column-actions">
-                        <button class="btn-icon"
+                        <button id="edit-button-@column.Id"
+                                class="btn-icon"
                                 @onclick="@(() => ShowEditDialog(column))"
                                 aria-label="@Localizer["ColumnManagement.EditColumn"]"
                                 title="@Localizer["Tooltip.EditColumn"]">
@@ -113,7 +114,8 @@
                                 <path d="M14.5 2.5L17.5 5.5L7 16H4V13L14.5 2.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </button>
-                        <button class="btn-icon btn-icon-danger"
+                        <button id="delete-button-@column.Id"
+                                class="btn-icon btn-icon-danger"
                                 @onclick="@(() => ShowDeleteDialog(column))"
                                 disabled="@(column.IsSystem || column.TaskCount > 0)"
                                 aria-label="@Localizer["ColumnManagement.DeleteColumn"]"
@@ -136,7 +138,7 @@
                 <path d="M6 10L9 13L14 8" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span>@successMessage</span>
-            <button class="toast-close" @onclick="ClearSuccessMessage" aria-label="@Localizer["Common.Close"]">
+            <button id="toast-close-button" class="toast-close" @onclick="ClearSuccessMessage" aria-label="@Localizer["Common.Close"]">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M4 4L12 12M12 4L4 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>

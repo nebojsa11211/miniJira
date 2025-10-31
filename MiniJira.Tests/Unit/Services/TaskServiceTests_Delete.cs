@@ -11,6 +11,7 @@ namespace MiniJira.Tests.Unit.Services;
 public class TaskServiceTests_Delete : IDisposable
 {
     private readonly ApplicationDbContext _context;
+    private readonly IUserService _userService;
     private readonly ITaskService _service;
 
     public TaskServiceTests_Delete()
@@ -20,7 +21,8 @@ public class TaskServiceTests_Delete : IDisposable
             .Options;
 
         _context = new ApplicationDbContext(options);
-        _service = new TaskService(_context, NullLogger<TaskService>.Instance);
+        _userService = Substitute.For<IUserService>();
+        _service = new TaskService(_context, NullLogger<TaskService>.Instance, _userService);
     }
 
     [Fact]

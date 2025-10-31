@@ -48,11 +48,11 @@
         @if (!isEditing)
         {
             <!-- Tab Navigation -->
-            <div class="task-tabs">
-                <button class="task-tab @(activeTab == "details" ? "active" : "")" @onclick='() => SetActiveTab("details")'>
+            <div id="task-tabs" class="task-tabs">
+                <button id="tab-details" class="task-tab @(activeTab == "details" ? "active" : "")" @onclick='() => SetActiveTab("details")'>
                     @Localizer["TaskDetail.DetailsTab"]
                 </button>
-                <button class="task-tab @(activeTab == "workorder" ? "active" : "")" @onclick='() => SetActiveTab("workorder")'>
+                <button id="tab-workorder" class="task-tab @(activeTab == "workorder" ? "active" : "")" @onclick='() => SetActiveTab("workorder")'>
                     @Localizer["TaskDetail.WorkOrderTab"]
                 </button>
             </div>
@@ -102,7 +102,8 @@
                                 var isActive = task.ColumnId == column.Id;
                                 var btnClass = isActive ? "status-btn-active" : "status-btn-inactive";
 
-                                <button type="button"
+                                <button id="status-btn-@column.Id"
+                                        type="button"
                                         class="status-btn @btnClass"
                                         style="@(isActive ? $"border-color: {column.Color}; background-color: {column.Color}15;" : "")"
                                         @onclick="() => ChangeToColumn(column.Id)"
@@ -185,7 +186,7 @@
             }
             else if (activeTab == "workorder")
             {
-                <div class="work-order-tab-content">
+                <div id="work-order-tab-content" class="work-order-tab-content">
                     <WorkOrderView TaskId="@task.Id" />
                 </div>
             }

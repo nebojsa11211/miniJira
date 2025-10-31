@@ -2,13 +2,13 @@
 
 <div id="jira-sidebar" class="jira-sidebar @SidebarCssClass">
     <div id="sidebar-header" class="sidebar-header">
-        <button class="navbar-toggler" @onclick="ToggleNavMenu" aria-label="Toggle navigation menu" aria-expanded="@(!collapseNavMenu)">
+        <button id="navbar-toggler" class="navbar-toggler" @onclick="ToggleNavMenu" aria-label="Toggle navigation menu" aria-expanded="@(!collapseNavMenu)">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/>
             </svg>
         </button>
         <div id="project-header" class="project-header">
-            <a href="" class="project-link" aria-label="Radni Nalozi home">
+            <a id="project-link" href="" class="project-link" aria-label="Radni Nalozi home">
                 <img src="/LogoHrastic.jpg" alt="Logo" class="project-icon" width="128" height="128" />
                 <div class="project-info">
                     <span class="project-name">Radni Nalozi</span>
@@ -16,7 +16,7 @@
                 </div>
             </a>
         </div>
-        <button class="sidebar-collapse-toggle" @onclick="ToggleSidebarCollapse" aria-label="@(SidebarStateService.IsSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar")" title="@(SidebarStateService.IsSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar")">
+        <button id="sidebar-collapse-toggle" class="sidebar-collapse-toggle" @onclick="ToggleSidebarCollapse" aria-label="@(SidebarStateService.IsSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar")" title="@(SidebarStateService.IsSidebarCollapsed ? "Expand sidebar" : "Collapse sidebar")">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 @if (SidebarStateService.IsSidebarCollapsed)
                 {
@@ -31,8 +31,8 @@
     </div>
 
     <nav id="nav-menu" class="@NavMenuCssClass" aria-label="Main navigation">
-        <div class="nav-section">
-            <NavLink class="nav-item" href="" Match="NavLinkMatch.All" @onclick="OnNavItemClick">
+        <div id="nav-section-main" class="nav-section">
+            <NavLink id="nav-item-home" class="nav-item" href="" Match="NavLinkMatch.All" @onclick="OnNavItemClick">
                 <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" fill="currentColor"/>
                 </svg>
@@ -40,15 +40,15 @@
             </NavLink>
         </div>
 
-        <div class="nav-section nav-section-bottom">
-            <NavLink class="nav-item" href="user-guide" @onclick="OnNavItemClick">
+        <div id="nav-section-bottom" class="nav-section nav-section-bottom">
+            <NavLink id="nav-item-user-guide" class="nav-item" href="user-guide" @onclick="OnNavItemClick">
                 <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" fill="currentColor"/>
                 </svg>
                 <span class="nav-text">@Localizer["Nav.UserGuide"]</span>
             </NavLink>
 
-            <NavLink class="nav-item" href="settings" @onclick="OnNavItemClick">
+            <NavLink id="nav-item-settings" class="nav-item" href="settings" @onclick="OnNavItemClick">
                 <svg class="nav-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94L14.4 2.81c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" fill="currentColor"/>
                 </svg>

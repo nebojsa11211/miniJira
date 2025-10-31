@@ -7,6 +7,7 @@ using MiniJira.Services;
 using MiniJira.Services.DTOs;
 using NSubstitute;
 using System.Globalization;
+using Task = MiniJira.Models.Task;
 
 namespace MiniJira.Tests.Unit.Services;
 
@@ -38,7 +39,7 @@ public class ColumnServiceTests : IDisposable
         SeedTestData().Wait();
     }
 
-    private async Task SeedTestData()
+    private async System.Threading.Tasks.Task SeedTestData()
     {
         var todoColumn = new Column
         {
@@ -103,7 +104,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetAllColumnsAsync_ShouldReturnAllActiveColumns_WithCurrentCulture()
+    public async System.Threading.Tasks.Task GetAllColumnsAsync_ShouldReturnAllActiveColumns_WithCurrentCulture()
     {
         // Act
         var result = await _service.GetAllColumnsAsync();
@@ -117,7 +118,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetAllColumnsAsync_ShouldReturnColumnsWithSpecifiedCulture()
+    public async System.Threading.Tasks.Task GetAllColumnsAsync_ShouldReturnColumnsWithSpecifiedCulture()
     {
         // Act
         var result = await _service.GetAllColumnsAsync("hr-HR");
@@ -130,7 +131,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetColumnByIdAsync_ShouldReturnColumn_WhenExists()
+    public async System.Threading.Tasks.Task GetColumnByIdAsync_ShouldReturnColumn_WhenExists()
     {
         // Arrange
         var columnId = Guid.Parse("11111111-1111-1111-1111-111111111111");
@@ -147,7 +148,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetColumnByIdAsync_ShouldReturnNull_WhenNotExists()
+    public async System.Threading.Tasks.Task GetColumnByIdAsync_ShouldReturnNull_WhenNotExists()
     {
         // Arrange
         var nonExistentId = Guid.NewGuid();
@@ -160,7 +161,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task CreateColumnAsync_ShouldCreateColumn_WithValidData()
+    public async System.Threading.Tasks.Task CreateColumnAsync_ShouldCreateColumn_WithValidData()
     {
         // Arrange
         var request = new CreateColumnRequest
@@ -186,7 +187,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task CreateColumnAsync_ShouldFail_WhenMissingTranslations()
+    public async System.Threading.Tasks.Task CreateColumnAsync_ShouldFail_WhenMissingTranslations()
     {
         // Arrange
         var request = new CreateColumnRequest
@@ -208,7 +209,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task CreateColumnAsync_ShouldFail_WhenTranslationNameIsEmpty()
+    public async System.Threading.Tasks.Task CreateColumnAsync_ShouldFail_WhenTranslationNameIsEmpty()
     {
         // Arrange
         var request = new CreateColumnRequest
@@ -230,7 +231,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task UpdateColumnAsync_ShouldUpdateColumn_WithValidData()
+    public async System.Threading.Tasks.Task UpdateColumnAsync_ShouldUpdateColumn_WithValidData()
     {
         // Arrange
         var columnId = Guid.Parse("11111111-1111-1111-1111-111111111111");
@@ -255,7 +256,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task UpdateColumnAsync_ShouldFail_WhenColumnNotFound()
+    public async System.Threading.Tasks.Task UpdateColumnAsync_ShouldFail_WhenColumnNotFound()
     {
         // Arrange
         var nonExistentId = Guid.NewGuid();
@@ -273,7 +274,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task DeleteColumnAsync_ShouldDeleteColumn_WhenNoTasksAssigned()
+    public async System.Threading.Tasks.Task DeleteColumnAsync_ShouldDeleteColumn_WhenNoTasksAssigned()
     {
         // Arrange - Create a custom column without tasks
         var customColumn = new Column
@@ -310,7 +311,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task DeleteColumnAsync_ShouldFail_WhenColumnIsSystem()
+    public async System.Threading.Tasks.Task DeleteColumnAsync_ShouldFail_WhenColumnIsSystem()
     {
         // Arrange
         var systemColumnId = Guid.Parse("11111111-1111-1111-1111-111111111111");
@@ -324,7 +325,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task DeleteColumnAsync_ShouldFail_WhenColumnHasTasks()
+    public async System.Threading.Tasks.Task DeleteColumnAsync_ShouldFail_WhenColumnHasTasks()
     {
         // Arrange - Create a column with a task
         var customColumn = new Column
@@ -372,7 +373,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task DeleteColumnAsync_ShouldFail_WhenColumnNotFound()
+    public async System.Threading.Tasks.Task DeleteColumnAsync_ShouldFail_WhenColumnNotFound()
     {
         // Arrange
         var nonExistentId = Guid.NewGuid();
@@ -386,7 +387,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task ReorderColumnsAsync_ShouldReorderColumns_WithValidData()
+    public async System.Threading.Tasks.Task ReorderColumnsAsync_ShouldReorderColumns_WithValidData()
     {
         // Arrange
         var request = new ReorderColumnsRequest
@@ -410,7 +411,7 @@ public class ColumnServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task ReorderColumnsAsync_ShouldFail_WhenInvalidColumnIds()
+    public async System.Threading.Tasks.Task ReorderColumnsAsync_ShouldFail_WhenInvalidColumnIds()
     {
         // Arrange
         var request = new ReorderColumnsRequest

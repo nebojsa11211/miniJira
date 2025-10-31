@@ -3,9 +3,9 @@
 @using MiniJira.Resources
 @inject Microsoft.Extensions.Localization.IStringLocalizer<Localization> Localizer
 
-<div class="column-filter-panel">
-    <div class="filter-panel-header">
-        <button class="filter-toggle-btn" @onclick="TogglePanel" title="@(isExpanded ? @Localizer["Filter.CollapseFilters"] : @Localizer["Filter.ExpandFilters"])">
+<div id="column-filter-panel" class="column-filter-panel">
+    <div id="filter-panel-header" class="filter-panel-header">
+        <button id="filter-toggle-btn" class="filter-toggle-btn" @onclick="TogglePanel" title="@(isExpanded ? @Localizer["Filter.CollapseFilters"] : @Localizer["Filter.ExpandFilters"])">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                 <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/>
             </svg>
@@ -17,7 +17,7 @@
 
         @if (FilterState.HasActiveFilters || FilterState.HasActiveSort)
         {
-            <button class="clear-all-btn" @onclick="ClearAll" title="@Localizer["Filter.ClearAll"]">
+            <button id="clear-all-filters-btn" class="clear-all-btn" @onclick="ClearAll" title="@Localizer["Filter.ClearAll"]">
                 <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
                     <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
                 </svg>
@@ -25,11 +25,11 @@
         }
     </div>
 
-    <div class="filter-panel-content @(isExpanded ? "expanded" : "")">
+    <div id="filter-panel-content" class="filter-panel-content @(isExpanded ? "expanded" : "")">
             <!-- Sort Options -->
-            <div class="filter-section">
+            <div id="filter-section-sort" class="filter-section">
                 <label class="filter-label">@Localizer["Filter.SortBy"]</label>
-                <select class="filter-select" @bind="CurrentSortOption">
+                <select id="sort-select" class="filter-select" @bind="CurrentSortOption">
                     <option value="@SortOption.None">@Localizer["Filter.SortNone"]</option>
                     <option value="@SortOption.PriorityHighToLow">@Localizer["Filter.SortPriorityHighToLow"]</option>
                     <option value="@SortOption.PriorityLowToHigh">@Localizer["Filter.SortPriorityLowToHigh"]</option>
@@ -41,23 +41,23 @@
             </div>
 
             <!-- Priority Filter -->
-            <div class="filter-section">
+            <div id="filter-section-priority" class="filter-section">
                 <label class="filter-label">@Localizer["Filter.Priority"]</label>
-                <div class="filter-checkboxes">
+                <div id="filter-checkboxes-priority" class="filter-checkboxes">
                     <label class="filter-checkbox-label">
-                        <input type="checkbox"
+                        <input id="priority-high-checkbox" type="checkbox"
                                checked="@IsPrioritySelected(TaskPriority.High)"
                                @onchange="@(e => TogglePriority(TaskPriority.High, (bool)e.Value!))" />
                         <span class="priority-label priority-high">@Localizer["TaskPriority.High"]</span>
                     </label>
                     <label class="filter-checkbox-label">
-                        <input type="checkbox"
+                        <input id="priority-medium-checkbox" type="checkbox"
                                checked="@IsPrioritySelected(TaskPriority.Medium)"
                                @onchange="@(e => TogglePriority(TaskPriority.Medium, (bool)e.Value!))" />
                         <span class="priority-label priority-medium">@Localizer["TaskPriority.Medium"]</span>
                     </label>
                     <label class="filter-checkbox-label">
-                        <input type="checkbox"
+                        <input id="priority-low-checkbox" type="checkbox"
                                checked="@IsPrioritySelected(TaskPriority.Low)"
                                @onchange="@(e => TogglePriority(TaskPriority.Low, (bool)e.Value!))" />
                         <span class="priority-label priority-low">@Localizer["TaskPriority.Low"]</span>
@@ -68,13 +68,13 @@
             <!-- Assignee Filter -->
             @if (AvailableAssignees.Count > 0)
             {
-                <div class="filter-section">
+                <div id="filter-section-assignee" class="filter-section">
                     <label class="filter-label">@Localizer["Filter.Assignee"]</label>
-                    <div class="filter-checkboxes">
+                    <div id="filter-checkboxes-assignee" class="filter-checkboxes">
                         @foreach (var assignee in AvailableAssignees)
                         {
                             <label class="filter-checkbox-label">
-                                <input type="checkbox"
+                                <input id="assignee-checkbox-@assignee.Id" type="checkbox"
                                        checked="@IsAssigneeSelected(assignee.Id)"
                                        @onchange="@(e => ToggleAssignee(assignee.Id, (bool)e.Value!))" />
                                 <span class="assignee-label">@assignee.FullName</span>

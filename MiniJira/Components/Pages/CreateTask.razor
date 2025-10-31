@@ -12,7 +12,7 @@
 
 <div id="create-task-container" class="create-task-container">
     <div id="create-task-header" class="create-task-header">
-        <button class="back-button btn-icon" @onclick='() => NavigationManager.NavigateTo("/")' aria-label="@Localizer["Common.Back"]" title="@Localizer["Tooltip.Back"]">
+        <button id="back-button" class="back-button btn-icon" @onclick='() => NavigationManager.NavigateTo("/")' aria-label="@Localizer["Common.Back"]" title="@Localizer["Tooltip.Back"]">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 16L6 10L12 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -73,10 +73,10 @@
             </div>
 
             <div id="form-actions" class="form-actions">
-                <button type="submit" class="btn btn-primary btn-ripple" disabled="@isSaving" title="@Localizer["Tooltip.CreateTask"]">
+                <button id="submit-button" type="submit" class="btn btn-primary btn-ripple" disabled="@isSaving" title="@Localizer["Tooltip.CreateTask"]">
                     @if (isSaving)
                     {
-                        <span class="spinner-modern" style="width: 20px; height: 20px; border-width: 2px; margin-right: 8px;" role="status" aria-hidden="true"></span>
+                        <span id="submit-spinner" class="spinner-modern" style="width: 20px; height: 20px; border-width: 2px; margin-right: 8px;" role="status" aria-hidden="true"></span>
                         <span>@Localizer["CreateTask.Creating"]</span>
                     }
                     else
@@ -84,7 +84,7 @@
                         <span>@Localizer["Common.CreateTask"]</span>
                     }
                 </button>
-                <button type="button" class="btn btn-secondary btn-ripple" data-action="cancel" @onclick='() => NavigationManager.NavigateTo("/")' disabled="@isSaving" title="@Localizer["Tooltip.Cancel"]">
+                <button id="cancel-button" type="button" class="btn btn-secondary btn-ripple" data-action="cancel" @onclick='() => NavigationManager.NavigateTo("/")' disabled="@isSaving" title="@Localizer["Tooltip.Cancel"]">
                     @Localizer["Common.Cancel"]
                 </button>
             </div>

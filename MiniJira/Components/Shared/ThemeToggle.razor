@@ -1,4 +1,4 @@
-<button class="theme-toggle" @onclick="ToggleTheme" title="@(ThemeService.CurrentTheme == "light" ? Localizer["Theme.SwitchToDark"].Value : Localizer["Theme.SwitchToLight"].Value)">
+<button id="theme-toggle-button" class="theme-toggle" @onclick="ToggleTheme" title="@(ThemeService.CurrentTheme == "light" ? Localizer["Theme.SwitchToDark"].Value : Localizer["Theme.SwitchToLight"].Value)">
     @if (ThemeService.CurrentTheme == "light")
     {
         <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">

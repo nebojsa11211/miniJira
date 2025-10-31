@@ -92,4 +92,15 @@ public partial class TaskCard
     {
         return FormatDate(Task.UpdatedAt);
     }
+
+    private string GetPriorityClass()
+    {
+        return Task.Priority switch
+        {
+            TaskPriority.High => "priority-high",
+            TaskPriority.Medium => "priority-medium",
+            TaskPriority.Low => "priority-low",
+            _ => ""
+        };
+    }
 }

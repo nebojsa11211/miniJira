@@ -15,7 +15,7 @@
 <div id="settings-container" class="settings-container">
     <div id="settings-header" class="settings-header">
         <h1>@Localizer["Nav.Settings"]</h1>
-        <p class="settings-description">@Localizer["Settings.Description"]</p>
+        <p id="settings-description" class="settings-description">@Localizer["Settings.Description"]</p>
     </div>
 
     <div id="settings-content" class="settings-content">
@@ -120,7 +120,7 @@
         <div id="settings-actions" class="settings-actions">
             @if (!string.IsNullOrEmpty(feedbackMessage))
             {
-                <div class="feedback-message @feedbackClass">
+                <div id="feedback-message" class="feedback-message @feedbackClass">
                     @feedbackMessage
                 </div>
             }
@@ -141,9 +141,9 @@
 <!-- Confirmation Modal -->
 @if (showConfirmation)
 {
-    <div class="modal-overlay" @onclick="HideResetConfirmation">
-        <div class="modal-content" @onclick:stopPropagation="true">
-            <div class="modal-header">
+    <div id="modal-overlay" class="modal-overlay" @onclick="HideResetConfirmation">
+        <div id="modal-content" class="modal-content" @onclick:stopPropagation="true">
+            <div id="modal-header" class="modal-header">
                 <svg class="warning-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
                 </svg>
@@ -157,11 +157,11 @@
                     <li>@Localizer["Settings.ResetWarning3"]</li>
                 </ul>
             </div>
-            <div class="modal-actions">
-                <button class="cancel-button" @onclick="HideResetConfirmation">
+            <div id="modal-actions" class="modal-actions">
+                <button id="modal-cancel-button" class="cancel-button" @onclick="HideResetConfirmation">
                     @Localizer["Settings.Cancel"]
                 </button>
-                <button class="confirm-reset-button" @onclick="ResetData">
+                <button id="modal-confirm-button" class="confirm-reset-button" @onclick="ResetData">
                     @Localizer["Settings.ConfirmReset"]
                 </button>
             </div>

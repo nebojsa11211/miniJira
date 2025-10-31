@@ -7,13 +7,15 @@
     border-radius: var(--jira-radius-small);
     padding: var(--jira-space-200);
     cursor: pointer;
-    transition: background-color 0.08s linear, box-shadow 0.08s linear;
+    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                background-color 0.15s linear;
     box-shadow: 0px 1px 1px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
     display: flex;
     flex-direction: column;
     gap: var(--jira-space-200);
     position: relative;
-    min-height: 160px;
+    min-height: 200px;
 }
 
 /* Recently Updated Badge */
@@ -47,6 +49,32 @@
     box-shadow: 0px 4px 8px rgba(255, 107, 53, 0.4), 0px 0px 2px rgba(255, 107, 53, 0.45);
 }
 
+/* Priority Borders - Jira Style */
+.jira-task-card.priority-high {
+    border-left: 4px solid #E4351B;
+}
+
+.jira-task-card.priority-medium {
+    border-left: 3px solid #FF991F;
+}
+
+.jira-task-card.priority-low {
+    border-left: 2px solid #36B37E;
+}
+
+/* Priority borders take precedence over recently-updated border */
+.jira-task-card.recently-updated.priority-high {
+    border-left: 4px solid #E4351B;
+}
+
+.jira-task-card.recently-updated.priority-medium {
+    border-left: 3px solid #FF991F;
+}
+
+.jira-task-card.recently-updated.priority-low {
+    border-left: 2px solid #36B37E;
+}
+
 @keyframes pulse-glow {
     0%, 100% {
         box-shadow: 0px 2px 6px rgba(255, 107, 53, 0.4);
@@ -58,16 +86,29 @@
     }
 }
 
-.jira-task-card:hover {
-    background-color: var(--jira-bg-page);
-    box-shadow: 0px 2px 4px rgba(9, 30, 66, 0.25), 0px 0px 1px rgba(9, 30, 66, 0.31);
-    position: relative;
-    z-index: 10;
+/* Hover effects for mouse/pointer devices */
+@media (hover: hover) and (pointer: fine) {
+    .jira-task-card:hover {
+        background-color: var(--jira-bg-page);
+        box-shadow: var(--jira-shadow-raised); /* Using design system token for consistency */
+        transform: translateY(-2px) scale(1.01);
+        position: relative;
+        z-index: 10;
+    }
+
+    .jira-task-card:active {
+        transform: translateY(-1px) scale(1.005);
+        background-color: var(--jira-bg-secondary);
+    }
 }
 
-.jira-task-card:active {
-    transform: none;
-    background-color: var(--jira-bg-secondary);
+/* Touch-friendly effects for touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .jira-task-card:active {
+        transform: scale(0.98);
+        background-color: var(--jira-bg-secondary);
+        transition: transform 0.1s ease, background-color 0.1s ease;
+    }
 }
 
 /* Focus state for accessibility */
@@ -84,9 +125,9 @@
 }
 
 .task-card-title {
-    font-size: calc(14px * var(--font-size-multiplier));
-    font-weight: 400;
-    line-height: 20px;
+    font-size: calc(16px * var(--font-size-multiplier));
+    font-weight: 700;
+    line-height: 22px;
     color: var(--jira-text-primary);
     margin: 0;
     word-wrap: break-word;
@@ -122,19 +163,18 @@
     font-style: italic;
 }
 
-/* Task Card Category Badge - Jira lozenge style */
+/* Task Card Category Badge - Now displays full description */
 .task-card-category {
-    display: inline-block;
     background-color: var(--jira-bg-tertiary);
     color: var(--jira-text-primary);
-    font-size: calc(11px * var(--font-size-multiplier));
-    font-weight: 700;
-    padding: 2px var(--jira-space-075);
+    font-size: calc(12px * var(--font-size-multiplier));
+    font-weight: 400;
+    padding: var(--jira-space-100) var(--jira-space-150);
     border-radius: var(--jira-radius-small);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    line-height: 1;
-    white-space: nowrap;
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .task-card-category.billing {
@@ -244,7 +284,6 @@
     line-height: 1;
     flex-shrink: 0;
     text-transform: uppercase;
-    box-shadow: 0 0 0 2px var(--jira-bg-primary);
 }
 
 /* Responsive adjustments - Mobile-first with standardized breakpoints */
@@ -254,14 +293,14 @@
     .jira-task-card {
         padding: var(--jira-space-250);
         gap: var(--jira-space-200);
-        min-height: 165px; /* Ensure adequate touch target */
+        min-height: 210px; /* Ensure adequate touch target and space for content */
         cursor: pointer;
     }
 
     .task-card-title {
-        font-size: calc(14px * var(--font-size-multiplier));
-        line-height: 20px;
-        font-weight: 500;
+        font-size: calc(16px * var(--font-size-multiplier));
+        line-height: 22px;
+        font-weight: 700;
     }
 
     .task-card-description {
@@ -295,8 +334,9 @@
     }
 
     .task-card-category {
-        font-size: calc(10px * var(--font-size-multiplier));
-        padding: 3px var(--jira-space-075);
+        font-size: calc(11px * var(--font-size-multiplier));
+        padding: var(--jira-space-100) var(--jira-space-150);
+        line-height: 1.3;
     }
 
     /* Increase tap target on mobile */
@@ -311,16 +351,58 @@
     }
 }
 
+/* Very small screens (< 375px) - Additional date overflow fixes */
+@media (max-width: 374px) {
+    .task-card-dates {
+        flex-wrap: wrap;
+        gap: var(--jira-space-050);
+    }
+
+    .dates-container {
+        flex-wrap: wrap;
+        row-gap: var(--jira-space-025);
+    }
+
+    /* Hide date separator arrow on very small screens */
+    .date-separator {
+        display: none;
+    }
+
+    .task-card-date {
+        font-size: calc(10px * var(--font-size-multiplier));
+    }
+
+    .calendar-icon {
+        width: 11px;
+        height: 11px;
+    }
+
+    .clock-icon {
+        width: 9px;
+        height: 9px;
+    }
+
+    /* Allow customer name to wrap on very small screens */
+    .task-card-customer {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
+        max-height: 2.6em; /* Allow 2 lines */
+        line-height: 1.3;
+    }
+}
+
 /* Tablet (768px - 1023px) */
 @media (min-width: 768px) and (max-width: 1023px) {
     .jira-task-card {
         padding: var(--jira-space-250);
-        min-height: 145px;
+        min-height: 190px;
     }
 
     .task-card-title {
-        font-size: calc(14px * var(--font-size-multiplier));
-        line-height: 20px;
+        font-size: calc(16px * var(--font-size-multiplier));
+        line-height: 22px;
+        font-weight: 700;
     }
 }
 

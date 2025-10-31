@@ -5,6 +5,7 @@ using MiniJira.Data;
 using MiniJira.Models;
 using MiniJira.Services;
 using NSubstitute;
+using Task = MiniJira.Models.Task;
 
 namespace MiniJira.Tests.Unit.Services;
 
@@ -35,7 +36,7 @@ public class FileStorageServiceTests : IDisposable
         SeedTestData().Wait();
     }
 
-    private async Task SeedTestData()
+    private async System.Threading.Tasks.Task SeedTestData()
     {
         var column = new Column
         {
@@ -62,7 +63,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task SaveFileAsync_ShouldSaveFileSuccessfully()
+    public async System.Threading.Tasks.Task SaveFileAsync_ShouldSaveFileSuccessfully()
     {
         // Arrange
         var taskId = Guid.NewGuid();
@@ -89,7 +90,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task SaveFileAsync_ShouldThrowException_WhenFileSizeExceedsLimit()
+    public async System.Threading.Tasks.Task SaveFileAsync_ShouldThrowException_WhenFileSizeExceedsLimit()
     {
         // Arrange
         var taskId = Guid.NewGuid();
@@ -109,7 +110,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetFileAsync_ShouldReturnFile_WhenAttachmentExists()
+    public async System.Threading.Tasks.Task GetFileAsync_ShouldReturnFile_WhenAttachmentExists()
     {
         // Arrange - First save a file
         var taskId = Guid.NewGuid();
@@ -133,7 +134,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetFileAsync_ShouldThrowException_WhenAttachmentNotFound()
+    public async System.Threading.Tasks.Task GetFileAsync_ShouldThrowException_WhenAttachmentNotFound()
     {
         // Arrange
         var nonExistentId = Guid.NewGuid();
@@ -147,7 +148,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task DeleteFileAsync_ShouldDeleteFile_WhenAttachmentExists()
+    public async System.Threading.Tasks.Task DeleteFileAsync_ShouldDeleteFile_WhenAttachmentExists()
     {
         // Arrange - First save a file
         var taskId = Guid.NewGuid();
@@ -170,7 +171,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task DeleteFileAsync_ShouldReturnFalse_WhenAttachmentNotFound()
+    public async System.Threading.Tasks.Task DeleteFileAsync_ShouldReturnFalse_WhenAttachmentNotFound()
     {
         // Arrange
         var nonExistentId = Guid.NewGuid();
@@ -183,7 +184,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetTaskAttachmentsAsync_ShouldReturnAllAttachmentsForTask()
+    public async System.Threading.Tasks.Task GetTaskAttachmentsAsync_ShouldReturnAllAttachmentsForTask()
     {
         // Arrange
         var taskId = Guid.NewGuid();
@@ -206,7 +207,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetTaskAttachmentsAsync_ShouldReturnEmptyList_WhenNoAttachments()
+    public async System.Threading.Tasks.Task GetTaskAttachmentsAsync_ShouldReturnEmptyList_WhenNoAttachments()
     {
         // Arrange
         var taskId = Guid.NewGuid();
@@ -219,7 +220,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetAttachmentsByColumnAsync_ShouldReturnAttachmentsForSpecificColumn()
+    public async System.Threading.Tasks.Task GetAttachmentsByColumnAsync_ShouldReturnAttachmentsForSpecificColumn()
     {
         // Arrange
         var taskId = Guid.NewGuid();
@@ -264,7 +265,7 @@ public class FileStorageServiceTests : IDisposable
     }
 
     [Fact]
-    public async Task GetAttachmentsByColumnAsync_ShouldReturnEmptyList_WhenNoAttachmentsInColumn()
+    public async System.Threading.Tasks.Task GetAttachmentsByColumnAsync_ShouldReturnEmptyList_WhenNoAttachmentsInColumn()
     {
         // Arrange
         var taskId = Guid.NewGuid();

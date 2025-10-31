@@ -6,7 +6,7 @@
 <div id="page" class="page">
     @if (MobileMenuStateService.IsMenuOpen)
     {
-        <div class="mobile-menu-backdrop" @onclick="@(() => MobileMenuStateService.CloseMenu())"></div>
+        <div id="mobile-menu-backdrop" class="mobile-menu-backdrop" @onclick="@(() => MobileMenuStateService.CloseMenu())"></div>
     }
 
     <div id="sidebar" class="sidebar @(MobileMenuStateService.IsMenuOpen ? "mobile-menu-open" : "")">
@@ -16,7 +16,7 @@
     <main id="main">
         <div id="top-row" class="top-row @(SidebarStateService.IsSidebarCollapsed ? "with-logo" : "")">
             <!-- Mobile hamburger menu button -->
-            <button class="mobile-menu-toggle" @onclick="ToggleMobileMenu" aria-label="Toggle navigation menu">
+            <button id="mobile-menu-toggle" class="mobile-menu-toggle" @onclick="ToggleMobileMenu" aria-label="Toggle navigation menu">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="currentColor"/>
                 </svg>
@@ -24,19 +24,19 @@
 
             @if (SidebarStateService.IsSidebarCollapsed)
             {
-                <div class="top-row-branding">
-                    <a href="" class="top-row-logo-link">
+                <div id="top-row-branding" class="top-row-branding">
+                    <a id="top-row-logo-link" href="" class="top-row-logo-link">
                         <img src="/LogoHrastic.jpg" alt="Logo" class="top-row-logo" />
                         <span class="top-row-title">Radni Nalozi</span>
                     </a>
                 </div>
             }
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">@Localizer["Common.About"]</a>
+            <a id="about-link" href="https://www.aurasoft.hr" target="_blank">@Localizer["Common.About"]</a>
             <ThemeToggle />
         </div>
 
         <article id="content" class="content">
-            <div class="page-transition">
+            <div id="page-transition" class="page-transition">
                 @if (_localizationInitialized)
                 {
                     @Body

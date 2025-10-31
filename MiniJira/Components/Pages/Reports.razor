@@ -11,15 +11,15 @@
 <PageTitle>@Localizer["Nav.Reports"] - MiniJira</PageTitle>
 
 <AuthGuard>
-<div class="reports-container">
-    <div class="reports-header">
+<div id="reports-container" class="reports-container">
+    <div id="reports-header" class="reports-header">
         <h1>@Localizer["Nav.Reports"]</h1>
-        <p class="reports-subtitle">@Localizer["Reports.Subtitle"]</p>
+        <p id="reports-subtitle" class="reports-subtitle">@Localizer["Reports.Subtitle"]</p>
     </div>
 
     @if (isLoading)
     {
-        <div class="loading-container">
+        <div id="reports-loading-container" class="loading-container">
             <div class="spinner-border" role="status">
                 <span class="visually-hidden">@Localizer["Common.Loading"]</span>
             </div>
@@ -28,15 +28,15 @@
     }
     else if (errorMessage != null)
     {
-        <div class="alert alert-danger" role="alert">
+        <div id="reports-error-message" class="alert alert-danger" role="alert">
             <strong>@Localizer["Common.Error"]</strong> @errorMessage
         </div>
     }
     else
     {
         <!-- Summary Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
+        <div id="stats-grid" class="stats-grid">
+            <div id="stat-card-total" class="stat-card">
                 <div class="stat-icon total">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z" fill="currentColor"/>
@@ -48,7 +48,7 @@
                 </div>
             </div>
 
-            <div class="stat-card">
+            <div id="stat-card-completed" class="stat-card">
                 <div class="stat-icon completed">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="currentColor"/>
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <div class="stat-card">
+            <div id="stat-card-in-progress" class="stat-card">
                 <div class="stat-icon in-progress">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="currentColor"/>
@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <div class="stat-card">
+            <div id="stat-card-todo" class="stat-card">
                 <div class="stat-icon todo">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" fill="currentColor"/>
@@ -87,10 +87,10 @@
         </div>
 
         <!-- Status Distribution -->
-        <div class="report-section">
+        <div id="report-section-status" class="report-section">
             <h2 class="section-title">@Localizer["Reports.StatusDistribution"]</h2>
-            <div class="chart-container">
-                <div class="bar-chart">
+            <div id="chart-container-status" class="chart-container">
+                <div id="bar-chart-status" class="bar-chart">
                     @foreach (var stat in statusStats)
                     {
                         var percentage = totalTasks > 0 ? (stat.Count * 100.0 / totalTasks) : 0;
@@ -107,10 +107,10 @@
         </div>
 
         <!-- Priority Distribution -->
-        <div class="report-section">
+        <div id="report-section-priority" class="report-section">
             <h2 class="section-title">@Localizer["Reports.PriorityDistribution"]</h2>
-            <div class="chart-container">
-                <div class="bar-chart">
+            <div id="chart-container-priority" class="chart-container">
+                <div id="bar-chart-priority" class="bar-chart">
                     @foreach (var stat in priorityStats)
                     {
                         var percentage = totalTasks > 0 ? (stat.Count * 100.0 / totalTasks) : 0;
@@ -127,10 +127,10 @@
         </div>
 
         <!-- Column Distribution -->
-        <div class="report-section">
+        <div id="report-section-column" class="report-section">
             <h2 class="section-title">@Localizer["Reports.TasksByColumn"]</h2>
-            <div class="chart-container">
-                <div class="bar-chart">
+            <div id="chart-container-column" class="chart-container">
+                <div id="bar-chart-column" class="bar-chart">
                     @foreach (var stat in columnStats)
                     {
                         var percentage = totalTasks > 0 ? (stat.Count * 100.0 / totalTasks) : 0;

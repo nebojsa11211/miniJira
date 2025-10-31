@@ -110,7 +110,7 @@ For production deployment, implement:
 
 ### Localization
 - **Supported Cultures**: en-US (English), hr-HR (Croatian)
-- **Default Culture**: en-US
+- **Default Culture**: hr-HR (Croatian)
 - **Resource Files**: `Resources/Localization.resx` and `Resources/Localization.hr-HR.resx`
 
 ### Testing Status

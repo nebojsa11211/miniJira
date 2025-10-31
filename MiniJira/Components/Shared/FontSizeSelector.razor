@@ -1,5 +1,5 @@
 <div id="font-size-selector-container" class="font-size-selector">
-    <select class="form-select form-select-sm" @onchange="OnFontSizeChanged" value="@currentFontSize.ToString(System.Globalization.CultureInfo.InvariantCulture)" title="@Localizer["Tooltip.FontSizeSelector"]">
+    <select id="font-size-selector" class="form-select form-select-sm" @onchange="OnFontSizeChanged" value="@currentFontSize.ToString(System.Globalization.CultureInfo.InvariantCulture)" title="@Localizer["Tooltip.FontSizeSelector"]">
         @foreach (var option in FontSizeService.AvailableOptions)
         {
             <option value="@option.Multiplier.ToString(System.Globalization.CultureInfo.InvariantCulture)">@Localizer[option.DisplayKey]</option>
